@@ -6,31 +6,43 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
 <body>
     <header class="container header">
         <nav class="navigation">
-            <ul class="navigation__links">
-                <li>
-                    <h4>Loremas</h4>
+            <ul class="navigation__items">
+                <li class="menu__button">
+                    <i class="fas fa-bars medium__icons"></i>
+                </li>
+                <li class="nav__links-container">     
+                        <a href="#" class="nav__links">Experiencia</a>
+                        <a href="#" class="nav__links">Educación</a>
+                        <a href="#" class="nav__links">Conocimientos</a>
+                        <a href="#" class="nav__links">Idiomas</a>
+                        <a href="#" class="nav__links">Voluntariado</a>
                 </li>
                 <li>
-                    <h4>Loremas</h4>
-                </li>
-                <li>
-                    <h4>Loremas</h4>
-                </li>
-                <li>
-                    <h4>Loremas</h4>
+                    <select name="" id="">
+                        <option value="ES">Español</option>
+                        <option value="EN">Inglés</option>
+                    </select>
                 </li>
             </ul>
         </nav>
         <div class="title__container">
             <h1>Juan Carlos Obregón Ortíz</h1>
-            <h2>Lic. En Sistemas de Computación </h2>
+            <h2 id="subtitle-container">
+                <b class="subtitle visible">Desarrollo Web</b>
+                <b class="subtitle">Diseño</b>
+                <b class="subtitle">Innovación</b>
+            </h2>
         </div>
     </header>
+    <div class="container">
+        <p style="margin: 4% 5% 2% 30%">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis at architecto optio temporibus quos eveniet aliquid debitis qui eligendi cumque, magnam quia vel fugit! Esse.</p>
+    </div>
 
-    <p style="margin: 4% 5% 2% 30%">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis at architecto optio temporibus quos eveniet aliquid debitis qui eligendi cumque, magnam quia vel fugit! Esse.</p>
+    <script src="js/app.js"></script>
 </body>
 </html>
