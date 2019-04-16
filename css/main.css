@@ -44,7 +44,7 @@ a {
 /* VARIABLES */
 :root {
     --blackContainer: rgb(32, 35, 42);
-    --alphaBlackContainer: rgba(32, 35, 42, 0.8);
+    --alphaBlackContainer: rgba(32, 35, 42, 0.9);
 }
 
 /* GENERAL STYLES */
@@ -111,6 +111,11 @@ a {
     text-align: center;
     background-color: grey;
     padding-top: 70px;
+    background-image: url(../img/circuito1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-origin: padding-box;
+    background-clip: padding-box;
 }
 
 .navigation {
@@ -123,6 +128,7 @@ a {
     align-items: center;
     position: fixed;
     top: 0;
+    z-index: 1;
 }
 
 .navigation__items {
@@ -156,13 +162,25 @@ a {
 }
 
 .title__container {
-    width: 100%;
+    width: 30%;
+    height: 29vw;
+    left: 35%;
+    position: relative;
+    top: calc(((90vh - 70px) - 29vw) * .5);
+    bottom: calc(((90vh - 70px) - 29vw) * .5);
+    border: 8px solid white;
+    border-radius: 50%;
+    background-color: rgb(8, 45, 66);
+}
+
+.title__container h1 {
     position: absolute;
-    top: 40%;
+    top: 30%;
 }
 
 .title__container h2 {
     position: relative;
+    top: 55%;
     height: 1.5em;
     display: inline-block;
     overflow: hidden;

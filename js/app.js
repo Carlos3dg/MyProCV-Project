@@ -14,8 +14,8 @@ class UI {
                     const cleanId = setInterval(function cleanFrame() {
                         widthSubtitle = widthSubtitle - widthSubtract;
                         subtitleContainer.style.width = `${widthSubtitle}px`
-                        console.log(widthSubtitle);
-                        if (subtitleContainer.offsetWidth < widthSubtract) {
+                        
+                        if (widthSubtitle < widthSubtract) {
                             resolve(true);
                             clearInterval(cleanId);
                         }
@@ -42,7 +42,7 @@ class UI {
             let wordType = new Promise((resolve, reject) => {
             const typeId = setInterval(function typeFrame() {
                     widthContainer = widthContainer + widthAugment;
-                    console.log(widthContainer);
+                    
                     subtitleContainer.style.width = `${widthContainer}px`;
                     
                     if (widthContainer >= widthSubtitle) {
