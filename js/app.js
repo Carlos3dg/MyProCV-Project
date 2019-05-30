@@ -1,4 +1,10 @@
 class UI {
+    //Default property values that can be used by a method
+    constructor() {
+        this.sidebarIconBackground = 'rgba(32, 35, 42, 0.9)';
+        this.sidebarMenuBackground = 'rgba(32, 35, 42, 0)';
+    }
+
     //Method to make the word wrap effect in the banner
     async wordWrapEffect(subtitleHeader, subtitleContainer) {
         let i = 0;
@@ -56,8 +62,24 @@ class UI {
            
         }
     }
+    //Method to active the toggle effect in the sidebar menu
+    toggleEffect(sidebarMenu, sidebarIconsMenu) {
+        //Active and desactive the sidebar menu
+        sidebarMenu.classList.toggle('active-full-sidebar');
+        //After 200 ms we desable or able the sidebar with the icons
+        setTimeout(() => {
+            sidebarIconsMenu.classList.toggle('desable-left-sidebar');
+        }, 200);
+
+    }
+
+    changeDefaultValues() {
+        this.sidebarIconBackground = 'rgba(32, 35, 42, 0)';
+        this.sidebarMenuBackground = 'rgba(32, 35, 42, 0.9)';
+    }
 }
 
+//EVENT LISTENERS
 document.addEventListener('DOMContentLoaded', function() {
     //Get the subtitles from the header and the width from the first element
     const subtitleHeader = document.querySelectorAll('.subtitle');
@@ -69,4 +91,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const ui = new UI();
     ui.wordWrapEffect(subtitleHeader, subtitleContainer);
 });
+
+//Click event listener to every link inside the navigation
+document.querySelector('.navigation').addEventListener('click', function(e) {
+    const ui = new UI();
+    //DELEGATION
+    //Click event for toggle menu
+    if (e.target.id === 'toggle__menu') {
+        const sidebarMenu = document.querySelector('.full-left-sidebar');
+        const sidebarIconsMenu = document.querySelector('.left-sidebar');
+
+        ui.toggleEffect(sidebarMenu, sidebarIconsMenu);
+    }
+})
 //http://127.0.0.1:5500/index.html
