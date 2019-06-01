@@ -1,8 +1,7 @@
 class UI {
     //Default property values that can be used by a method
     constructor() {
-        this.sidebarIconBackground = 'rgba(32, 35, 42, 0.9)';
-        this.sidebarMenuBackground = 'rgba(32, 35, 42, 0)';
+        this.sidebarMenuBackground = 'rgba(32, 35, 42, 0.9)';
     }
 
     //Method to make the word wrap effect in the banner
@@ -63,19 +62,29 @@ class UI {
         }
     }
     //Method to active the toggle effect in the sidebar menu
-    toggleEffect(sidebarMenu, sidebarIconsMenu) {
+    toggleEffect(sidebarMenu, sidebarIconsMenu, bodyInformation) {
         //Active and desactive the sidebar menu
-        sidebarMenu.classList.toggle('active-full-sidebar');
+        sidebarMenu.classList.toggle('desable-full-sidebar');
+        bodyInformation.classList.toggle('body-information-wide');
+        //Condition to erase the background menu if this one is disable or to appear it if is enable
+        if (document.querySelector('.desable-full-sidebar')) {
+            this.changeDefaultValues();
+            setTimeout(() => {
+                sidebarMenu.style.backgroundColor = this.sidebarMenuBackground;
+            }, 400);
+        } else {
+            sidebarMenu.style.backgroundColor = this.sidebarMenuBackground;
+        }
+
         //After 200 ms we desable or able the sidebar with the icons
         setTimeout(() => {
-            sidebarIconsMenu.classList.toggle('desable-left-sidebar');
+            sidebarIconsMenu.classList.toggle('active-left-sidebar');
         }, 200);
 
     }
 
     changeDefaultValues() {
-        this.sidebarIconBackground = 'rgba(32, 35, 42, 0)';
-        this.sidebarMenuBackground = 'rgba(32, 35, 42, 0.9)';
+        this.sidebarMenuBackground = 'rgba(32, 35, 42, 0)';
     }
 }
 
@@ -100,8 +109,9 @@ document.querySelector('.navigation').addEventListener('click', function(e) {
     if (e.target.id === 'toggle__menu') {
         const sidebarMenu = document.querySelector('.full-left-sidebar');
         const sidebarIconsMenu = document.querySelector('.left-sidebar');
+        const bodyInformation = document.querySelector('.body-information');
 
-        ui.toggleEffect(sidebarMenu, sidebarIconsMenu);
+        ui.toggleEffect(sidebarMenu, sidebarIconsMenu, bodyInformation);
     }
-})
+});
 //http://127.0.0.1:5500/index.html
