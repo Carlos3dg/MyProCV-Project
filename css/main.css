@@ -48,6 +48,8 @@ a {
     --bannerColor: rgb(4, 120, 167);
     --linksHover: rgb(6, 160, 221);
     --mainContent: rgb(172, 214, 221);
+    --fullSidebarSize: 20vw;
+    --leftSidebarSize: calc(var(--fullSidebarSize)/6);
 }
 
 /* GENERAL STYLES */
@@ -225,7 +227,7 @@ b.visible {
     position: fixed;
     top: 70px;
     left: 0;
-    width: 60px;
+    width: var(--leftSidebarSize);
     height: 100%;
     background-color: rgba(32, 35, 42, 0.9);
     opacity: 0;
@@ -241,14 +243,38 @@ b.visible {
     position: fixed;
     top: 70px;
     left: 0;
-    width: 20vw;
-    height: 100%;
+    width: var(--fullSidebarSize);
+    height: calc(100% - 70px);
+    padding: 20px 0 30px; /*Count 30px top and bottom*/
     background-color: rgba(32, 35, 42, 0.9);
     transition: left 500ms linear;
+    color: #fff;
+    font-size: 0.75rem;
 }
 
 .desable-full-sidebar {
-    left: calc(60px - 20vw);
+    left: calc(var(--leftSidebarSize) - var(--fullSidebarSize));
+}
+
+.profile-intro-information {
+    text-align: center;
+    margin-bottom: 10px; /*Count 10px*/
+}
+
+.profile-image {
+    width: calc(var(--fullSidebarSize) * .60);
+    height: calc(var(--fullSidebarSize) * .60); /*Count the 60% of 20vw*/
+    margin: 0 auto 20px; /*Count 20px*/
+    border-radius: 50%;
+    border: 2px solid white;
+    background-image: url(../img/profile-image.jpg);
+    background-size: cover;
+    background-position: center top;
+}
+
+.profile-objective {
+    margin: 0 18px 10px;
+    text-align: justify;
 }
 
 /* MAIN-INFORMATION */
@@ -262,12 +288,12 @@ b.visible {
 .body-information {
     margin-left: calc(20% + 30px);
     min-width: calc(57% - 30px);
-    max-width: calc(77% - (60px + 23px));
+    max-width: calc(77% - (var(--leftSidebarSize) + 23px));
     transition: all 500ms linear;
 }
 
 .body-information-wide {
-    margin-left: 83px;
+    margin-left: calc(var(--leftSidebarSize) + 23px);
 }
 
 .projects-container {
