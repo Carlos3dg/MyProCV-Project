@@ -99,7 +99,7 @@ p, span, label, a {
 }
 
 a {
-    /*color*/
+    color: white;
 }
 
 .medium__icons {
@@ -225,10 +225,9 @@ b.visible {
 /* LEFT-SIDEBAR */
 .left-sidebar {
     position: fixed;
-    top: 70px;
+    top: 50%;
     left: 0;
     width: var(--leftSidebarSize);
-    height: 100%;
     background-color: rgba(32, 35, 42, 0.9);
     opacity: 0;
     z-index: 2;
@@ -253,7 +252,8 @@ b.visible {
 }
 
 .desable-full-sidebar {
-    left: calc(var(--leftSidebarSize) - var(--fullSidebarSize));
+    /*left: calc(var(--leftSidebarSize) - var(--fullSidebarSize));*/
+    left: -20vw;
 }
 
 .profile-intro-information {
@@ -273,8 +273,60 @@ b.visible {
 }
 
 .profile-objective {
-    margin: 0 18px 10px;
+    margin: 0 18px 10px; /*Count 10px*/
     text-align: justify;
+}
+
+.profile-contact {
+    font-size: 0.70rem;
+    width: 100%;
+    padding: calc(var(--fullSidebarSize) * 0.03) 0;
+}
+
+.profile-contact i {
+    width: var(--leftSidebarSize);
+    text-align: center;
+}
+
+.profile-contact a {
+    display: block;
+    padding: calc(var(--fullSidebarSize) * 0.04) 0;
+}
+
+.linkedin-icon {
+    color: var(--linksHover);
+}
+
+.mail-icon {
+    color: rgb(25, 200, 83);
+}
+
+.phone-icon {
+    color: rgb(206, 203, 12);
+}
+
+.addres-icon {
+    color: rgb(199, 6, 6);
+}
+
+.profile-addres:hover {
+    background-color: rgb(199, 6, 6);
+}
+
+.profile-phone:hover {
+    background-color: rgb(206, 203, 12);
+}
+
+.profile-mail:hover {
+    background-color: rgb(25, 200, 83);
+}
+
+.profile-linkedin:hover {
+    background-color: var(--linksHover);
+}
+
+.profile-contact a:hover i {
+    color: white;
 }
 
 /* MAIN-INFORMATION */
