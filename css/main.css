@@ -231,7 +231,6 @@ b.visible {
     background-color: rgba(32, 35, 42, 0.9);
     opacity: 0;
     z-index: 2;
-    transition: all 200ms linear;
 }
 
 .active-left-sidebar {
@@ -246,7 +245,7 @@ b.visible {
     height: calc(100% - 70px);
     padding: 20px 0 30px; /*Count 30px top and bottom*/
     background-color: rgba(32, 35, 42, 0.9);
-    transition: left 500ms linear;
+    transition: left 350ms linear;
     color: #fff;
     font-size: 0.75rem;
 }
@@ -306,11 +305,15 @@ b.visible {
 }
 
 .addres-icon {
-    color: rgb(199, 6, 6);
+    color: rgb(206, 36, 36);
+}
+
+.profile-icons:hover {
+    border-radius: 0 8% 8% 0 / 0 50% 50% 0;
 }
 
 .profile-addres:hover {
-    background-color: rgb(199, 6, 6);
+    background-color: rgb(206, 36, 36);
 }
 
 .profile-phone:hover {
@@ -341,7 +344,7 @@ b.visible {
     margin-left: calc(20% + 30px);
     min-width: calc(57% - 30px);
     max-width: calc(77% - (var(--leftSidebarSize) + 23px));
-    transition: all 500ms linear;
+    transition: all 350ms linear;
 }
 
 .body-information-wide {

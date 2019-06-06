@@ -66,21 +66,27 @@ class UI {
         //Active and desactive the sidebar menu
         sidebarMenu.classList.toggle('desable-full-sidebar');
         bodyInformation.classList.toggle('body-information-wide');
+        
         //Condition to erase the background menu if this one is disable or to appear it if is enable
-        if (document.querySelector('.desable-full-sidebar')) {
+        /*if (document.querySelector('.desable-full-sidebar')) {
             this.changeDefaultValues();
             setTimeout(() => {
                 sidebarMenu.style.backgroundColor = this.sidebarMenuBackground;
             }, 400);
         } else {
             sidebarMenu.style.backgroundColor = this.sidebarMenuBackground;
-        }
+        }*/
 
-        //After 200 ms we desable or able the sidebar with the icons
+        //After 100 ms we desable or able the sidebar with the icons to first positionated the element
         setTimeout(() => {
             sidebarIconsMenu.classList.toggle('active-left-sidebar');
-        }, 200);
+        }, 100)
 
+    }
+
+    //Method to found the exactly position of an element
+    foundElementPosition(element, elementPosition) {
+        element.style.top = `${elementPosition.top}px`;
     }
 
     changeDefaultValues() {
@@ -96,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
     //Get the subtitle container and applied a width according to the first element
     const subtitleContainer = document.getElementById('subtitle-container');
     subtitleContainer.style.width = `${widthSubtitle + 10}px`;
-    
+
     const ui = new UI();
     ui.wordWrapEffect(subtitleHeader, subtitleContainer);
 });
@@ -110,7 +116,12 @@ document.querySelector('.navigation').addEventListener('click', function(e) {
         const sidebarMenu = document.querySelector('.full-left-sidebar');
         const sidebarIconsMenu = document.querySelector('.left-sidebar');
         const bodyInformation = document.querySelector('.body-information');
-
+        /*Get a method to found the top, left, etc of the positions of the element in the selector*/
+        const iconsPosition = document.querySelector('#profile-contact').getBoundingClientRect();
+        
+        //Call the found method with the element and its different positions as parameters
+        ui.foundElementPosition(sidebarIconsMenu, iconsPosition);
+        //Call the toggleEffect method
         ui.toggleEffect(sidebarMenu, sidebarIconsMenu, bodyInformation);
     }
 });

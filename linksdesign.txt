@@ -2,3 +2,8 @@ http://freebiesland.net/wp-content/uploads/2017/05/17-Free-Resume-Templates-for-
 https://www.freepik.com/premium-vector/cv-resume-design-with-line-icons_3208125.htm
 http://good-resume.com/wp-content/uploads/2016/11/Creative-Curriculum-Vitae-Resume-Template-Design-For-Inspiration.jpg
 https://sp.depositphotos.com/174782484/stock-illustration-colorful-resume-template-flat-style.html
+
+/*How to add whatsapp*/
+https://faq.whatsapp.com/en/android/26000030/
+https://stackoverflow.com/questions/21451668/add-whatsapp-function-to-website-like-sms-tel
+https://www.quora.com/How-do-I-add-an-HTML-code-to-my-website-so-that-when-people-click-it-it-opens-a-WhatsApp-conversation-with-me
