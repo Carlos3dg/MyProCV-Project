@@ -230,11 +230,42 @@ b.visible {
     width: var(--leftSidebarSize);
     background-color: rgba(32, 35, 42, 0.9);
     opacity: 0;
-    z-index: 2;
+    z-index: 1;
 }
 
 .active-left-sidebar {
     opacity: 1;
+}
+
+.profile-contact a span {
+    position: absolute;
+    top: 0;
+    left: var(--leftSidebarSize);
+    width: auto;
+    white-space: nowrap;
+    padding: calc(var(--fullSidebarSize) * 0.04) 18% calc(var(--fullSidebarSize) * 0.04) 0;
+    border-radius: 0 8% 8% 0 / 0 50% 50% 0;
+    display: none;
+}
+
+.profile-contact a:hover span {
+    display: inline-block;
+}
+
+.profile-contact .profile-addres:hover span {
+    background-color: rgb(206, 36, 36);
+}
+
+.profile-contact .profile-phone:hover span {
+    background-color: rgb(206, 203, 12);
+}
+
+.profile-contact .profile-mail:hover span {
+    background-color: rgb(25, 200, 83);
+}
+
+.profile-contact .profile-linkedin:hover span {
+    background-color: var(--linksHover);
 }
 
 .full-left-sidebar {
@@ -248,6 +279,7 @@ b.visible {
     transition: left 350ms linear;
     color: #fff;
     font-size: 0.75rem;
+    z-index: 2
 }
 
 .desable-full-sidebar {
@@ -288,6 +320,7 @@ b.visible {
 }
 
 .profile-contact a {
+    position: relative;
     display: block;
     padding: calc(var(--fullSidebarSize) * 0.04) 0;
 }
