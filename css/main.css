@@ -111,7 +111,7 @@ a {
     color: white;
     background-color: var(--bannerColor);
     width: 100%;
-    height: 90vh;
+    height: 100vh;
     position: relative;
     text-align: center;
     padding-top: 70px;
@@ -174,7 +174,7 @@ a {
     height: 15vw;
     left: 30%;
     position: absolute;
-    top: calc((90vh - 15vw) * .5);
+    top: calc((100vh - 15vw) * .5);
     border: 5px solid white;
     /*box-shadow: 0px 0px 35px 9px rgb(36, 150, 196);*/
     border-radius: 5px;
@@ -229,12 +229,13 @@ b.visible {
     left: 0;
     width: var(--leftSidebarSize);
     background-color: rgba(32, 35, 42, 0.9);
-    opacity: 0;
-    z-index: 1;
+    border-radius: 0 10px 10px 0;
+    display: block;
+    z-index: 2;
 }
 
-.active-left-sidebar {
-    opacity: 1;
+.disable-left-sidebar {
+    display: none;
 }
 
 .profile-contact a span {
@@ -244,7 +245,8 @@ b.visible {
     width: auto;
     white-space: nowrap;
     padding: calc(var(--fullSidebarSize) * 0.04) 18% calc(var(--fullSidebarSize) * 0.04) 0;
-    border-radius: 0 8% 8% 0 / 0 50% 50% 0;
+    border-radius: 0 1.3vw 1.3vw 0 / 0 50% 50% 0;
+    font-size: 1.0em;
     display: none;
 }
 
@@ -268,10 +270,11 @@ b.visible {
     background-color: var(--linksHover);
 }
 
+/* FULL SIDEBAR */
 .full-left-sidebar {
     position: fixed;
     top: 70px;
-    left: 0;
+    left: -20vw;
     width: var(--fullSidebarSize);
     height: calc(100% - 70px);
     padding: 20px 0 30px; /*Count 30px top and bottom*/
@@ -279,12 +282,12 @@ b.visible {
     transition: left 350ms linear;
     color: #fff;
     font-size: 0.75rem;
-    z-index: 2
+    z-index: 1;
 }
 
-.desable-full-sidebar {
+.active-full-sidebar {
     /*left: calc(var(--leftSidebarSize) - var(--fullSidebarSize));*/
-    left: -20vw;
+    left: 0;
 }
 
 .profile-intro-information {
@@ -374,14 +377,14 @@ b.visible {
 }
 
 .body-information {
-    margin-left: calc(20% + 30px);
+    margin-left: calc(var(--leftSidebarSize) + 23px);
     min-width: calc(57% - 30px);
     max-width: calc(77% - (var(--leftSidebarSize) + 23px));
     transition: all 350ms linear;
 }
 
-.body-information-wide {
-    margin-left: calc(var(--leftSidebarSize) + 23px);
+.body-information-short {
+    margin-left: calc(20% + 30px);
 }
 
 .projects-container {
