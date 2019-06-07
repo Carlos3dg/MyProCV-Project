@@ -66,6 +66,14 @@ html, body {
     font-size: 0.85rem;
 }
 
+.container-medium {
+    font-size: 0.75rem;
+}
+
+.container-short {
+    font-size: 0.70rem;
+}
+
 h1, h2, h3, h4, h5, h6 {
     font-family: "Lato", Helvetica, Arial, sans-serif;
     font-weight: 700;
@@ -281,7 +289,6 @@ b.visible {
     background-color: rgba(32, 35, 42, 0.9);
     transition: left 350ms linear;
     color: #fff;
-    font-size: 0.75rem;
     z-index: 1;
 }
 
@@ -312,7 +319,6 @@ b.visible {
 }
 
 .profile-contact {
-    font-size: 0.70rem;
     width: 100%;
     padding: calc(var(--fullSidebarSize) * 0.03) 0;
 }
@@ -385,6 +391,45 @@ b.visible {
 
 .body-information-short {
     margin-left: calc(20% + 30px);
+}
+
+.information-sections {
+    width: 100%;
+    background-color: white;
+    margin-bottom: 23px;
+    padding: 25px 20px 0;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.information-sections:last-child {
+    margin-bottom: 0;
+}
+
+.information-sections h3 {
+    color: rgba(0, 0, 0, 0.7);
+    margin-bottom: 15px;
+}
+
+.job-container {
+    position: relative;
+    padding: 25px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.job-container:last-child {
+    border: 0;
+}
+
+.job-logo {
+    position: absolute;
+    top: 25px;
+    width: 8%;
+    border-radius: 50%;
+}
+
+.job-information {
+    margin-left: 10%;
 }
 
 .projects-container {
