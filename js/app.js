@@ -1,7 +1,18 @@
 class UI {
     //Default property values that can be used by a method
     constructor() {
-        this.sidebarMenuBackground = 'rgba(32, 35, 42, 0.9)';
+        this.jobDetails = [
+            {
+                jobOne: 'Auxiliar General',
+                jobPlace: 'Office Ddepot de México S.A. de C.V.',
+                jobLogo: 'img/officedepot.png'
+            },
+            {
+                jobTwo: 'Practicante Desarrollador Web',
+                jobPlace: 'Besser Energy S.A.P.I de C.V.',
+                jobLogo: 'img/besserlighting.jpg'
+            }
+        ]
     }
 
     //Method to make the word wrap effect in the banner
@@ -90,7 +101,7 @@ class UI {
     }
 
     changeDefaultValues() {
-        this.sidebarMenuBackground = 'rgba(32, 35, 42, 0)';
+        
     }
 }
 
@@ -133,4 +144,23 @@ document.querySelector('.navigation').addEventListener('click', function(e) {
         ui.toggleEffect(sidebarMenu, sidebarIconsMenu, bodyInformation);
     }
 });
+
+//Mouse enter event listener to appear extra information about a specific job
+document.querySelector('.experience-container').addEventListener('mouseover', function(e) {
+    e.preventDefault();
+
+    if(e.target.className === 'details-button') {
+        e.target.parentElement.addEventListener('mouseenter', function(e) {
+            const jobZero = document.getElementById('job-0');
+            const jobOne = document.getElementById('job-1');
+
+            if(e.target === jobZero) {
+                console.log('office depot');
+            } else if(e.target === jobOne) {
+                console.log('besser')
+            }
+        });
+    } 
+})
+
 //http://127.0.0.1:5500/index.html
