@@ -225,47 +225,54 @@ document.querySelector('.navigation').addEventListener('click', function(e) {
 });
 
 //Mouse enter event listener to appear extra information about a specific job
-document.querySelector('.experience-container').addEventListener('mouseover', function(e) {
-    e.preventDefault();
+document.querySelector('.experience-container').addEventListener('mouseenter', function(e) {
+    //We are going to need the height of the viewport so we got it
+    const highScreen = window.innerHeight;
+    //We get the buttons container to detect one from another
+    const jobZero = document.getElementById('job-0');
+    const jobOne = document.getElementById('job-1');
 
-    if(e.target.className === 'details-button') {
-        e.target.parentElement.addEventListener('mouseenter', function(e) {
-            //We are going to need the height of the viewport so we got it
-            const highScreen = window.innerHeight;
-            //We get the buttons container to detect one from another
-            const jobZero = document.getElementById('job-0');
-            const jobOne = document.getElementById('job-1');
-            //Here we detect the details button that is being hover, zero is for office and one for besser
-            if(e.target === jobZero) {
-                //Found the exact position of the button in the viewport
-                const buttonPosition = jobZero.getBoundingClientRect();
-                //Get the object array that has the information that we're going to need
-                const info = new ComponentsInfo();
-                //Create the UI instance object
-                const ui = new UI();
-                //Call the method to create the details box
-                const detailsBox = ui.detailsBoxCreation(0, highScreen, buttonPosition, info.jobDetails);
-                console.log(detailsBox);
-                jobZero.appendChild(detailsBox);
+	// Make sure it's not the document object
+    if (!('matches') in e.target) return;
+    
+    // Do your thing...
+	if (e.target.matches('.details')) {
+		//Here we detect the details button that is being hover, zero is for office and one for besser
+        if(e.target === jobZero) {
+            //Found the exact position of the button in the viewport
+            const buttonPosition = jobZero.getBoundingClientRect();
+            //Get the object array that has the information that we're going to need
+            const info = new ComponentsInfo();
+            //Create the UI instance object
+            const ui = new UI();
+            //Call the method to create the details box
+            const detailsBox = ui.detailsBoxCreation(0, highScreen, buttonPosition, info.jobDetails);
+            //console.log(detailsBox);
+            jobZero.appendChild(detailsBox);
+        
+        } else if(e.target === jobOne) {
+            const buttonPosition = jobOne.getBoundingClientRect();
+            //Get the object array that has the information that we're going to need
+            const info = new ComponentsInfo();
+            //Create the UI instance object
+            const ui = new UI();
+            //Call the method to create the details box
+            const detailsBox = ui.detailsBoxCreation(1, highScreen, buttonPosition, info.jobDetails);
+            //console.log(detailsBox);
+            jobOne.appendChild(detailsBox);
+        }
+	}
+}, true);
 
-            } else if(e.target === jobOne) {
-                const buttonPosition = jobOne.getBoundingClientRect();
-                //Get the object array that has the information that we're going to need
-                const info = new ComponentsInfo();
-                //Create the UI instance object
-                const ui = new UI();
-                //Call the method to create the details box
-                const detailsBox = ui.detailsBoxCreation(1, highScreen, buttonPosition, info.jobDetails);
-                console.log(detailsBox);
-                jobOne.appendChild(detailsBox);
-            }
-        });
-
-        e.target.parentElement.addEventListener('mouseleave', function(e) {
-            const detailsBox = document.querySelector('.details-box');
-            detailsBox.remove();
-        })
-    } 
-})
+document.querySelector('.experience-container').addEventListener('mouseleave', function(e) {
+    // Make sure it's not the document object
+    if (!('matches') in e.target) return;
+    let detailsBox;
+    // Do your thing...
+    if (e.target.matches('.details')) {
+        detailsBox = document.querySelector('.details-box')
+        detailsBox.remove();
+    }
+}, true);
 
 //http://127.0.0.1:5500/index.html
