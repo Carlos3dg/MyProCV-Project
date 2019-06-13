@@ -1,18 +1,62 @@
-class UI {
-    //Default property values that can be used by a method
+class ComponentsInfo {
     constructor() {
         this.jobDetails = [
             {
-                jobOne: 'Auxiliar General',
+                jobName: 'Auxiliar General',
                 jobPlace: 'Office Ddepot de México S.A. de C.V.',
-                jobLogo: 'img/officedepot.png'
+                jobLogo: 'img/officedepot.png',
+                jobGoals: 'Empleado del mes',
+                jobTool1: {
+                    label: 'Pasillos 40',
+                    offset: 15,
+                    value: 40,
+                    bg: '--linksHover',
+                },
+                jobTool2: {
+                    label: 'Servicio 30%',
+                    offset: 55,
+                    value: 30,
+                    bg: 'orange',
+                },
+                jobTool3: {
+                    label: 'Iventarios 30%',
+                    offset: 85,
+                    value: 30,
+                    bg: 'rgb(25, 200, 83)',
+                }
             },
             {
-                jobTwo: 'Practicante Desarrollador Web',
+                jobName: 'Practicante Desarrollador Web',
                 jobPlace: 'Besser Energy S.A.P.I de C.V.',
-                jobLogo: 'img/besserlighting.jpg'
+                jobLogo: 'img/besserlighting.jpg',
+                jobGoals: 'Desarrollar de inicio a fin la página web de la empresa',
+                jobTool1: {
+                    label: 'HTML, CSS 45%',
+                    offset: '10',
+                    value: '45',
+                    bg: '--linksHover',
+                },
+                jobTool2: {
+                    label: 'Linux, GIT 30%',
+                    offset: '55',
+                    value: '30',
+                    bg: 'orange',
+                },
+                jobTool3: {
+                    label: 'Python 25%',
+                    offset: '85',
+                    value: '25',
+                    bg: 'rgb(25, 200, 83)'
+                }
             }
         ]
+    }
+}
+
+class UI {
+    //Default property values that can be used by a method
+    constructor() {
+
     }
 
     //Method to make the word wrap effect in the banner
@@ -100,6 +144,41 @@ class UI {
         element.style.top = `${elementPosition.top}px`;
     }
 
+    //Method to create the details box that apper with a hover in the details button
+    detailsBoxCreation(index, highScreen, buttonPosition, infoObject) {
+        const detailsBox = document.createElement('div');
+        detailsBox.className = 'details-box container-short'
+
+        const topPercentage = (buttonPosition.top/highScreen)*100;
+       
+        if (topPercentage < 45) {
+           detailsBox.style.top = '140%'; 
+        } else {
+            detailsBox.style.bottom = '140%'; 
+        }
+
+       detailsBox.innerHTML = `<img src="${infoObject[index].jobLogo}" class="job-logo">
+       <h4 class="subtitle-section">${infoObject[index].jobName}</h4>
+       <h5 class="subtitle-section">${infoObject[index].jobPlace}</h5>
+       <div class="details-info">
+            <div class="goals-container">
+                <h5>Logros</h5>
+                <i class="fas fa-medal"></i>
+                <p>${infoObject[index].jobGoals}</p>
+            </div>
+            <div class="tools-container">
+                <h5>Herramientas</h5>
+                <div class="pie-chart">
+                    <div class="pie-segment" data-label="${infoObject[index].jobTool1.label}" style="--offset:${infoObject[index].jobTool1.offset}; --value:${infoObject[index].jobTool1.value}; --bg: var(${infoObject[index].jobTool1.bg});" title="${infoObject[index].jobTool1.label}"></div>
+                    <div class="pie-segment" data-label="${infoObject[index].jobTool2.label}" style="--offset:${infoObject[index].jobTool2.offset}; --value:${infoObject[index].jobTool2.value}; --bg: ${infoObject[index].jobTool2.bg};" title="${infoObject[index].jobTool2.label}"></div>
+                    <div class="pie-segment" data-label="${infoObject[index].jobTool3.label}" style="--offset:${infoObject[index].jobTool3.offset}; --value:${infoObject[index].jobTool3.value}; --bg: ${infoObject[index].jobTool3.bg};" title="${infoObject[index].jobTool3.label}"></div>
+                </div>
+            </div>
+       </div>`
+
+        return detailsBox;
+    }
+
     changeDefaultValues() {
         
     }
@@ -151,15 +230,41 @@ document.querySelector('.experience-container').addEventListener('mouseover', fu
 
     if(e.target.className === 'details-button') {
         e.target.parentElement.addEventListener('mouseenter', function(e) {
+            //We are going to need the height of the viewport so we got it
+            const highScreen = window.innerHeight;
+            //We get the buttons container to detect one from another
             const jobZero = document.getElementById('job-0');
             const jobOne = document.getElementById('job-1');
-
+            //Here we detect the details button that is being hover, zero is for office and one for besser
             if(e.target === jobZero) {
-                console.log('office depot');
+                //Found the exact position of the button in the viewport
+                const buttonPosition = jobZero.getBoundingClientRect();
+                //Get the object array that has the information that we're going to need
+                const info = new ComponentsInfo();
+                //Create the UI instance object
+                const ui = new UI();
+                //Call the method to create the details box
+                const detailsBox = ui.detailsBoxCreation(0, highScreen, buttonPosition, info.jobDetails);
+                console.log(detailsBox);
+                jobZero.appendChild(detailsBox);
+
             } else if(e.target === jobOne) {
-                console.log('besser')
+                const buttonPosition = jobOne.getBoundingClientRect();
+                //Get the object array that has the information that we're going to need
+                const info = new ComponentsInfo();
+                //Create the UI instance object
+                const ui = new UI();
+                //Call the method to create the details box
+                const detailsBox = ui.detailsBoxCreation(1, highScreen, buttonPosition, info.jobDetails);
+                console.log(detailsBox);
+                jobOne.appendChild(detailsBox);
             }
         });
+
+        e.target.parentElement.addEventListener('mouseleave', function(e) {
+            const detailsBox = document.querySelector('.details-box');
+            detailsBox.remove();
+        })
     } 
 })
 
