@@ -47,6 +47,11 @@ a {
     --alphaBlackContainer: rgba(32, 35, 42, 0.9);
     --bannerColor: rgb(4, 120, 167);
     --linksHover: rgb(6, 160, 221);
+    --greenColor: rgb(25, 200, 83);
+    --yellowColor: rgb(206, 203, 12);
+    --redColor: rgb(206, 36, 36);
+    --lightBlueColor: rgb(10, 224, 214);
+    --purpleColor: rgb(165, 50, 219);
     --mainContent: rgb(172, 214, 221);
     --fullSidebarSize: 20vw;
     --leftSidebarSize: calc(var(--fullSidebarSize)/6);
@@ -343,11 +348,11 @@ b.visible {
 }
 
 .mail-icon {
-    color: rgb(25, 200, 83);
+    color: var(--greenColor);
 }
 
 .phone-icon {
-    color: rgb(206, 203, 12);
+    color: var(--yellowColor)
 }
 
 .addres-icon {
@@ -415,24 +420,25 @@ b.visible {
     margin-bottom: 15px;
 }
 
-.job-container {
+/* Experience and Education Section */
+.job-container, .education-container {
     position: relative;
     padding: 25px 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.job-container:last-child {
+.job-container:last-child, .education-container:last-child {
     border: 0;
 }
 
-.job-logo {
+.job-logo, .education-logo {
     position: absolute;
     top: 25px;
     width: 8%;
     border-radius: 50%;
 }
 
-.job-information {
+.job-information, .education-information {
     margin-left: 10%;
 }
 
@@ -440,6 +446,7 @@ b.visible {
     color: rgb(6, 44, 75);
 }
 
+/* Details Option from Experience */
 .details {
     position: absolute;
     top: 35px;
@@ -510,6 +517,7 @@ b.visible {
     text-align: center;
 }
 
+/* Pie Chart Graphic */
 .pie-chart {
     position: relative;
     width: 9.5vw;
@@ -553,6 +561,50 @@ b.visible {
 .pie-segment:after {
     transform: translateX(-50%);
     opacity: var(--over50, 0);
+}
+
+/* DEV SKILLS */
+.dev-skills-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.dev-skill {
+    width: 50%;
+    padding: 5% 0;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+}
+
+.bar-chart {
+    width: 75%;
+    height: 1.5em;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    padding-right: 75%;
+    background-origin: content-box;
+    background-clip: content-box;
+    transition: all 800ms linear;
+}
+
+.html-bar, .css-bar {
+    padding-right: 7.5%;
+}
+
+.js-bar {
+    padding-right: 11.25%;
+}
+
+.react-bar, .git-bar {
+    padding-right: 52.5%;
+}
+
+.seo-bar {
+    padding-right: 30%;
 }
 
 .projects-container {

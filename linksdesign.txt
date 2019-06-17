@@ -10,9 +10,12 @@ https://faq.whatsapp.com/en/android/26000030/
 https://stackoverflow.com/questions/21451668/add-whatsapp-function-to-website-like-sms-tel
 https://www.quora.com/How-do-I-add-an-HTML-code-to-my-website-so-that-when-people-click-it-it-opens-a-WhatsApp-conversation-with-me
 
+/* INFO ABOUT THE LOAD OF HTML FILES AND THE LOAD OF JS ELEMENTS */
 https://www.w3.org/wiki/JavaScript_best_practices#Add_functionality_with_JavaScript.2C_don.E2.80.99t_create_too_much_content
 https://stackoverflow.com/questions/2923524/how-many-divs-can-you-have-before-the-dom-slows-and-becomes-unstable?lq=1
 https://ultimatecourses.com/blog/stop-toggling-classes-with-js-use-behaviour-driven-dom-manipulation-with-data-states
 
 https://codyhouse.co/gem/css-product-quick-view/
 
+/* HOW TO MAKE A DELEGATION IN MOUSE ENTER */
+https://gomakethings.com/debugging-event-bubbling-errors-with-vanilla-js/

@@ -121,16 +121,6 @@ class UI {
         //Active and desactive the sidebar menu
         sidebarMenu.classList.toggle('active-full-sidebar');
         bodyInformation.classList.toggle('body-information-short');
-        
-        //Condition to erase the background menu if this one is disable or to appear it if is enable
-        /*if (document.querySelector('.desable-full-sidebar')) {
-            this.changeDefaultValues();
-            setTimeout(() => {
-                sidebarMenu.style.backgroundColor = this.sidebarMenuBackground;
-            }, 400);
-        } else {
-            sidebarMenu.style.backgroundColor = this.sidebarMenuBackground;
-        }*/
 
         //After 100 ms we disable or enable the sidebar with the icons to first positionated the element
         setTimeout(() => {
@@ -146,17 +136,18 @@ class UI {
 
     //Method to create the details box that apper with a hover in the details button
     detailsBoxCreation(index, highScreen, buttonPosition, infoObject) {
+        //We create the div that is going to have all the information
         const detailsBox = document.createElement('div');
-        detailsBox.className = 'details-box container-short'
-
+        detailsBox.className = 'details-box container-short' //Get the classes that apply the design
+        //Variable that reads the top porcentages space between the botton that is beign hovered and the top of the viweport
         const topPercentage = (buttonPosition.top/highScreen)*100;
-       
+       //If the percentage is less than 45 we insert our div element at the top but if it's not we insert it at the bottom
         if (topPercentage < 45) {
            detailsBox.style.top = '140%'; 
         } else {
             detailsBox.style.bottom = '140%'; 
         }
-
+        //Here we insert all the elements that our div is going to have with the information extracted of the object array
        detailsBox.innerHTML = `<img src="${infoObject[index].jobLogo}" class="job-logo">
        <h4 class="subtitle-section">${infoObject[index].jobName}</h4>
        <h5 class="subtitle-section">${infoObject[index].jobPlace}</h5>
@@ -233,8 +224,8 @@ document.querySelector('.experience-container').addEventListener('mouseenter', f
     const jobOne = document.getElementById('job-1');
 
 	// Make sure it's not the document object
-    if (!('matches') in e.target) return;
-    
+    //if (!('matches') in e.target) return;
+
     // Do your thing...
 	if (e.target.matches('.details')) {
 		//Here we detect the details button that is being hover, zero is for office and one for besser
@@ -245,9 +236,9 @@ document.querySelector('.experience-container').addEventListener('mouseenter', f
             const info = new ComponentsInfo();
             //Create the UI instance object
             const ui = new UI();
-            //Call the method to create the details box
+            //Call the method to create the details box, here we need four parameters: the index number of the object array according with the number job that the e.target found, the complete height of the viewport, the button position and the object array, where it is the information that we're going to need.
             const detailsBox = ui.detailsBoxCreation(0, highScreen, buttonPosition, info.jobDetails);
-            //console.log(detailsBox);
+            //At the end we insert the detailsBox element that our method has returned inside the jobZero element
             jobZero.appendChild(detailsBox);
         
         } else if(e.target === jobOne) {
@@ -264,9 +255,10 @@ document.querySelector('.experience-container').addEventListener('mouseenter', f
 	}
 }, true);
 
+//Mouse leave event to remove the details box that our mouse enter element creates
 document.querySelector('.experience-container').addEventListener('mouseleave', function(e) {
     // Make sure it's not the document object
-    if (!('matches') in e.target) return;
+    //if (!('matches') in e.target) return;
     let detailsBox;
     // Do your thing...
     if (e.target.matches('.details')) {
@@ -274,5 +266,17 @@ document.querySelector('.experience-container').addEventListener('mouseleave', f
         detailsBox.remove();
     }
 }, true);
+
+const barCharts = ['html-bar', 'css-bar', 'js-bar', 'react-bar', 'git-bar', 'seo-bar'];
+window.addEventListener('scroll', function() {
+    const techSkillsTop = document.getElementById('technical-skills').getBoundingClientRect().top;
+
+    if (techSkillsTop < 150) {
+        const techSkills = document.querySelectorAll('.bar-chart');
+        techSkills.forEach((element, index) => {
+            element.classList.add(`${barCharts[index]}`);
+        });
+    }
+})
 
 //http://127.0.0.1:5500/index.html
