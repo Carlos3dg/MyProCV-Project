@@ -267,21 +267,30 @@ document.querySelector('.experience-container').addEventListener('mouseleave', f
     }
 }, true);
 
-const barCharts = {
-    htmlBar: [60, 65, 70, 75, 80, 85, 90],
-    cssBar: [60, 65, 70, 75, 80, 85, 90],
-    jsBar: [55, 60, 65, 70, 75, 80, 85],
-    reactBar: [0, 5, 10, 15, 20, 25, 30], 
-    gitBar: [0, 5, 10, 15, 20, 25, 30],
-    seoBar: [30, 35, 40, 45, 50, 55, 60],
-}
+const barCharts = [
+    {htmlBar: [60, 65, 70, 75, 80, 85, 90]},
+    {cssBar: [60, 65, 70, 75, 80, 85, 90]},
+    {jsBar: [55, 60, 65, 70, 75, 80, 85]},
+    {reactBar: [0, 5, 10, 15, 20, 25, 30]}, 
+    {gitBar: [0, 5, 10, 15, 20, 25, 30]},
+    {seoBar: [30, 35, 40, 45, 50, 55, 60]},
+]
 window.addEventListener('scroll', function() {
     const techSkillsTop = document.getElementById('technical-skills').getBoundingClientRect().top;
 
     if (techSkillsTop < 150) {
-        const techSkills = document.querySelectorAll('.bar-chart');
-        techSkills.forEach((element, index) => {
-            element.classList.add(`${barCharts[index]}`);
+        const techSkillsNode = document.querySelectorAll('.bar-chart');
+        const techSkills = Array.prototype.slice.call(techSkillsNode);
+
+        techSkills.forEach(function(element, index) {
+            for(skill in barCharts[index]) {
+                element.classList.add(skill);
+
+                /*for(let i = 0; i<=barCharts[index][skill]; i++) {
+                    element.nextElementSibling.innerHTML = `${i}%`
+                }*/
+
+            }
         });
     }
 })

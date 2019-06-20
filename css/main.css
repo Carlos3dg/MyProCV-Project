@@ -591,53 +591,21 @@ b.visible {
     transition: all 800ms linear;
 }
 
-.html-bar, .css-bar {
+.htmlBar, .cssBar {
     padding-right: 7.5%;
 }
 
-.js-bar {
+.jsBar {
     padding-right: 11.25%;
 }
 
-.react-bar, .git-bar {
+.reactBar, .gitBar {
     padding-right: 52.5%;
 }
 
-.seo-bar {
+.seoBar {
     padding-right: 30%;
 }
-
-@keyframes percentage {
-    0% {
-        content: "~" counter(the-final-countdown) "~";
-    }
-
-    16% {
-        content: "~" counter(the-final-countdown) "~";
-    }
-
-    32% {
-        content: "~" counter(the-final-countdown) "~";
-    }
-
-    48% {
-        content: "~" counter(the-final-countdown) "~";
-    }
-
-    64% {
-        content: "~" counter(the-final-countdown) "~";
-    }
-
-    100% {
-        content: "~" counter(the-final-countdown) "~";
-    }
-}
-
-.dev-skill span::before {
-    counter-increment: the-final-countdown +5;
-    content: ''calc(attr(data-percentage) + 5);
-}
-
 
 .projects-container {
     margin-left: 23px;

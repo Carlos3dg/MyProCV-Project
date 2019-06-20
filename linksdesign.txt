@@ -19,3 +19,10 @@ https://codyhouse.co/gem/css-product-quick-view/
 
 /* HOW TO MAKE A DELEGATION IN MOUSE ENTER */
 https://gomakethings.com/debugging-event-bubbling-errors-with-vanilla-js/
+
+
+
+
+https://developer.mozilla.org/es/docs/Web/API/Document/scroll_event
+https://stackoverflow.com/questions/12522807/scroll-event-listener-javascript
+https://javascript.info/onscroll
