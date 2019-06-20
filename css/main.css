@@ -607,6 +607,38 @@ b.visible {
     padding-right: 30%;
 }
 
+@keyframes percentage {
+    0% {
+        content: "~" counter(the-final-countdown) "~";
+    }
+
+    16% {
+        content: "~" counter(the-final-countdown) "~";
+    }
+
+    32% {
+        content: "~" counter(the-final-countdown) "~";
+    }
+
+    48% {
+        content: "~" counter(the-final-countdown) "~";
+    }
+
+    64% {
+        content: "~" counter(the-final-countdown) "~";
+    }
+
+    100% {
+        content: "~" counter(the-final-countdown) "~";
+    }
+}
+
+.dev-skill span::before {
+    counter-increment: the-final-countdown +5;
+    content: ''calc(attr(data-percentage) + 5);
+}
+
+
 .projects-container {
     margin-left: 23px;
     width: calc(23% - 23px);

@@ -267,7 +267,14 @@ document.querySelector('.experience-container').addEventListener('mouseleave', f
     }
 }, true);
 
-const barCharts = ['html-bar', 'css-bar', 'js-bar', 'react-bar', 'git-bar', 'seo-bar'];
+const barCharts = {
+    htmlBar: [60, 65, 70, 75, 80, 85, 90],
+    cssBar: [60, 65, 70, 75, 80, 85, 90],
+    jsBar: [55, 60, 65, 70, 75, 80, 85],
+    reactBar: [0, 5, 10, 15, 20, 25, 30], 
+    gitBar: [0, 5, 10, 15, 20, 25, 30],
+    seoBar: [30, 35, 40, 45, 50, 55, 60],
+}
 window.addEventListener('scroll', function() {
     const techSkillsTop = document.getElementById('technical-skills').getBoundingClientRect().top;
 
