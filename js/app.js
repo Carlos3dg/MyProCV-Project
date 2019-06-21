@@ -275,24 +275,38 @@ const barCharts = [
     {gitBar: [0, 5, 10, 15, 20, 25, 30]},
     {seoBar: [30, 35, 40, 45, 50, 55, 60]},
 ]
+
+let j = 0;
 window.addEventListener('scroll', function() {
     const techSkillsTop = document.getElementById('technical-skills').getBoundingClientRect().top;
 
-    if (techSkillsTop < 150) {
+    if (techSkillsTop < 200) {
         const techSkillsNode = document.querySelectorAll('.bar-chart');
         const techSkills = Array.prototype.slice.call(techSkillsNode);
 
         techSkills.forEach(function(element, index) {
             for(skill in barCharts[index]) {
                 element.classList.add(skill);
-
-                /*for(let i = 0; i<=barCharts[index][skill]; i++) {
-                    element.nextElementSibling.innerHTML = `${i}%`
-                }*/
-
             }
         });
+
+        const barPercentage = setInterval(function percentageFrame() {           
+            if(j > 6) {
+                clearInterval(barPercentage);
+            }
+
+            if (j<=6) {
+                for(let i=0; i<techSkills.length; i++){
+                    for(skill in barCharts[i]) {
+                        techSkills[i].nextElementSibling.innerHTML = `${barCharts[i][skill][j]}%`;
+                    }
+                }
+            }
+
+            j++;
+
+        }, 100);
     }
-})
+});
 
 //http://127.0.0.1:5500/index.html
