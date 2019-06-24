@@ -1,3 +1,6 @@
+//GLOBAL VARIABLES
+let j = 0; //To clear the interval in the barCharts percentages
+
 class ComponentsInfo {
     constructor() {
         this.jobDetails = [
@@ -49,6 +52,15 @@ class ComponentsInfo {
                     bg: 'rgb(25, 200, 83)'
                 }
             }
+        ],
+
+        this.techBarCharts = [
+            {htmlBar: [60, 65, 70, 75, 80, 85, 90]},
+            {cssBar: [60, 65, 70, 75, 80, 85, 90]},
+            {jsBar: [55, 60, 65, 70, 75, 80, 85]},
+            {reactBar: [0, 5, 10, 15, 20, 25, 30]}, 
+            {gitBar: [0, 5, 10, 15, 20, 25, 30]},
+            {seoBar: [30, 35, 40, 45, 50, 55, 60]},
         ]
     }
 }
@@ -170,6 +182,35 @@ class UI {
         return detailsBox;
     }
 
+    //Method to create the increment percentage effect in every bar chart 
+    barChartsEffect(elements, percentagesArray, lengthPercentage) {
+        //First we transform the Node of elements as an array
+        const elementsArray = Array.prototype.slice.call(elements);
+        //Then we use the forEach and for.. in to insert the properties from the objects that are inside the percentagesArray as classes
+        elementsArray.forEach(function(element, index) {
+            for(let skill in percentagesArray[index]) {
+                element.classList.add(skill);
+            }
+        });
+        //Here we use an interval that is going to insert the percentage num for all elements every 150ms.
+        const barPercentage = setInterval(function percentageFrame() {           
+            if(j >= lengthPercentage) {
+                clearInterval(barPercentage);
+            }
+            //In case that our clearInterval doesn't work, we execute this code only if j is smaller than lengthPercentage
+            if (j < lengthPercentage) {
+                for(let i=0; i<elementsArray.length; i++){
+                    for(let skill in percentagesArray[i]) {
+                        elementsArray[i].nextElementSibling.innerHTML = `${percentagesArray[i][skill][j]}%`;
+                    }
+                }
+            }
+
+            j++;
+
+        }, 150);
+    }
+
     changeDefaultValues() {
         
     }
@@ -267,45 +308,20 @@ document.querySelector('.experience-container').addEventListener('mouseleave', f
     }
 }, true);
 
-const barCharts = [
-    {htmlBar: [60, 65, 70, 75, 80, 85, 90]},
-    {cssBar: [60, 65, 70, 75, 80, 85, 90]},
-    {jsBar: [55, 60, 65, 70, 75, 80, 85]},
-    {reactBar: [0, 5, 10, 15, 20, 25, 30]}, 
-    {gitBar: [0, 5, 10, 15, 20, 25, 30]},
-    {seoBar: [30, 35, 40, 45, 50, 55, 60]},
-]
-
-let j = 0;
 window.addEventListener('scroll', function() {
+    //Get the Tech Skills container to know its exact position in every scroll
     const techSkillsTop = document.getElementById('technical-skills').getBoundingClientRect().top;
 
-    if (techSkillsTop < 200) {
+    //If techSkills container is at 150 pixels from top then
+    if (techSkillsTop < 150) {
+        //Get every tech skill that we have
         const techSkillsNode = document.querySelectorAll('.bar-chart');
-        const techSkills = Array.prototype.slice.call(techSkillsNode);
-
-        techSkills.forEach(function(element, index) {
-            for(skill in barCharts[index]) {
-                element.classList.add(skill);
-            }
-        });
-
-        const barPercentage = setInterval(function percentageFrame() {           
-            if(j > 6) {
-                clearInterval(barPercentage);
-            }
-
-            if (j<=6) {
-                for(let i=0; i<techSkills.length; i++){
-                    for(skill in barCharts[i]) {
-                        techSkills[i].nextElementSibling.innerHTML = `${barCharts[i][skill][j]}%`;
-                    }
-                }
-            }
-
-            j++;
-
-        }, 100);
+        //Create the instance of the class ComponentsInfo to have acces to the tech bar charts percentages
+        const info = new ComponentsInfo();
+        //Instance of UI
+        const ui = new UI();
+        //Call the method barChartEffect from the UI
+        ui.barChartsEffect(techSkillsNode, info.techBarCharts, info.techBarCharts[0].htmlBar.length);
     }
 });
 
