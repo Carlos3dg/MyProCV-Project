@@ -421,13 +421,13 @@ b.visible {
 }
 
 /* Experience and Education Section */
-.job-container, .education-container {
+.sub-section-container {
     position: relative;
     padding: 25px 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.job-container:last-child, .education-container:last-child {
+.sub-section-container:last-child, .sub-section-container:last-child {
     border: 0;
 }
 
@@ -605,6 +605,47 @@ b.visible {
 
 .seoBar {
     padding-right: 30%;
+}
+
+/* LANGUAGES CONTAINER */
+.language-container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.language-container .bar-chart {
+    width: 30%;
+    padding-right: 30%;
+    margin: 0 10px;
+}
+
+.arrow-down-button {
+    position: absolute;
+    top: 20%;
+    right: 3%;
+    color: rgb(6, 44, 75);
+    width: 3vw;
+    height: 3vw;
+    text-align: center;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all ease-in 400ms;
+}
+
+.arrow-down-button i {
+    line-height: 3vw;
+}
+
+.arrow-down-button:hover {
+    background-color: rgba(6, 160, 221, 0.3);
+}
+
+.english {
+    padding-right: 9% !important; 
+}
+
+.spanish {
+    padding-right: 0% !important;
 }
 
 .projects-container {

@@ -61,6 +61,11 @@ class ComponentsInfo {
             {reactBar: [0, 5, 10, 15, 20, 25, 30]}, 
             {gitBar: [0, 5, 10, 15, 20, 25, 30]},
             {seoBar: [30, 35, 40, 45, 50, 55, 60]},
+        ],
+
+        this.languageBarCharts = [
+            {english: [40, 45, 50, 55, 60, 65, 70]},
+            {spanish: [70, 75, 80, 85, 90, 95, 100]},
         ]
     }
 }
@@ -311,17 +316,26 @@ document.querySelector('.experience-container').addEventListener('mouseleave', f
 window.addEventListener('scroll', function() {
     //Get the Tech Skills container to know its exact position in every scroll
     const techSkillsTop = document.getElementById('technical-skills').getBoundingClientRect().top;
+    const languageTop = document.getElementById('languages-section').getBoundingClientRect().top;
 
     //If techSkills container is at 150 pixels from top then
     if (techSkillsTop < 150) {
         //Get every tech skill that we have
-        const techSkillsNode = document.querySelectorAll('.bar-chart');
+        const techSkillsNode = document.querySelectorAll('.bar-chart-tech');
         //Create the instance of the class ComponentsInfo to have acces to the tech bar charts percentages
         const info = new ComponentsInfo();
         //Instance of UI
         const ui = new UI();
         //Call the method barChartEffect from the UI
         ui.barChartsEffect(techSkillsNode, info.techBarCharts, info.techBarCharts[0].htmlBar.length);
+    }
+
+    if (languageTop < 150) {
+        const languagesNode = document.querySelectorAll('.bar-chart-language');
+        const info = new ComponentsInfo();
+        const ui = new UI();
+        //j = 0;
+        ui.barChartsEffect(languagesNode, info.languageBarCharts, info.languageBarCharts[0].english.length);
     }
 });
 
