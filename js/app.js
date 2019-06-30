@@ -81,8 +81,8 @@ class ComponentsInfo {
             },
             {spanish: 
                 [
-                    {fact0: 'lorem'},
-                    {fact1: 'lorem'},
+                    {fact0: 'Lengua nativa'},
+                    {fact1: 'Redacción de reportes y documentos complejos'}
                 ]       
             }
         ]

@@ -656,6 +656,11 @@ b.visible {
     color: rgb(6, 160, 221);
 }
 
+.facts-language-container:last-child {
+    margin-top: -2px;
+    margin-bottom: 20px;
+}
+
 .facts-language-container ul {
     list-style-type: disc;
     list-style-position: inside;
