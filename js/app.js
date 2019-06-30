@@ -81,7 +81,8 @@ class ComponentsInfo {
             },
             {spanish: 
                 [
-                    {fact0: ''}
+                    {fact0: 'lorem'},
+                    {fact1: 'lorem'},
                 ]       
             }
         ]
@@ -236,9 +237,25 @@ class UI {
         }, 150);
     }
 
-    factLanguagesCreation(factsArray) {
+    dropDownLanguage(id, languageContainer, factsArray) {
+        const languageSection = document.getElementById('languages-section');
+
+        if(document.getElementById(id)) {
+            document.getElementById(id).remove();
+        } else if(document.querySelector('.facts-language-container')) {
+            document.querySelector('.facts-language-container').remove();
+            const facts = this.factLanguagesCreation(factsArray, id);
+            languageSection.insertBefore(facts, languageContainer.nextSibling);
+        } else {
+            const facts = this.factLanguagesCreation(factsArray, id);
+            languageSection.insertBefore(facts, languageContainer.nextSibling);
+        }
+    }
+
+    factLanguagesCreation(factsArray, id) {
         const divFacts = document.createElement('div');
         divFacts.className = 'facts-language-container container-medium sub-section-container'
+        divFacts.id = id;
 
         let ul = '';
         ul += '<ul>';
@@ -377,15 +394,18 @@ window.addEventListener('scroll', function() {
 });
 
 document.getElementById('languages-section').addEventListener('click', function(e) {
-    const languageSection = document.getElementById('languages-section');
     const arrowButtons = document.querySelectorAll('.arrow-down-button');
 
     if(e.target === arrowButtons[0] || e.target === arrowButtons[0].firstElementChild) {
         const languageContainer = arrowButtons[0].parentElement;
         const info = new ComponentsInfo();
         const ui = new UI();
-        const facts = ui.factLanguagesCreation(info.factLanguages[0].english);
-        languageSection.insertBefore(facts, languageContainer.nextSibling);
+        ui.dropDownLanguage('english-language', languageContainer, info.factLanguages[0].english);
+    } else if(e.target === arrowButtons[1] || e.target === arrowButtons[1].firstElementChild) {
+        const languageContainer = arrowButtons[1].parentElement;
+        const info = new ComponentsInfo();
+        const ui = new UI();
+        ui.dropDownLanguage('spanish-language', languageContainer, info.factLanguages[1].spanish);
     }
 });
 
