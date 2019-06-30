@@ -55,6 +55,7 @@ a {
     --mainContent: rgb(172, 214, 221);
     --fullSidebarSize: 20vw;
     --leftSidebarSize: calc(var(--fullSidebarSize)/6);
+    --hoverButtonsAlpha: rgba(6, 160, 221, 0.3);
 }
 
 /* GENERAL STYLES */
@@ -637,7 +638,7 @@ b.visible {
 }
 
 .arrow-down-button:hover {
-    background-color: rgba(6, 160, 221, 0.3);
+    background-color: var(--hoverButtonsAlpha);
 }
 
 .english {
@@ -646,6 +647,22 @@ b.visible {
 
 .spanish {
     padding-right: 0% !important;
+}
+
+.facts-language-container {
+    background-color: var(--mainContent);
+    margin-top: -1px;
+    padding: 15px 10px;
+    color: rgb(6, 160, 221);
+}
+
+.facts-language-container ul {
+    list-style-type: disc;
+    list-style-position: inside;
+}
+
+.facts-language-container ul li {
+    margin-bottom: 5px;
 }
 
 .projects-container {

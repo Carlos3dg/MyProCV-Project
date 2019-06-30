@@ -69,6 +69,21 @@ class ComponentsInfo {
         this.languageBarCharts = [
             {english: [40, 45, 50, 55, 60, 65, 70]},
             {spanish: [70, 75, 80, 85, 90, 95, 100]},
+        ],
+
+        this.factLanguages = [
+            {english:
+                [
+                    {fact0: 'Lectura y escritura correcta, capaz de leer y escribir documentos complejos con un poco de esfuerzo'},
+                    {fact1: 'Entendimiento del idioma cuando los demás se están expresando'},
+                    {fact2: 'Capaz de mantener una conversación fluída en temas cotidianos o de interes'}
+                ]
+            },
+            {spanish: 
+                [
+                    {fact0: ''}
+                ]       
+            }
         ]
     }
 }
@@ -221,6 +236,22 @@ class UI {
         }, 150);
     }
 
+    factLanguagesCreation(factsArray) {
+        const divFacts = document.createElement('div');
+        divFacts.className = 'facts-language-container container-medium sub-section-container'
+
+        let ul = '';
+        ul += '<ul>';
+        factsArray.forEach((element, index) => {
+            const fact = element[`fact${index}`];
+            ul += `<li>${fact}</li>`
+        });
+        ul += '</ul>';
+        divFacts.innerHTML = ul;
+
+        return divFacts;
+    }
+
     changeDefaultValues() {
         
     }
@@ -323,7 +354,7 @@ window.addEventListener('scroll', function() {
     const techSkillsTop = document.getElementById('technical-skills').getBoundingClientRect().top;
     const languageTop = document.getElementById('languages-section').getBoundingClientRect().top;
 
-    //If techSkills container is at 150 pixels from top then
+    //If techSkills container is at 180 pixels from top then
     if (techSkillsTop < 180 && execute.barTech) {
         //Get every tech skill that we have
         const techSkillsNode = document.querySelectorAll('.bar-chart-tech');
@@ -342,6 +373,19 @@ window.addEventListener('scroll', function() {
         const ui = new UI();
         ui.barChartsEffect(languagesNode, info.languageBarCharts, info.languageBarCharts[0].english.length);
         execute.barLanguage = false;
+    }
+});
+
+document.getElementById('languages-section').addEventListener('click', function(e) {
+    const languageSection = document.getElementById('languages-section');
+    const arrowButtons = document.querySelectorAll('.arrow-down-button');
+
+    if(e.target === arrowButtons[0] || e.target === arrowButtons[0].firstElementChild) {
+        const languageContainer = arrowButtons[0].parentElement;
+        const info = new ComponentsInfo();
+        const ui = new UI();
+        const facts = ui.factLanguagesCreation(info.factLanguages[0].english);
+        languageSection.insertBefore(facts, languageContainer.nextSibling);
     }
 });
 
