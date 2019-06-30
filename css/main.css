@@ -629,7 +629,7 @@ b.visible {
     text-align: center;
     border-radius: 50%;
     cursor: pointer;
-    transition: all ease-in 400ms;
+    transition: all ease-in 200ms;
 }
 
 .arrow-down-button i {

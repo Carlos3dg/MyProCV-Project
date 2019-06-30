@@ -1,5 +1,8 @@
 //GLOBAL VARIABLES
-let j = 0; //To clear the interval in the barCharts percentages
+const execute = {
+    barTech: true,
+    barLanguage: true,
+} // This variable help to execute just one time the barTect and barLanguage effect and ignoring the rest of times that our scroll event is executed 
 
 class ComponentsInfo {
     constructor() {
@@ -189,6 +192,8 @@ class UI {
 
     //Method to create the increment percentage effect in every bar chart 
     barChartsEffect(elements, percentagesArray, lengthPercentage) {
+        let j = 0; //To clear the interval in the barCharts percentages
+
         //First we transform the Node of elements as an array
         const elementsArray = Array.prototype.slice.call(elements);
         //Then we use the forEach and for.. in to insert the properties from the objects that are inside the percentagesArray as classes
@@ -319,7 +324,7 @@ window.addEventListener('scroll', function() {
     const languageTop = document.getElementById('languages-section').getBoundingClientRect().top;
 
     //If techSkills container is at 150 pixels from top then
-    if (techSkillsTop < 150) {
+    if (techSkillsTop < 180 && execute.barTech) {
         //Get every tech skill that we have
         const techSkillsNode = document.querySelectorAll('.bar-chart-tech');
         //Create the instance of the class ComponentsInfo to have acces to the tech bar charts percentages
@@ -328,14 +333,15 @@ window.addEventListener('scroll', function() {
         const ui = new UI();
         //Call the method barChartEffect from the UI
         ui.barChartsEffect(techSkillsNode, info.techBarCharts, info.techBarCharts[0].htmlBar.length);
+        execute.barTech = false; //To avoid the execution of this condition
     }
 
-    if (languageTop < 150) {
+    if (languageTop < 180 && execute.barLanguage) {
         const languagesNode = document.querySelectorAll('.bar-chart-language');
         const info = new ComponentsInfo();
         const ui = new UI();
-        //j = 0;
         ui.barChartsEffect(languagesNode, info.languageBarCharts, info.languageBarCharts[0].english.length);
+        execute.barLanguage = false;
     }
 });
 
