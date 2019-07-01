@@ -432,14 +432,14 @@ b.visible {
     border: 0;
 }
 
-.job-logo, .education-logo {
+.job-logo, .education-logo, .volunteering-logo {
     position: absolute;
     top: 25px;
     width: 8%;
     border-radius: 50%;
 }
 
-.job-information, .education-information {
+.job-information, .education-information, .volunteering-information {
     margin-left: 10%;
 }
 
@@ -612,6 +612,8 @@ b.visible {
 .language-container {
     display: flex;
     justify-content: flex-start;
+    z-index: 1;
+    background-color: white;
 }
 
 .language-container .bar-chart {
@@ -650,14 +652,23 @@ b.visible {
 }
 
 .facts-language-container {
-    background-color: var(--mainContent);
-    margin-top: -1px;
+    background-color: rgb(236, 236, 236);
     padding: 15px 10px;
     color: rgb(6, 160, 221);
+    animation: dropDown 600ms;
+    border: 0;
+}
+
+@keyframes dropDown {
+    from {
+        transform: translateY(-70px);
+    }
+    to {
+        transform: translateY(0px);
+    }
 }
 
 .facts-language-container:last-child {
-    margin-top: -2px;
     margin-bottom: 20px;
 }
 
