@@ -681,6 +681,58 @@ b.visible {
     margin-bottom: 5px;
 }
 
+/* VOLUNTEERING SECTION */
+.volunteering-container {
+    padding-bottom: 8%;
+}
+
+.buttons-container {
+    position: absolute;
+    top: 70%;
+    right: 8%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.volunteerign-details {
+    position: relative;
+    top: 0;
+    right: 0;
+}
+
+.project-button {
+    display: inline-block;
+    cursor: pointer;
+    padding: 4px 4px;
+    border: 1px solid rgba(4, 82, 184, 0.3);
+    border-radius: 4px;
+    color: white;
+    background-image: linear-gradient(to bottom, var(--bannerColor), var(--linksHover));
+}
+
+.project-button i {
+    padding-right: 4px;
+}
+
+.project-button:hover {
+    background-image: linear-gradient(to top, var(--bannerColor), var(--linksHover));
+}
+
+.buttons-container .project-button {
+    margin-right: 15px;
+}
+
+.details-box ul {
+    list-style-type: disc;
+    list-style-position: inside;
+    text-align: justify;
+}
+
+.details-box ul li {
+    margin-bottom: 5px;
+}
+
+
 .projects-container {
     margin-left: 23px;
     width: calc(23% - 23px);

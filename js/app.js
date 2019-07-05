@@ -8,23 +8,23 @@ class ComponentsInfo {
     constructor() {
         this.jobDetails = [
             {
-                jobName: 'Auxiliar General',
-                jobPlace: 'Office Ddepot de México S.A. de C.V.',
-                jobLogo: 'img/officedepot.png',
-                jobGoals: 'Empleado del mes',
-                jobTool1: {
+                name: 'Auxiliar General',
+                place: 'Office Depot de México S.A. de C.V.',
+                logo: 'img/officedepot.png',
+                goals: 'Empleado del mes',
+                tool1: {
                     label: 'Pasillos 40',
                     offset: 15,
                     value: 40,
                     bg: '--linksHover',
                 },
-                jobTool2: {
+                tool2: {
                     label: 'Servicio 30%',
                     offset: 55,
                     value: 30,
                     bg: 'orange',
                 },
-                jobTool3: {
+                tool3: {
                     label: 'Iventarios 30%',
                     offset: 85,
                     value: 30,
@@ -32,23 +32,23 @@ class ComponentsInfo {
                 }
             },
             {
-                jobName: 'Practicante Desarrollador Web',
-                jobPlace: 'Besser Energy S.A.P.I de C.V.',
-                jobLogo: 'img/besserlighting.jpg',
-                jobGoals: 'Desarrollar de inicio a fin la página web de la empresa',
-                jobTool1: {
+                name: 'Practicante Desarrollador Web',
+                place: 'Besser Energy S.A.P.I de C.V.',
+                logo: 'img/besserlighting.jpg',
+                goals: 'Desarrollar de inicio a fin la página web de la empresa',
+                tool1: {
                     label: 'HTML, CSS 45%',
                     offset: '10',
                     value: '45',
                     bg: '--linksHover',
                 },
-                jobTool2: {
+                tool2: {
                     label: 'Linux, GIT 30%',
                     offset: '55',
                     value: '30',
                     bg: 'orange',
                 },
-                jobTool3: {
+                tool3: {
                     label: 'Python 25%',
                     offset: '85',
                     value: '25',
@@ -84,6 +84,19 @@ class ComponentsInfo {
                     {fact0: 'Lengua nativa'},
                     {fact1: 'Redacción de reportes y documentos complejos'}
                 ]       
+            }
+        ],
+
+        this.volunteeringDetails = [
+            {
+                name: 'GetApp Program',
+                place: 'JA México y Accenture México',
+                logo: 'img/jamexico.jpg',
+                goals: 'Permanecer en el Top 3 durante todo el programa',
+                tool1: 'Planeación de Negocios',
+                tool2: 'Propuesta de valor',
+                tool3: 'Desarrollo de Prototipos',
+                tool4: 'Estrategias de Marketing', 
             }
         ]
     }
@@ -171,7 +184,7 @@ class UI {
     }
 
     //Method to create the details box that apper with a hover in the details button
-    detailsBoxCreation(index, highScreen, buttonPosition, infoObject) {
+    detailsBoxCreation(index, highScreen, buttonPosition, infoObject, pieChart) {
         //We create the div that is going to have all the information
         const detailsBox = document.createElement('div');
         detailsBox.className = 'details-box container-short' //Get the classes that apply the design
@@ -183,23 +196,30 @@ class UI {
         } else {
             detailsBox.style.bottom = '140%'; 
         }
+        let subElement = '';
         //Here we insert all the elements that our div is going to have with the information extracted of the object array
-       detailsBox.innerHTML = `<img src="${infoObject[index].jobLogo}" class="job-logo">
-       <h4 class="subtitle-section">${infoObject[index].jobName}</h4>
-       <h5 class="subtitle-section">${infoObject[index].jobPlace}</h5>
+       detailsBox.innerHTML = `<img src="${infoObject[index].logo}" class="job-logo">
+       <h4 class="subtitle-section">${infoObject[index].name}</h4>
+       <h5 class="subtitle-section">${infoObject[index].place}</h5>
        <div class="details-info">
             <div class="goals-container">
                 <h5>Logros</h5>
                 <i class="fas fa-medal"></i>
-                <p>${infoObject[index].jobGoals}</p>
+                <p>${infoObject[index].goals}</p>
             </div>
             <div class="tools-container">
-                <h5>Herramientas</h5>
-                <div class="pie-chart">
-                    <div class="pie-segment" data-label="${infoObject[index].jobTool1.label}" style="--offset:${infoObject[index].jobTool1.offset}; --value:${infoObject[index].jobTool1.value}; --bg: var(${infoObject[index].jobTool1.bg});" title="${infoObject[index].jobTool1.label}"></div>
-                    <div class="pie-segment" data-label="${infoObject[index].jobTool2.label}" style="--offset:${infoObject[index].jobTool2.offset}; --value:${infoObject[index].jobTool2.value}; --bg: ${infoObject[index].jobTool2.bg};" title="${infoObject[index].jobTool2.label}"></div>
-                    <div class="pie-segment" data-label="${infoObject[index].jobTool3.label}" style="--offset:${infoObject[index].jobTool3.offset}; --value:${infoObject[index].jobTool3.value}; --bg: ${infoObject[index].jobTool3.bg};" title="${infoObject[index].jobTool3.label}"></div>
-                </div>
+                <h5>Conocimientos</h5>
+                ${!pieChart ? `<ul>
+                    <li>${infoObject[index].tool1}</li>
+                    <li>${infoObject[index].tool2}</li>
+                    <li>${infoObject[index].tool3}</li>
+                    <li>${infoObject[index].tool4}</li>
+                </ul>` 
+                : `<div class="pie-chart">
+                    <div class="pie-segment" data-label="${infoObject[index].tool1.label}" style="--offset:${infoObject[index].tool1.offset}; --value:${infoObject[index].tool1.value}; --bg: var(${infoObject[index].tool1.bg});" title="${infoObject[index].tool1.label}"></div>
+                    <div class="pie-segment" data-label="${infoObject[index].tool2.label}" style="--offset:${infoObject[index].tool2.offset}; --value:${infoObject[index].tool2.value}; --bg: ${infoObject[index].tool2.bg};" title="${infoObject[index].tool2.label}"></div>
+                    <div class="pie-segment" data-label="${infoObject[index].tool3.label}" style="--offset:${infoObject[index].tool3.offset}; --value:${infoObject[index].tool3.value}; --bg: ${infoObject[index].tool3.bg};" title="${infoObject[index].tool3.label}"></div>
+                    </div>`}
             </div>
        </div>`
 
@@ -335,8 +355,9 @@ document.querySelector('.experience-container').addEventListener('mouseenter', f
             const info = new ComponentsInfo();
             //Create the UI instance object
             const ui = new UI();
+            const pieChart = true;
             //Call the method to create the details box, here we need four parameters: the index number of the object array according with the number job that the e.target found, the complete height of the viewport, the button position and the object array, where it is the information that we're going to need.
-            const detailsBox = ui.detailsBoxCreation(0, highScreen, buttonPosition, info.jobDetails);
+            const detailsBox = ui.detailsBoxCreation(0, highScreen, buttonPosition, info.jobDetails, pieChart);
             //At the end we insert the detailsBox element that our method has returned inside the jobZero element
             jobZero.appendChild(detailsBox);
         
@@ -346,8 +367,9 @@ document.querySelector('.experience-container').addEventListener('mouseenter', f
             const info = new ComponentsInfo();
             //Create the UI instance object
             const ui = new UI();
+            const pieChart = true;
             //Call the method to create the details box
-            const detailsBox = ui.detailsBoxCreation(1, highScreen, buttonPosition, info.jobDetails);
+            const detailsBox = ui.detailsBoxCreation(1, highScreen, buttonPosition, info.jobDetails, pieChart);
             //console.log(detailsBox);
             jobOne.appendChild(detailsBox);
         }
@@ -408,5 +430,45 @@ document.getElementById('languages-section').addEventListener('click', function(
         ui.dropDownLanguage('spanish-language', languageContainer, info.factLanguages[1].spanish);
     }
 });
+
+document.querySelector('.volunteering-section').addEventListener('mouseenter', function(e) {
+    //We are going to need the height of the viewport so we got it
+    const highScreen = window.innerHeight;
+    //We get the buttons container to detect one from another
+    const volunteerZero = document.getElementById('volunteering-0');
+
+	// Make sure it's not the document object
+    //if (!('matches') in e.target) return;
+
+    // Do your thing...
+	if (e.target.matches('.details')) {
+		//Here we detect the details button that is being hover, zero is for office and one for besser
+        if(e.target === volunteerZero) {
+            //Found the exact position of the button in the viewport
+            const buttonPosition = volunteerZero.getBoundingClientRect();
+            //Get the object array that has the information that we're going to need
+            const info = new ComponentsInfo();
+            //Create the UI instance object
+            const ui = new UI();
+            const pieChart = false;
+            //Call the method to create the details box, here we need four parameters: the index number of the object array according with the number job that the e.target found, the complete height of the viewport, the button position and the object array, where it is the information that we're going to need.
+            const detailsBox = ui.detailsBoxCreation(0, highScreen, buttonPosition, info.volunteeringDetails, pieChart);
+            //At the end we insert the detailsBox element that our method has returned inside the jobZero element
+            volunteerZero.appendChild(detailsBox);
+        
+        }
+    }
+}, true);
+
+document.querySelector('.volunteering-section').addEventListener('mouseleave', function(e) {
+    // Make sure it's not the document object
+    //if (!('matches') in e.target) return;
+    let detailsBox;
+    // Do your thing...
+    if (e.target.matches('.details')) {
+        detailsBox = document.querySelector('.details-box')
+        detailsBox.remove();
+    }
+}, true);
 
 //http://127.0.0.1:5500/index.html
