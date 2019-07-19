@@ -29,7 +29,8 @@ class ComponentsInfo {
                     offset: 85,
                     value: 30,
                     bg: 'rgb(25, 200, 83)',
-                }
+                },
+                pieChart: true,
             },
             {
                 name: 'Practicante Desarrollador Web',
@@ -53,7 +54,8 @@ class ComponentsInfo {
                     offset: '85',
                     value: '25',
                     bg: 'rgb(25, 200, 83)'
-                }
+                },
+                pieChart: true,
             }
         ],
 
@@ -184,7 +186,7 @@ class UI {
     }
 
     //Method to create the details box that apper with a hover in the details button
-    detailsBoxCreation(index, highScreen, buttonPosition, infoObject, pieChart) {
+    detailsBoxCreation(highScreen, buttonPosition, {name, place, logo, goals, tool1, tool2, tool3, tool4, pieChart}={}) {
         //We create the div that is going to have all the information
         const detailsBox = document.createElement('div');
         detailsBox.className = 'details-box container-short' //Get the classes that apply the design
@@ -196,29 +198,29 @@ class UI {
         } else {
             detailsBox.style.bottom = '140%'; 
         }
-        let subElement = '';
+
         //Here we insert all the elements that our div is going to have with the information extracted of the object array
-       detailsBox.innerHTML = `<img src="${infoObject[index].logo}" class="job-logo">
-       <h4 class="subtitle-section">${infoObject[index].name}</h4>
-       <h5 class="subtitle-section">${infoObject[index].place}</h5>
+       detailsBox.innerHTML = `<img src="${logo}" class="job-logo">
+       <h4 class="subtitle-section">${name}</h4>
+       <h5 class="subtitle-section">${place}</h5>
        <div class="details-info">
             <div class="goals-container">
                 <h5>Logros</h5>
                 <i class="fas fa-medal"></i>
-                <p>${infoObject[index].goals}</p>
+                <p>${goals}</p>
             </div>
             <div class="tools-container">
                 <h5>Conocimientos</h5>
                 ${!pieChart ? `<ul>
-                    <li>${infoObject[index].tool1}</li>
-                    <li>${infoObject[index].tool2}</li>
-                    <li>${infoObject[index].tool3}</li>
-                    <li>${infoObject[index].tool4}</li>
+                    <li>${tool1}</li>
+                    <li>${tool2}</li>
+                    <li>${tool3}</li>
+                    <li>${tool4}</li>
                 </ul>` 
                 : `<div class="pie-chart">
-                    <div class="pie-segment" data-label="${infoObject[index].tool1.label}" style="--offset:${infoObject[index].tool1.offset}; --value:${infoObject[index].tool1.value}; --bg: var(${infoObject[index].tool1.bg});" title="${infoObject[index].tool1.label}"></div>
-                    <div class="pie-segment" data-label="${infoObject[index].tool2.label}" style="--offset:${infoObject[index].tool2.offset}; --value:${infoObject[index].tool2.value}; --bg: ${infoObject[index].tool2.bg};" title="${infoObject[index].tool2.label}"></div>
-                    <div class="pie-segment" data-label="${infoObject[index].tool3.label}" style="--offset:${infoObject[index].tool3.offset}; --value:${infoObject[index].tool3.value}; --bg: ${infoObject[index].tool3.bg};" title="${infoObject[index].tool3.label}"></div>
+                    <div class="pie-segment" data-label="${tool1.label}" style="--offset:${tool1.offset}; --value:${tool1.value}; --bg: var(${tool1.bg});" title="${tool1.label}"></div>
+                    <div class="pie-segment" data-label="${tool2.label}" style="--offset:${tool2.offset}; --value:${tool2.value}; --bg: ${tool2.bg};" title="${tool2.label}"></div>
+                    <div class="pie-segment" data-label="${tool3.label}" style="--offset:${tool3.offset}; --value:${tool3.value}; --bg: ${tool3.bg};" title="${tool3.label}"></div>
                     </div>`}
             </div>
        </div>`
@@ -355,9 +357,8 @@ document.querySelector('.experience-container').addEventListener('mouseenter', f
             const info = new ComponentsInfo();
             //Create the UI instance object
             const ui = new UI();
-            const pieChart = true;
             //Call the method to create the details box, here we need four parameters: the index number of the object array according with the number job that the e.target found, the complete height of the viewport, the button position and the object array, where it is the information that we're going to need.
-            const detailsBox = ui.detailsBoxCreation(0, highScreen, buttonPosition, info.jobDetails, pieChart);
+            const detailsBox = ui.detailsBoxCreation(highScreen, buttonPosition, info.jobDetails[0]);
             //At the end we insert the detailsBox element that our method has returned inside the jobZero element
             jobZero.appendChild(detailsBox);
         
@@ -367,9 +368,8 @@ document.querySelector('.experience-container').addEventListener('mouseenter', f
             const info = new ComponentsInfo();
             //Create the UI instance object
             const ui = new UI();
-            const pieChart = true;
             //Call the method to create the details box
-            const detailsBox = ui.detailsBoxCreation(1, highScreen, buttonPosition, info.jobDetails, pieChart);
+            const detailsBox = ui.detailsBoxCreation(highScreen, buttonPosition, info.jobDetails[1]);
             //console.log(detailsBox);
             jobOne.appendChild(detailsBox);
         }
@@ -450,9 +450,8 @@ document.querySelector('.volunteering-section').addEventListener('mouseenter', f
             const info = new ComponentsInfo();
             //Create the UI instance object
             const ui = new UI();
-            const pieChart = false;
             //Call the method to create the details box, here we need four parameters: the index number of the object array according with the number job that the e.target found, the complete height of the viewport, the button position and the object array, where it is the information that we're going to need.
-            const detailsBox = ui.detailsBoxCreation(0, highScreen, buttonPosition, info.volunteeringDetails, pieChart);
+            const detailsBox = ui.detailsBoxCreation(highScreen, buttonPosition, info.volunteeringDetails[0]);
             //At the end we insert the detailsBox element that our method has returned inside the jobZero element
             volunteerZero.appendChild(detailsBox);
         
@@ -471,4 +470,12 @@ document.querySelector('.volunteering-section').addEventListener('mouseleave', f
     }
 }, true);
 
+document.querySelector('.nav__links-container').addEventListener('click', function() {
+    console.log('ok');
+    window.scrollTo({
+        'behavior':'smooth',
+        'left':0,
+        'top': 500,
+    });
+});
 //http://127.0.0.1:5500/index.html
