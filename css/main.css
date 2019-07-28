@@ -59,6 +59,18 @@ a {
 }
 
 /* GENERAL STYLES */
+/*html {
+    scroll-behavior: smooth;
+}
+
+body {
+   scroll-padding-top: 70px;
+}*/
+
+html {
+    position: relative;
+}
+
 html, body {
     font-size: 1.5vw;
 }

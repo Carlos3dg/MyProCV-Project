@@ -470,12 +470,25 @@ document.querySelector('.volunteering-section').addEventListener('mouseleave', f
     }
 }, true);
 
-document.querySelector('.nav__links-container').addEventListener('click', function() {
-    console.log('ok');
-    window.scrollTo({
-        'behavior':'smooth',
-        'left':0,
-        'top': 500,
+//Function to add scroll effect to the On-Page-Link
+(function addAnchorEventListeners() {
+    //Get anchors and the corresponding sections
+    const anchors =  document.querySelectorAll('.nav__links');
+    const sections = document.querySelectorAll('.information-sections');
+    //Turn our anchors Node variable into and Array
+    const anchorsArray = Array.prototype.slice.call(anchors);
+
+    anchorsArray.forEach((element, index)=>{
+        //Add the click event listener to every anchor
+        element.addEventListener('click', function(e) {
+            //Avoid the default behavior on anchors that target inside the page
+            e.preventDefault();
+            //Add scroll and position
+            window.scrollTo({
+                'behavior': 'smooth',
+                'left': 0,
+                'top': sections[index].offsetTop - 70,
+            });
+        });
     });
-});
-//http://127.0.0.1:5500/index.html
+})(); 
