@@ -475,7 +475,7 @@ document.querySelector('.volunteering-section').addEventListener('mouseleave', f
     //Get anchors and the corresponding sections
     const anchors =  document.querySelectorAll('.nav__links');
     const sections = document.querySelectorAll('.information-sections');
-    //Turn our anchors Node variable into and Array
+    //Turn our anchors Node variable into an Array
     const anchorsArray = Array.prototype.slice.call(anchors);
 
     anchorsArray.forEach((element, index)=>{

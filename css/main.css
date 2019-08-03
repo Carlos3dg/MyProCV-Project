@@ -52,7 +52,7 @@ a {
     --redColor: rgb(206, 36, 36);
     --lightBlueColor: rgb(10, 224, 214);
     --purpleColor: rgb(165, 50, 219);
-    --mainContent: rgb(172, 214, 221);
+    --mainContent: rgb(206, 235, 240);
     --fullSidebarSize: 20vw;
     --leftSidebarSize: calc(var(--fullSidebarSize)/6);
     --hoverButtonsAlpha: rgba(6, 160, 221, 0.3);
@@ -406,8 +406,8 @@ b.visible {
 
 .body-information {
     margin-left: calc(var(--leftSidebarSize) + 23px);
-    min-width: calc(57% - 30px);
-    max-width: calc(77% - (var(--leftSidebarSize) + 23px));
+    min-width: calc(55% - 30px);
+    max-width: calc(75% - (var(--leftSidebarSize) + 23px));
     transition: all 350ms linear;
 }
 
@@ -720,6 +720,7 @@ b.visible {
     border-radius: 4px;
     color: white;
     background-image: linear-gradient(to bottom, var(--bannerColor), var(--linksHover));
+    margin-right: 15px;
 }
 
 .project-button i {
@@ -728,10 +729,6 @@ b.visible {
 
 .project-button:hover {
     background-image: linear-gradient(to top, var(--bannerColor), var(--linksHover));
-}
-
-.buttons-container .project-button {
-    margin-right: 15px;
 }
 
 .details-box ul {
@@ -747,7 +744,23 @@ b.visible {
 
 .projects-container {
     margin-left: 23px;
-    width: calc(23% - 23px);
-    min-width: calc(23% - 23px);
-    max-width: calc(23% - 23px);
+    width: calc(25% - 23px);
+    min-width: calc(25% - 23px);
+    max-width: calc(25% - 23px);
+}
+
+.portfolio-video {
+    width: calc(100% + 40px);
+    height: calc((25vw - 23px)*0.54);
+    margin-left: -20px;
+    margin-right: -20px;
+}
+
+.projects-container p {
+    margin: 12px 0 20px;
+    text-align: justify;
+}
+
+.project-buttons-container {
+    display: flex;
 }
