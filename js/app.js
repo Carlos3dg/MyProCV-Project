@@ -470,6 +470,21 @@ document.querySelector('.volunteering-section').addEventListener('mouseleave', f
     }
 }, true);
 
+(function portfolioVideos() {
+    const containersNode = document.querySelectorAll('[data-video="video-container"]');
+    const containers = Array.prototype.slice.call(containersNode);
+    const videos = containers.map(element => {return element.querySelector('video')});
+    containers.forEach((element, index) => {
+        element.addEventListener('mouseenter', function() {
+            videos[index].play();
+        });
+
+        element.addEventListener('mouseleave', function() {
+            videos[index].pause();
+        });
+    })
+})();
+
 //Function to add scroll effect to the On-Page-Link
 (function addAnchorEventListeners() {
     //Get anchors and the corresponding sections
