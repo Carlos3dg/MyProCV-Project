@@ -291,6 +291,12 @@ class UI {
         return divFacts;
     }
 
+    /*Contact Box creation*/
+    contactBoxCreation() {
+        const div = document.createElement('div');
+        console.log(div);
+    }
+
     changeDefaultValues() {
         
     }
@@ -485,6 +491,12 @@ document.querySelector('.volunteering-section').addEventListener('mouseleave', f
     })
 })();
 
+document.querySelector('#anchor-contact').addEventListener('click', function(e) {
+    e.preventDefault();
+    const ui = new UI();
+    ui.contactBoxCreation();
+});
+
 //Function to add scroll effect to the On-Page-Link
 (function addAnchorEventListeners() {
     //Get anchors and the corresponding sections
@@ -502,7 +514,7 @@ document.querySelector('.volunteering-section').addEventListener('mouseleave', f
             window.scrollTo({
                 'behavior': 'smooth',
                 'left': 0,
-                'top': sections[index].offsetTop - 70,
+                'top': sections[index].offsetTop - 70, /*R*/ 
             });
         });
     });
