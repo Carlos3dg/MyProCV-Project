@@ -807,8 +807,19 @@ b.visible {
     /*padding: 0 15px;*/
 }
 
+.close-icon-container {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.close-icon-container i {
+    color: rgba(0, 0, 0, 0.3);
+}
+
 .contact-container .subtitle-section {
-    margin-bottom: 15px;
+    margin-bottom: calc(17vh/6.5);
 }
 
 .media-contact-container {

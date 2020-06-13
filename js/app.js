@@ -194,9 +194,9 @@ class UI {
         const topPercentage = (buttonPosition.top/highScreen)*100;
        //If the percentage is less than 45 we insert our div element at the top but if it's not we insert it at the bottom
         if (topPercentage < 45) {
-           detailsBox.style.top = '140%'; 
+           detailsBox.style.top = '120%'; 
         } else {
-            detailsBox.style.bottom = '140%'; 
+            detailsBox.style.bottom = '120%'; 
         }
 
         //Here we insert all the elements that our div is going to have with the information extracted of the object array
@@ -292,9 +292,30 @@ class UI {
     }
 
     /*Contact Box creation*/
-    contactBoxCreation() {
+    contactBoxCreation(parent) {
         const div = document.createElement('div');
-        console.log(div);
+        div.className = 'close-wrapper contact-wrapper';
+
+        div.innerHTML = `<div class="contact-container">
+         <span class="close-icon-container"><i class="close-wrapper fas fa-times"></i></span>
+                <h3 class="subtitle-section">Envíame un mensaje</h3>
+                <div class="media-contact-container">
+                    <a class="email-container">
+                        <img src="img/gmail.png" alt="Gmail">
+                        <p>Email</p>
+                    </a>
+                    <a class="whatsapp-container">
+                        <img src="img/WhatsApp.svg" alt="WhatsApp">
+                        <p>WhatsApp</p>
+                    </a>
+                </div>
+        </div>
+        `;
+
+        //Print element in browser
+        parent.appendChild(div);
+
+        return div;
     }
 
     changeDefaultValues() {
@@ -491,10 +512,18 @@ document.querySelector('.volunteering-section').addEventListener('mouseleave', f
     })
 })();
 
+//Contact Button: Open the contact wrapper
 document.querySelector('#anchor-contact').addEventListener('click', function(e) {
     e.preventDefault();
     const ui = new UI();
-    ui.contactBoxCreation();
+    const parentContainer = document.querySelector('.contact-button-container');
+    const divWrapper = ui.contactBoxCreation(parentContainer);
+    //ContactWrapper: Close it    
+    divWrapper.addEventListener('click', function(e) {
+        if(e.target.className.match('close-wrapper')) {
+            divWrapper.remove();
+        }
+    });
 });
 
 //Function to add scroll effect to the On-Page-Link
