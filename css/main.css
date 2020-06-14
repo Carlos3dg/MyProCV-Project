@@ -122,7 +122,7 @@ h5 {
     font-size: 1.1em;
 }
 
-p, span, label, a {
+p, span, label, a, select {
     font-family: "Lato", Helvetica, Arial, sans-serif;
     font-size: 1.1em;
     font-weight: 300;
@@ -197,6 +197,27 @@ a {
 .nav__links:hover {
     color: rgb(6, 160, 221);
     border-bottom: 3px solid rgb(6, 160, 221);
+}
+
+.select-language {
+    background-color: inherit;
+    border: 1px solid white;
+    border-radius: 4px;
+    color: white;
+    transition: all 5s ease-out;
+}
+
+select:-internal-list-box {
+    transition: all 5s ease-out;
+}
+
+.select-language:focus {
+    border-bottom: 0;
+}
+
+option {
+    background-color: rgba(28, 30, 39, 0.9);
+    transition: all 5s ease-out;
 }
 
 .title__container {
@@ -460,6 +481,7 @@ b.visible {
     position: absolute;
     top: 35px;
     right: 8%;
+    padding: 10px 0;
 }
 
 .details-button {
@@ -700,6 +722,7 @@ b.visible {
     right: 8%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .volunteerign-details {

@@ -194,9 +194,9 @@ class UI {
         const topPercentage = (buttonPosition.top/highScreen)*100;
        //If the percentage is less than 45 we insert our div element at the top but if it's not we insert it at the bottom
         if (topPercentage < 45) {
-           detailsBox.style.top = '120%'; 
+           detailsBox.style.top = '100%'; 
         } else {
-            detailsBox.style.bottom = '120%'; 
+            detailsBox.style.bottom = '100%'; 
         }
 
         //Here we insert all the elements that our div is going to have with the information extracted of the object array
