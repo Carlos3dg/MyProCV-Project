@@ -169,12 +169,16 @@ a {
     display: flex;
     width: 100%;
     height: 100%;
-    align-items: center;
+    /*align-items: center;*/
     justify-content: space-between;
 }
 
 .menu__button {
     cursor: pointer;
+}
+
+.menu__button i {
+    line-height: 70px;
 }
 
 .menu__button:hover {
@@ -199,25 +203,61 @@ a {
     border-bottom: 3px solid rgb(6, 160, 221);
 }
 
-.select-language {
-    background-color: inherit;
+/* LANGUAGE SWITCHER */
+.display-language {
+    height: calc(1.45em + 16px);
     border: 1px solid white;
+    padding: 8px 10px;
     border-radius: 4px;
-    color: white;
-    transition: all 5s ease-out;
+    margin-top: calc((70px - (1.1em + 16px)) / 2);
+    background-color: var(--alphaBlackContainer);
+    transition: height 400ms linear;
+    overflow: hidden;
+    cursor: pointer;
 }
 
-select:-internal-list-box {
-    transition: all 5s ease-out;
+.selected-language span, .language-option {
+    margin: 0 10px 0 7px;
 }
 
-.select-language:focus {
-    border-bottom: 0;
+.display-on {
+    height: calc((1.45em + 16px) + ((1.45em + 21px) * 2));
 }
 
-option {
-    background-color: rgba(28, 30, 39, 0.9);
-    transition: all 5s ease-out;
+.display-on .selected-language {
+    padding-bottom: 8px;
+    color: var(--linksHover);
+}
+
+.display-on .list-languages {
+    margin-top: 0;
+}
+
+.display-on .list-languages div {
+    border-top: 1px solid white;
+}
+
+.display-on .list-languages div:last-child {
+    padding-bottom: 0;
+}
+
+.flag-image {
+    height: 0.85em;
+    width: auto;
+}
+
+.list-languages {
+    text-align: left;
+    /*display: none;*/
+    margin-top: 7px;
+}
+
+.esp-language, .eng-language {
+    padding: 10px 0;
+}
+
+.esp-language:hover, .eng-language:hover {
+    color: var(--linksHover);
 }
 
 .title__container {

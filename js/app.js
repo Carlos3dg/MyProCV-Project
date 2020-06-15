@@ -547,4 +547,27 @@ document.querySelector('#anchor-contact').addEventListener('click', function(e) 
             });
         });
     });
-})(); 
+})();
+
+document.querySelector('.display-language').addEventListener('click', function(e) {
+    const displayContainer = document.querySelector('.display-language');
+    displayContainer.classList.toggle('display-on');
+
+    const listLanguages = document.querySelector('.list-languages').children;
+    const arrayList = Array.prototype.slice.call(listLanguages);
+    
+    arrayList.forEach((language) => {
+        language.addEventListener('click', function() {
+            const lang = language.querySelector('.language-option').textContent;
+            const flag = language.querySelector('.flag-image').src;
+            
+            const selectedLang = displayContainer.querySelector('.selected-lang');
+            const selectedFlag = displayContainer.querySelector('.selected-flag');
+
+            selectedLang.textContent = lang;
+            selectedFlag.src = flag;
+        })
+    });
+
+    
+});
