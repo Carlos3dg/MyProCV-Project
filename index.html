@@ -16,26 +16,26 @@
                     <i class="fas fa-bars medium__icons" id="toggle__menu"></i>
                 </li>
                 <li class="nav__links-container">     
-                        <a href="#experience" class="nav__links">Experiencia</a>
-                        <a href="#education" class="nav__links">Educación</a>
-                        <a href="#technical-skills" class="nav__links">Conocimientos</a>
-                        <a href="#languages-section" class="nav__links">Idiomas</a>
-                        <a href="#volunteering-section" class="nav__links">Voluntariado</a>
+                        <a href="#experience" class="nav__links" data-text>Experiencia</a>
+                        <a href="#education" class="nav__links" data-text>Educación</a>
+                        <a href="#technical-skills" class="nav__links" data-text>Conocimientos</a>
+                        <a href="#languages-section" class="nav__links" data-text>Idiomas</a>
+                        <a href="#volunteering-section" class="nav__links" data-text>Voluntariado</a>
                 </li>
                 <li class="container-short">
                     <div class="display-language">
                         <div class="selected-language">
-                            <img class="flag-image selected-flag" src="https://www.besserlighting.com/wp-content/plugins/translatepress-multilingual/assets/images/flags/es_MX.png" alt="">
+                            <img class="flag-image selected-flag" src="/img/es_MX.png" alt="">
                             <span class="selected-lang language-option">ESP</span>
                             <i class="fas fa-caret-down"></i>
                         </div>
                         <div class="list-languages">
-                            <div class="esp-language">
-                                <img class="flag-image" src="https://www.besserlighting.com/wp-content/plugins/translatepress-multilingual/assets/images/flags/es_MX.png" alt="">
+                            <div class="esp-language" id='es'>
+                                <img class="flag-image" src="img/es_MX.png" alt="">
                                 <span class="language-option">ESP</span>
                             </div>
-                            <div class="eng-language">
-                                <img class="flag-image" src="https://www.besserlighting.com/wp-content/plugins/translatepress-multilingual/assets/images/flags/en_US.png" alt="">
+                            <div class="eng-language" id='en'>
+                                <img class="flag-image" src="/img/en_US.png" alt="">
                                 <span class="language-option">ENG</span>
                             </div>
                         </div>
@@ -46,9 +46,9 @@
         <div class="title__container">
             <h1>Juan Carlos Obregón Ortíz</h1>
             <h2 id="subtitle-container">
-                <b class="subtitle visible">Desarrollo Web</b>
-                <b class="subtitle">Diseño Web</b>
-                <b class="subtitle">Innovación</b>
+                <b class="subtitle visible">Desarrollador Web</b>
+                <b class="subtitle">Autodidacta</b>
+                <b class="subtitle">Innovador</b> 
             </h2>
         </div>
     </header>
@@ -205,7 +205,7 @@
                 <div class="sub-section-container container-medium" data-video="video-container">
                     <video src="videos/moviferia_V.mp4" class="portfolio-video" type="video/mp4" preload="metadata" muted loop></video>
                     <h4 class="subtitle-section">Tarjeta Feria App</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae nulla rem debitis illum quia, repudiandae recusandae, nihil, labore eius error ullam laudantium ducimus culpa sed!</p>
+                    <p>Proyecto que simula todo el Front-end de una App móvil, en el cual se puede navegar a través de diferentes secciones, realizar búsquedas con diferentes palabras clave, mostrar y ocultar información como menús y preguntas y respuestas, etc. Este proyecto fue realizado con HTML, CSS y JavaScript</p>
                     <div class="project-buttons-container container-short">
                         <a href="" class="project-button"><i class="fas fa-link"></i>Proyecto</a>
                         <a href="" class="details-button"><i class="fab fa-github"></i>Código</a> 
@@ -214,7 +214,7 @@
                 <div class="sub-section-container container-medium" data-video="video-container">
                     <video src="videos/listingTasks_V.mp4" class="portfolio-video" type="video/mp4" preload="metadata" muted loop></video>
                     <h4 class="subtitle-section">Lista de Tareas</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae nulla rem debitis illum quia, repudiandae recusandae, nihil, labore eius error ullam laudantium ducimus culpa sed!</p>
+                    <p>Lista de Tareas nos permite ir agregando tareas a una tabla la cual las clasifica como tareas terminadas y tareas incompletas y estas a su vez se en listan en un orden en el cual se posicionan las incompletas al inicio de la lista y las completas al final de esta. Este proyecto uso conceptos intermedios y avanzados de JavaScript como LocalStorage, Clases, objetos y métodos, eventos y diversos métodos de arreglos, además de HTML y CSS.</p>
                     <div class="project-buttons-container container-short">
                         <a href="" class="project-button"><i class="fas fa-link"></i>Proyecto</a>
                         <a href="" class="details-button"><i class="fab fa-github"></i>Código</a>  
@@ -247,6 +247,7 @@
     </footer>
 
     <script src="js/app.js"></script>
+    <script src='js/languages.js'></script>
     <script src="vendors/js/particles.min.js"></script>
     <script src="vendors/js/app.js"></script>
 </body>

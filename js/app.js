@@ -12,25 +12,11 @@ class ComponentsInfo {
                 place: 'Office Depot de México S.A. de C.V.',
                 logo: 'img/officedepot.png',
                 goals: 'Empleado del mes',
-                tool1: {
-                    label: 'Pasillos 40',
-                    offset: 15,
-                    value: 40,
-                    bg: '--linksHover',
-                },
-                tool2: {
-                    label: 'Servicio 30%',
-                    offset: 55,
-                    value: 30,
-                    bg: 'orange',
-                },
-                tool3: {
-                    label: 'Iventarios 30%',
-                    offset: 85,
-                    value: 30,
-                    bg: 'rgb(25, 200, 83)',
-                },
-                pieChart: true,
+                tool1: 'Mantenimiento a pasillos',
+                tool2: 'Atención al cliente',
+                tool3: 'Inventarios',
+                tool4: 'Manejo de montacargas',
+                pieChart: false,
             },
             {
                 name: 'Practicante Desarrollador Web',
@@ -38,15 +24,15 @@ class ComponentsInfo {
                 logo: 'img/besserlighting.jpg',
                 goals: 'Desarrollar de inicio a fin la página web de la empresa',
                 tool1: {
-                    label: 'HTML, CSS 45%',
+                    label: 'Front-end, SEO 50%',
                     offset: '10',
-                    value: '45',
+                    value: '50',
                     bg: '--linksHover',
                 },
                 tool2: {
-                    label: 'Linux, GIT 30%',
-                    offset: '55',
-                    value: '30',
+                    label: 'Linux, GIT 25%',
+                    offset: '60',
+                    value: '25',
                     bg: 'orange',
                 },
                 tool3: {
@@ -76,15 +62,15 @@ class ComponentsInfo {
         this.factLanguages = [
             {english:
                 [
-                    {fact0: 'Lectura y escritura correcta, capaz de leer y escribir documentos complejos con un poco de esfuerzo'},
+                    {fact0: 'Lectura y escritura correcta, capaz de leer y escribir documentos formales'},
                     {fact1: 'Entendimiento del idioma cuando los demás se están expresando'},
-                    {fact2: 'Capaz de mantener una conversación fluída en temas cotidianos o de interes'}
+                    {fact2: 'Capaz de mantener una conversación fluida en temas cotidianos o de interés'}
                 ]
             },
             {spanish: 
                 [
                     {fact0: 'Lengua nativa'},
-                    {fact1: 'Redacción de reportes y documentos complejos'}
+                    {fact1: 'Redacción de reportes y documentos formales'}
                 ]       
             }
         ],
@@ -118,15 +104,16 @@ class UI {
             //Get the width value of one of the subtitles elements
             var widthSubtitle = subtitleHeader[i].offsetWidth + 10;
             //Get the value that is going to be subtracted
-            let widthSubtract = widthSubtitle/6;
+            let widthSubtract = Math.round(widthSubtitle/6);
             //The word clean effect as a promise to be able to execute every letter cut until there's no word
             let wordClean = new Promise((resolve, reject) => {
                 setTimeout(() => {
                     const cleanId = setInterval(function cleanFrame() {
                         widthSubtitle = widthSubtitle - widthSubtract;
-                        subtitleContainer.style.width = `${widthSubtitle}px`
-                        
-                        if (widthSubtitle < widthSubtract) {
+                        subtitleContainer.style.width = widthSubtitle<0 ? `${widthSubtitle * -1}px` : `${widthSubtitle}px`;
+                        //console.log(widthSubtract);
+
+                        if (widthSubtitle <= 0) {
                             resolve(true);
                             clearInterval(cleanId);
                         }
@@ -155,8 +142,8 @@ class UI {
                     widthContainer = widthContainer + widthAugment;
                     
                     subtitleContainer.style.width = `${widthContainer}px`;
-                    
-                    if (widthContainer >= widthSubtitle) {
+
+                    if (Math.round(widthContainer) >= widthSubtitle) {
                         resolve(true);
                         clearInterval(typeId);
                     }
@@ -548,26 +535,3 @@ document.querySelector('#anchor-contact').addEventListener('click', function(e) 
         });
     });
 })();
-
-document.querySelector('.display-language').addEventListener('click', function(e) {
-    const displayContainer = document.querySelector('.display-language');
-    displayContainer.classList.toggle('display-on');
-
-    const listLanguages = document.querySelector('.list-languages').children;
-    const arrayList = Array.prototype.slice.call(listLanguages);
-    
-    arrayList.forEach((language) => {
-        language.addEventListener('click', function() {
-            const lang = language.querySelector('.language-option').textContent;
-            const flag = language.querySelector('.flag-image').src;
-            
-            const selectedLang = displayContainer.querySelector('.selected-lang');
-            const selectedFlag = displayContainer.querySelector('.selected-flag');
-
-            selectedLang.textContent = lang;
-            selectedFlag.src = flag;
-        })
-    });
-
-    
-});
