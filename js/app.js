@@ -42,6 +42,12 @@ class ComponentsInfo {
                     bg: 'rgb(25, 200, 83)'
                 },
                 pieChart: true,
+            },
+            {
+                generalInfo: {
+                    achievements: 'Logros',
+                    knowledge: 'Conocimientos'
+                }
             }
         ],
 
@@ -85,8 +91,104 @@ class ComponentsInfo {
                 tool2: 'Propuesta de valor',
                 tool3: 'Desarrollo de Prototipos',
                 tool4: 'Estrategias de Marketing', 
+            },
+            {
+                generalInfo: {
+                    achievements: 'Logros',
+                    knowledge: 'Conocimientos'
+                }
             }
-        ]
+        ],
+
+        this.contactButton = {
+            sendMsj: 'Envíame un mensaje'
+        }
+    }
+
+    translateValuesToEn() {
+        this.jobDetails = [
+            {
+                name: 'Store Attendant',
+                place: 'Office Depot de México S.A. de C.V.',
+                logo: 'img/officedepot.png',
+                goals: 'Employee of the month',
+                tool1: 'Hall maintenance',
+                tool2: 'Customer service',
+                tool3: 'Inventories',
+                tool4: 'Lift truck driving',
+                pieChart: false,
+            },
+            {
+                name: 'Intern Web Developer',
+                place: 'Besser Energy S.A.P.I de C.V.',
+                logo: 'img/besserlighting.jpg',
+                goals: 'Building from scratch the company\'s web site',
+                tool1: {
+                    label: 'Front-end, SEO 50%',
+                    offset: '10',
+                    value: '50',
+                    bg: '--linksHover',
+                },
+                tool2: {
+                    label: 'Linux, GIT 25%',
+                    offset: '60',
+                    value: '25',
+                    bg: 'orange',
+                },
+                tool3: {
+                    label: 'Python 25%',
+                    offset: '85',
+                    value: '25',
+                    bg: 'rgb(25, 200, 83)'
+                },
+                pieChart: true,
+            },
+            {
+                generalInfo: {
+                    achievements: 'Achievements',
+                    knowledge: 'Knowledge'
+                }
+            }
+        ],
+
+        this.factLanguages = [
+            {english:
+                [
+                    {fact0: 'Good reading and writing, I\'m able to read a write formal documents'},
+                    {fact1: 'Good understanding when people is talking'},
+                    {fact2: 'I\'m able to keep a fluent conversation in everyday and personal interest topics'}
+                ]
+            },
+            {spanish: 
+                [
+                    {fact0: 'Native language'},
+                    {fact1: 'Well written reports and formal documents'}
+                ]       
+            }
+        ],
+
+        this.volunteeringDetails = [
+            {
+                name: 'GetApp Program',
+                place: 'JA Mexico y Accenture Mexico',
+                logo: 'img/jamexico.jpg',
+                goals: 'Being in the 3rd Top position during the entire program',
+                tool1: 'Business model generation',
+                tool2: 'Value proposition',
+                tool3: 'App prototype development',
+                tool4: 'Marketing strategies', 
+            },
+            {
+                generalInfo: {
+                    achievements: 'Achievements',
+                    knowledge: 'Knowledge'
+                }
+            }
+        ],
+
+        this.contactButton = {
+            sendMsj: 'Send me a message'
+        }
     }
 }
 
@@ -173,7 +275,7 @@ class UI {
     }
 
     //Method to create the details box that apper with a hover in the details button
-    detailsBoxCreation(highScreen, buttonPosition, {name, place, logo, goals, tool1, tool2, tool3, tool4, pieChart}={}) {
+    detailsBoxCreation(highScreen, buttonPosition, {name, place, logo, goals, tool1, tool2, tool3, tool4, pieChart}={}, {generalInfo}={}) {
         //We create the div that is going to have all the information
         const detailsBox = document.createElement('div');
         detailsBox.className = 'details-box container-short' //Get the classes that apply the design
@@ -192,12 +294,12 @@ class UI {
        <h5 class="subtitle-section">${place}</h5>
        <div class="details-info">
             <div class="goals-container">
-                <h5>Logros</h5>
+                <h5>${generalInfo.achievements}</h5>
                 <i class="fas fa-medal"></i>
                 <p>${goals}</p>
             </div>
             <div class="tools-container">
-                <h5>Conocimientos</h5>
+                <h5>${generalInfo.knowledge}</h5>
                 ${!pieChart ? `<ul>
                     <li>${tool1}</li>
                     <li>${tool2}</li>
@@ -279,13 +381,13 @@ class UI {
     }
 
     /*Contact Box creation*/
-    contactBoxCreation(parent) {
+    contactBoxCreation(parent, contact) {
         const div = document.createElement('div');
         div.className = 'close-wrapper contact-wrapper';
 
         div.innerHTML = `<div class="contact-container">
          <span class="close-icon-container"><i class="close-wrapper fas fa-times"></i></span>
-                <h3 class="subtitle-section">Envíame un mensaje</h3>
+                <h3 class="subtitle-section">${contact.sendMsj}</h3>
                 <div class="media-contact-container">
                     <a class="email-container">
                         <img src="img/gmail.png" alt="Gmail">
@@ -304,16 +406,40 @@ class UI {
 
         return div;
     }
-
-    changeDefaultValues() {
-        
-    }
 }
+
+function instanceObjects(value) {
+    switch(value) {
+        case 'ui':
+            return new UI();
+        case 'info':
+            return new ComponentsInfo()
+        case 'both':
+            return {
+                ui: new UI(),
+                info: new ComponentsInfo()
+            };
+        default:
+            return null;
+    }
+};
+
+function translateInfo(info) {
+    const selectedLang = document.querySelector('.selected-lang').textContent;
+
+    switch(selectedLang) {
+        case 'ENG':
+            info.translateValuesToEn();
+            break;
+        default:
+            return null;
+    }
+};
 
 //EVENT LISTENERS
 document.addEventListener('DOMContentLoaded', function() {
     //Instance
-    const ui = new UI();
+    const ui = instanceObjects('ui')
     //Get the subtitles from the header and the width from the first element
     const subtitleHeader = document.querySelectorAll('.subtitle');
     const widthSubtitle = subtitleHeader[0].offsetWidth
@@ -333,7 +459,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 //Click event listener to every link inside the navigation
 document.querySelector('.navigation').addEventListener('click', function(e) {
-    const ui = new UI();
+    const ui = instanceObjects('ui')
     //DELEGATION
     //Click event for toggle menu
     if (e.target.id === 'toggle__menu') {
@@ -363,27 +489,24 @@ document.querySelector('.experience-container').addEventListener('mouseenter', f
 
     // Do your thing...
 	if (e.target.matches('.details')) {
+        //Get the object array that has the information that we're going to need and th ui instance
+        const {ui, info} = instanceObjects('both')
+        translateInfo(info);
+        //Get general info that is not part of an information job
+        const generalInfo = info.jobDetails[info.jobDetails.length - 1]
 		//Here we detect the details button that is being hover, zero is for office and one for besser
         if(e.target === jobZero) {
             //Found the exact position of the button in the viewport
             const buttonPosition = jobZero.getBoundingClientRect();
-            //Get the object array that has the information that we're going to need
-            const info = new ComponentsInfo();
-            //Create the UI instance object
-            const ui = new UI();
             //Call the method to create the details box, here we need four parameters: the index number of the object array according with the number job that the e.target found, the complete height of the viewport, the button position and the object array, where it is the information that we're going to need.
-            const detailsBox = ui.detailsBoxCreation(highScreen, buttonPosition, info.jobDetails[0]);
+            const detailsBox = ui.detailsBoxCreation(highScreen, buttonPosition, info.jobDetails[0], generalInfo);
             //At the end we insert the detailsBox element that our method has returned inside the jobZero element
             jobZero.appendChild(detailsBox);
         
         } else if(e.target === jobOne) {
             const buttonPosition = jobOne.getBoundingClientRect();
-            //Get the object array that has the information that we're going to need
-            const info = new ComponentsInfo();
-            //Create the UI instance object
-            const ui = new UI();
             //Call the method to create the details box
-            const detailsBox = ui.detailsBoxCreation(highScreen, buttonPosition, info.jobDetails[1]);
+            const detailsBox = ui.detailsBoxCreation(highScreen, buttonPosition, info.jobDetails[1], generalInfo);
             //console.log(detailsBox);
             jobOne.appendChild(detailsBox);
         }
@@ -406,15 +529,12 @@ window.addEventListener('scroll', function() {
     //Get the Tech Skills container to know its exact position in every scroll
     const techSkillsTop = document.getElementById('technical-skills').getBoundingClientRect().top;
     const languageTop = document.getElementById('languages-section').getBoundingClientRect().top;
-
+    //Create the instance of the class ComponentsInfo to have acces to the tech bar charts percentages
+    const {ui, info} = instanceObjects('both');
     //If techSkills container is at 180 pixels from top then
     if (techSkillsTop < 180 && execute.barTech) {
         //Get every tech skill that we have
         const techSkillsNode = document.querySelectorAll('.bar-chart-tech');
-        //Create the instance of the class ComponentsInfo to have acces to the tech bar charts percentages
-        const info = new ComponentsInfo();
-        //Instance of UI
-        const ui = new UI();
         //Call the method barChartEffect from the UI
         ui.barChartsEffect(techSkillsNode, info.techBarCharts, info.techBarCharts[0].htmlBar.length);
         execute.barTech = false; //To avoid the execution of this condition
@@ -422,8 +542,6 @@ window.addEventListener('scroll', function() {
 
     if (languageTop < 180 && execute.barLanguage) {
         const languagesNode = document.querySelectorAll('.bar-chart-language');
-        const info = new ComponentsInfo();
-        const ui = new UI();
         ui.barChartsEffect(languagesNode, info.languageBarCharts, info.languageBarCharts[0].english.length);
         execute.barLanguage = false;
     }
@@ -431,16 +549,13 @@ window.addEventListener('scroll', function() {
 
 document.getElementById('languages-section').addEventListener('click', function(e) {
     const arrowButtons = document.querySelectorAll('.arrow-down-button');
-
+    const {ui, info} = instanceObjects('both')
+    translateInfo(info);
     if(e.target === arrowButtons[0] || e.target === arrowButtons[0].firstElementChild) {
         const languageContainer = arrowButtons[0].parentElement;
-        const info = new ComponentsInfo();
-        const ui = new UI();
         ui.dropDownLanguage('english-language', languageContainer, info.factLanguages[0].english);
     } else if(e.target === arrowButtons[1] || e.target === arrowButtons[1].firstElementChild) {
         const languageContainer = arrowButtons[1].parentElement;
-        const info = new ComponentsInfo();
-        const ui = new UI();
         ui.dropDownLanguage('spanish-language', languageContainer, info.factLanguages[1].spanish);
     }
 });
@@ -456,16 +571,16 @@ document.querySelector('.volunteering-section').addEventListener('mouseenter', f
 
     // Do your thing...
 	if (e.target.matches('.details')) {
+        const {ui, info} = instanceObjects('both')
+        translateInfo(info);
+        const generalInfo = info.volunteeringDetails[info.volunteeringDetails.length - 1];
 		//Here we detect the details button that is being hover, zero is for office and one for besser
         if(e.target === volunteerZero) {
             //Found the exact position of the button in the viewport
             const buttonPosition = volunteerZero.getBoundingClientRect();
             //Get the object array that has the information that we're going to need
-            const info = new ComponentsInfo();
-            //Create the UI instance object
-            const ui = new UI();
             //Call the method to create the details box, here we need four parameters: the index number of the object array according with the number job that the e.target found, the complete height of the viewport, the button position and the object array, where it is the information that we're going to need.
-            const detailsBox = ui.detailsBoxCreation(highScreen, buttonPosition, info.volunteeringDetails[0]);
+            const detailsBox = ui.detailsBoxCreation(highScreen, buttonPosition, info.volunteeringDetails[0], generalInfo);
             //At the end we insert the detailsBox element that our method has returned inside the jobZero element
             volunteerZero.appendChild(detailsBox);
         
@@ -502,9 +617,10 @@ document.querySelector('.volunteering-section').addEventListener('mouseleave', f
 //Contact Button: Open the contact wrapper
 document.querySelector('#anchor-contact').addEventListener('click', function(e) {
     e.preventDefault();
-    const ui = new UI();
+    const {ui, info} = instanceObjects('both');
+    translateInfo(info);
     const parentContainer = document.querySelector('.contact-button-container');
-    const divWrapper = ui.contactBoxCreation(parentContainer);
+    const divWrapper = ui.contactBoxCreation(parentContainer, info.contactButton);
     //ContactWrapper: Close it    
     divWrapper.addEventListener('click', function(e) {
         if(e.target.className.match('close-wrapper')) {

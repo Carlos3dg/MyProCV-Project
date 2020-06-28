@@ -133,11 +133,11 @@ const langStrings = [
     },
     {
         es: 'Tarjeta Feria App',
-        en: ''
+        en: 'Public Transportation App'
     },
     {
-        es: 'Proyecto que simula todo el Front-end de una App móvil, en el cual se puede navegar a través de diferentes secciones, realizar búsquedas con diferentes palabras clave, mostrar y ocultar información como menús y preguntas y respuestas, etc. Este proyecto fue realizado con HTML, CSS y JavaScript',
-        en: ''
+        es: 'Proyecto que simula todo el Front-end de una App móvil, en el cual se puede navegar a través de diferentes secciones, realizar búsquedas con diferentes palabras clave, mostrar y ocultar información como menús, preguntas y respuestas, etc. Este proyecto fue realizado con HTML, CSS y JavaScript',
+        en: 'This project tries to show the Front-end design and behavior of a mobile app, here you can navigate to different sections, search information with specific keywords, show and hide information like side-bars, questions, and answers, etc. This project was built with HTML, CSS, and JavaScript'
     },
     {
         es: 'Código',
@@ -145,15 +145,15 @@ const langStrings = [
     },
     {
         es: 'Lista de Tareas',
-        en: 'To Do List'
+        en: 'To-Do List'
     },
     {
         es: 'Lista de Tareas nos permite ir agregando tareas a una tabla la cual las clasifica como tareas terminadas y tareas incompletas y estas a su vez se en listan en un orden en el cual se posicionan las incompletas al inicio de la lista y las completas al final de esta. Este proyecto uso conceptos intermedios y avanzados de JavaScript como LocalStorage, Clases, objetos y métodos, eventos y diversos métodos de arreglos, además de HTML y CSS.',
-        en: ''
+        en: 'To-Do List enables us to add some tasks in a table, which one tries to sort out these tasks like done tasks and undone tasks, positioning the undone tasks at the beginning and the done tasks at the end of the table. This project use intermediate and advanced JavaScript concepts like LocalStorage, Class, Objects, and Methods (OOP), events and different array methods, besides being used HTML and CSS'
     },
     {
         es: 'El proyecto ideal es aquel que siempre se puede mejorar',
-        en: ''
+        en: 'The perfect project is the one you can always do better'
     },
 ];
 
