@@ -833,8 +833,8 @@ b.visible {
 }
 
 .contact-button {
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     background-color: var(--linksHover);
     box-shadow: 1px 3px 7px rgba(0, 0, 0, 0.4);
     border-radius: 50%;
@@ -843,6 +843,118 @@ b.visible {
     justify-content: center;
     align-items: center;
     font-size: 32px;
+}
+
+/* New contact form */
+.popup-container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    /*background: rgba(0, 0, 0, 0.1);*/
+}
+
+.contact-form-container {
+    position: absolute;
+    bottom: calc(4% + 60px);
+    right: 3%;
+    margin-bottom: 15px;
+    width: 300px;
+    height: 420px;
+    border-radius: 15px;
+    background: white;
+    background-origin: border-box;
+    background-clip: border-box;
+    /*insert box-shadow*/
+    box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.1);
+}
+
+.contact-header {
+    width: 100%;
+    height: 15%;
+}
+
+.contact-form {
+    width: 100%;
+    height: calc(85% - (12px*2));
+    margin: 12px 0;
+    min-height: 55px;
+    overflow: auto;
+    position: relative;
+}
+
+.contact-header, .contact-form {
+    padding: 0 12px;
+}
+
+.contact-header {
+    background-color: var(--linksHover);
+    border-radius: 15px 15px 0 0;
+    color: white;
+    display: flex;
+    align-items: center;
+    position: relative;   
+}
+
+.contact-header .waving-hand-emoji {
+    margin-right: 5px;
+    font-size: 25px;
+}
+
+.contact-header .close-icon {
+    position: absolute;
+    right: 12px;
+}
+
+.contact-header .close-icon, .label-field, .submit {
+    font-size: 18px;
+}
+
+.contact-header h3 {
+    font-size: 20px;
+}
+
+.label-field {
+    display: block;
+}
+
+.contact-form .input-container:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.contact-field {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+textarea.contact-field {
+    resize: none;
+}
+
+.input-container:last-child {
+    width: calc(100% - (12px * 2));
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.contact-form .submit {
+    background-color: transparent;
+    border: 1px solid rgb(182, 182, 182);
+    font-weight: 300;
+    width: 30%;
+    padding: 5px 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.contact-form .submit:hover {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .contact-wrapper {

@@ -525,6 +525,7 @@ document.querySelector('.experience-container').addEventListener('mouseleave', f
     }
 }, true);
 
+//Technical skills - bar chart effect
 window.addEventListener('scroll', function() {
     //Get the Tech Skills container to know its exact position in every scroll
     const techSkillsTop = document.getElementById('technical-skills').getBoundingClientRect().top;
@@ -547,6 +548,7 @@ window.addEventListener('scroll', function() {
     }
 });
 
+//Drop down laguage effect
 document.getElementById('languages-section').addEventListener('click', function(e) {
     const arrowButtons = document.querySelectorAll('.arrow-down-button');
     const {ui, info} = instanceObjects('both')
