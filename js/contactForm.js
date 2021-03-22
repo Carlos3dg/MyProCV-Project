@@ -23,8 +23,8 @@ class Contact {
             this.updateElement(this.parentContainer, this.render());
             return;
         };
-        //this.state.submitStatus = 'PENDING';
-        //this.updateElement(this.parentContainer, this.render());
+        this.state.submitStatus = 'PENDING';
+        this.updateElement(this.parentContainer, this.render());
         fetch('https://sheet.best/api/sheets/ae88e3ff-7867-4d95-a68b-ccb26a755d9c', {
             method: 'POST',
             body: JSON.stringify(this.state.contactFields),
@@ -95,7 +95,7 @@ class Contact {
                             <i class="close-wrapper fas fa-times"></i>
                         </span>
                     </div>
-                    <form class="contact-form" ${this.state.submitStatus ? `style="display:none;"` : ''} data-attr>
+                    <form class="contact-form" style="${this.state.submitStatus === '' ? `display:block;` : `display: none`}" data-attr>
                         <div class="input-container">
                             <label for="contact-email" class="label-field">${emailLabel}</label>
                             <input type="text" id='contact-email' name='email' class="contact-field" placeholder="${emailPlaceHolder}">
@@ -114,12 +114,24 @@ class Contact {
                         <div class='loader'></div>
                         <p class='submit-status'>${eng ? 'Sending...' : 'Enviando...'}</p>
                     </div>
-                    <div style="${this.state.submitStatus === 'SUCCESS' ? `display: block;` : `display: none;`}"  data-attr>
-                        <span>Success!</span>
+                    <div class='success-container' style="${this.state.submitStatus === 'SUCCESS' ? `display: block;` : `display: none;`}"  data-attr>
+                        <span class='success-icon-container'>
+                            <i class="fas fa-check"></i>
+                        </span>
+                        <p>${eng ? 'Thank you!' : 'Gracias'}</p>
+                        <p>${eng ? 'Your message has been sent' : 'Tu mensaje ha sido envíado'}</p>
+                        <p>${eng ? 'I will reply to you shortly at your email address' : 'En breve lo contactaré a su dirección de correo electrónico'}</p>
+                        <div class='success-footer'>
+                            <span>
+                                Go back
+                            </span>
+                        </div>
                     </div>
-                    <div style="${this.state.submitStatus === 'ERROR' ? `display: block;` : `display: none;`}"  data-attr>
-                        <span>Error!</span>
-                        <span>Go back</span>
+                    <div class='error-container' style="${this.state.submitStatus === 'ERROR' ? `display: block;` : `display: none;`}"  data-attr>
+                        <span>
+                            <i class="close-wrapper fas fa-times"></i>
+                        </span>
+                        <span data-content></span>
                     </div>
                 </div>
             </div>

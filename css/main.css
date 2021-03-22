@@ -884,7 +884,11 @@ b.visible {
     position: relative;
 }
 
-.contact-header, .contact-form {
+.contact-header, 
+.contact-form,
+.loader-container,
+.success-container,
+.error-container {
     padding: 0 12px;
 }
 
@@ -911,7 +915,9 @@ b.visible {
 .contact-header .close-icon, 
 .label-field, 
 .submit,
-.submit-status {
+.contact-form p,
+.contact-form span,
+.contact-form a {
     font-size: 18px;
 }
 
@@ -966,19 +972,52 @@ textarea.contact-field {
 }
 
 /* submit status */
-.loader-container {
+.loader-container,
+.success-container {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top: 40%;
+}
+
+.success-icon-container,
+.error-icon-container {
+    margin: 0 auto;
+    width: 30px;
+    height: 30px;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-radius: 30px;
+    color: white;
+}
+
+.success-icon-container {
+    background-color: var(--greenColor);
+}
+
+.error-icon-container {
+    background-color: var(--redColor);
+}
+
+.footer-status {
     width: 100%;
-    height: 85%;
+    text-align: center;
+    position: absolute;
+    bottom: 20px;
+}
+
+.footer-status span {
+    font-size: 16px;
+    text-decoration: underline;
+    color: var(--linksHover);
+    cursor: pointer;
 }
 
 .loader {
     width: 30px;
     height: 30px;
-    /*margin: 0 auto;*/
+    margin: 0 auto;
     border: 4px solid #f3f3f3;
     border-radius: 50%;
     border-top: 4px solid var(--linksHover);

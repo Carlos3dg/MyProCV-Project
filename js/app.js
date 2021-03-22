@@ -655,9 +655,17 @@ function renderElement(parent, component) {
         //Get elements that their attributes rely on state
         const actualElements_attr = parent.firstElementChild.querySelectorAll('[data-attr]');
         const newElements_attr = component.firstElementChild.querySelectorAll('[data-attr]');
-        //actualElements_attr.forEach((element, index) => {
-        //    if()
-        //})
+        
+        actualElements_attr.forEach((element, index) => {
+            const oldAttributes = Object.assign({}, element.attributes);
+            const newAttributes = Object.assign({}, newElements_attr[index].attributes);
+            for(let attribute in oldAttributes) {
+                if(oldAttributes[attribute].value !== newAttributes[attribute].value) {
+                    element.attributes[attribute].value = newAttributes[attribute].value;
+                }
+            }
+            //console.log(newObject);
+        })
     }
     return parent;
     //let oldTextContent
