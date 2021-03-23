@@ -38,6 +38,7 @@ class Contact {
         })
         .catch((resp) => {
             this.state.submitStatus = 'ERROR';
+            console.error(resp);
             this.updateElement(this.parentContainer, this.render());
         })
     }
@@ -119,19 +120,26 @@ class Contact {
                             <i class="fas fa-check"></i>
                         </span>
                         <p>${eng ? 'Thank you!' : 'Gracias'}</p>
-                        <p>${eng ? 'Your message has been sent' : 'Tu mensaje ha sido envíado'}</p>
+                        <p>${eng ? 'Your message has been sent.' : 'Su mensaje ha sido envíado.'}</p>
                         <p>${eng ? 'I will reply to you shortly at your email address' : 'En breve lo contactaré a su dirección de correo electrónico'}</p>
-                        <div class='success-footer'>
+                        <div class='footer-status'>
                             <span>
                                 Go back
                             </span>
                         </div>
                     </div>
                     <div class='error-container' style="${this.state.submitStatus === 'ERROR' ? `display: block;` : `display: none;`}"  data-attr>
-                        <span>
-                            <i class="close-wrapper fas fa-times"></i>
+                        <span class='error-icon-container'>
+                            <i class="fas fa-times"></i>
                         </span>
-                        <span data-content></span>
+                        <p data-content>Oops!</p>
+                        <p>${eng ? 'A problem has occurred in the request process' : 'Ha ocurrido un problema en el proceso de petición'}</p>
+                        <p>${eng ? 'Please try it later' : 'Por favor intentalo más tarde'}</p>
+                        <div class='footer-status'>
+                        <span>
+                            Try again?
+                        </span>
+                    </div>
                     </div>
                 </div>
             </div>
