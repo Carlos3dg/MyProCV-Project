@@ -1,3 +1,5 @@
+import Contact from './components/contactForm.js';
+import renderElement from './components/render.js'
 //GLOBAL VARIABLES
 const execute = {
     barTech: true,
@@ -100,8 +102,12 @@ class ComponentsInfo {
             }
         ],
 
-        this.contactButton = {
-            sendMsj: 'Envíame un mensaje'
+        this.contactForm = {
+            headerTitle: '!Hola!',
+            emailLabel: 'Correo electrónico',
+            emailPlaceHolder: 'ejemplo@email.com',
+            messageLabel: 'Mensaje',
+            messagePlaceHolder: '¿En qué te puedo ayudar?',
         }
     }
 
@@ -186,8 +192,13 @@ class ComponentsInfo {
             }
         ],
 
-        this.contactButton = {
-            sendMsj: 'Send me a message'
+        this.contactForm = {
+            eng: true,
+            headerTitle: 'Let\'s talk',
+            emailLabel: 'Email Address',
+            emailPlaceHolder: 'example@email.com',
+            messageLabel: 'Message',
+            messagePlaceHolder: 'What can I help you with?',
         }
     }
 }
@@ -379,33 +390,6 @@ class UI {
 
         return divFacts;
     }
-
-    /*Contact Box creation*/
-    contactBoxCreation(parent, contact) {
-        const div = document.createElement('div');
-        div.className = 'close-wrapper contact-wrapper';
-
-        div.innerHTML = `<div class="contact-container">
-         <span class="close-icon-container"><i class="close-wrapper fas fa-times"></i></span>
-                <h3 class="subtitle-section">${contact.sendMsj}</h3>
-                <div class="media-contact-container">
-                    <a class="email-container">
-                        <img src="img/gmail.png" alt="Gmail">
-                        <p>Email</p>
-                    </a>
-                    <a class="whatsapp-container">
-                        <img src="img/WhatsApp.svg" alt="WhatsApp">
-                        <p>WhatsApp</p>
-                    </a>
-                </div>
-        </div>
-        `;
-
-        //Print element in browser
-        parent.appendChild(div);
-
-        return div;
-    }
 }
 
 function instanceObjects(value) {
@@ -525,6 +509,7 @@ document.querySelector('.experience-container').addEventListener('mouseleave', f
     }
 }, true);
 
+//Technical skills - bar chart effect
 window.addEventListener('scroll', function() {
     //Get the Tech Skills container to know its exact position in every scroll
     const techSkillsTop = document.getElementById('technical-skills').getBoundingClientRect().top;
@@ -547,6 +532,7 @@ window.addEventListener('scroll', function() {
     }
 });
 
+//Drop down laguage effect
 document.getElementById('languages-section').addEventListener('click', function(e) {
     const arrowButtons = document.querySelectorAll('.arrow-down-button');
     const {ui, info} = instanceObjects('both')
@@ -617,16 +603,28 @@ document.querySelector('.volunteering-section').addEventListener('mouseleave', f
 //Contact Button: Open the contact wrapper
 document.querySelector('#anchor-contact').addEventListener('click', function(e) {
     e.preventDefault();
-    const {ui, info} = instanceObjects('both');
+    const info = instanceObjects('info');
     translateInfo(info);
-    const parentContainer = document.querySelector('.contact-button-container');
-    const divWrapper = ui.contactBoxCreation(parentContainer, info.contactButton);
-    //ContactWrapper: Close it    
-    divWrapper.addEventListener('click', function(e) {
-        if(e.target.className.match('close-wrapper')) {
-            divWrapper.remove();
-        }
-    });
+    //Get parent container and create contact component
+    const formContainer = document.querySelector('#contact-form-01');
+    const contactForm = new Contact(renderElement, formContainer, info.contactForm);
+    renderElement(formContainer, contactForm.render());
+    //Add listeners to any require element iside our component
+    /*onChange inputs*/
+    const inputs = document.querySelectorAll('.contact-field');
+    const arrayInputs = Array.prototype.slice.call(inputs);
+    arrayInputs.forEach(input => (
+        input.addEventListener('change', contactForm.onChangeInput)
+    ));
+    /* onSubmit Form */
+    document.querySelector('.contact-form').addEventListener('submit', contactForm.onSubmit);
+    /* onClick to close form */
+    document.querySelector('.popup-container').addEventListener('click', contactForm.closeElement);
+    /* onClick to go back to the form when this one is successfully submitted or to do another try */
+   const linksToReturnToTheForm = document.querySelectorAll('.back-to-form');
+   linksToReturnToTheForm.forEach(link => (
+       link.addEventListener('click', contactForm.goBackToTheForm)
+   ));
 });
 
 //Function to add scroll effect to the On-Page-Link
