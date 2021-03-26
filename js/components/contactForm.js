@@ -7,7 +7,7 @@ class Contact {
             contactFields: {
                 email: '',
                 message: '',
-                emailCopy: '',
+                /*emailCopy: '',*/
             },
             fieldErrors: {},
             displayElement: true,
@@ -34,13 +34,21 @@ class Contact {
         }).then(resp => resp.json())
         .then((resp) => {
             this.state.submitStatus = 'SUCCESS';
+            this.state.contactFields.email = '',
+            this.state.contactFields.message = '',
             this.updateElement(this.parentContainer, this.render());
+            document.querySelector('.contact-form').reset();
         })
         .catch((resp) => {
             this.state.submitStatus = 'ERROR';
             console.error(resp);
             this.updateElement(this.parentContainer, this.render());
         })
+    }
+
+    goBackToTheForm = () => {
+        this.state.submitStatus = '';
+        this.updateElement(this.parentContainer, this.render());
     }
 
     validate = (fields) => {
@@ -66,8 +74,9 @@ class Contact {
 
     onChangeInput = (e) => {
         this.state.contactFields[e.target.name] = e.target.value;
-        if(e.target.name === 'message') return;
-        this.state.contactFields.emailCopy = e.target.value;
+        this.updateElement(this.parentContainer, this.render());
+        /*if(e.target.name === 'message') return;
+        this.state.contactFields.emailCopy = e.target.value;*/
     }
 
     closeElement = (e) => {
@@ -99,12 +108,28 @@ class Contact {
                     <form class="contact-form" style="${this.state.submitStatus === '' ? `display:block;` : `display: none`}" data-attr>
                         <div class="input-container">
                             <label for="contact-email" class="label-field">${emailLabel}</label>
-                            <input type="text" id='contact-email' name='email' class="contact-field" placeholder="${emailPlaceHolder}">
+                            <input 
+                                type="text" 
+                                id='contact-email' 
+                                name='email' 
+                                class="contact-field"
+                                value="${this.state.contactFields.email}" 
+                                placeholder="${emailPlaceHolder}"
+                                data-attr
+                            >
                             <p style="font-size: 14px; color: red;" data-content>${this.state.fieldErrors.email || ''}</p>
                         </div>
                         <div class="input-container">
                             <label for="contact-message" class="label-field">${messageLabel}</label>
-                            <textarea id="" cols="30" rows="10" name='message' class="contact-field" id='contact-message' placeholder="${messagePlaceHolder}"></textarea>
+                            <textarea 
+                                cols="30" 
+                                rows="10" 
+                                name='message' 
+                                class="contact-field" 
+                                id='contact-message'
+                                placeholder="${messagePlaceHolder}"
+                                data-content
+                            >${this.state.contactFields.message}</textarea>
                             <p style="font-size: 14px; color: red;" data-content>${this.state.fieldErrors.message || ''}</p>
                         </div>
                         <div class="input-container">
@@ -123,7 +148,7 @@ class Contact {
                         <p>${eng ? 'Your message has been sent.' : 'Su mensaje ha sido envíado.'}</p>
                         <p>${eng ? 'I will reply to you shortly at your email address' : 'En breve lo contactaré a su dirección de correo electrónico'}</p>
                         <div class='footer-status'>
-                            <span>
+                            <span class='back-to-form'>
                                 Go back
                             </span>
                         </div>
@@ -136,7 +161,7 @@ class Contact {
                         <p>${eng ? 'A problem has occurred in the request process' : 'Ha ocurrido un problema en el proceso de petición'}</p>
                         <p>${eng ? 'Please try it later' : 'Por favor intentalo más tarde'}</p>
                         <div class='footer-status'>
-                        <span>
+                        <span class='back-to-form'>
                             Try again?
                         </span>
                     </div>

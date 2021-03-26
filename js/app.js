@@ -1,4 +1,5 @@
-import Contact from './contactForm.js';
+import Contact from './components/contactForm.js';
+import renderElement from './components/render.js'
 //GLOBAL VARIABLES
 const execute = {
     barTech: true,
@@ -389,44 +390,6 @@ class UI {
 
         return divFacts;
     }
-
-    /*Contact Box creation*/
-    contactBoxCreation({
-            eng,
-            headerTitle, 
-            emailLabel, 
-            emailPlaceHolder, 
-            messageLabel, 
-            messagePlaceHolder}) {
-        const div = document.createElement('div');
-        div.className = 'popup-container close-wrapper';
-
-        div.innerHTML = `<div class="contact-form-container">
-            <div class="contact-header">
-                <span class="waving-hand-emoji">&#x1f44b;</span>
-                <h3>${headerTitle}</h3>
-                <span class="close-icon close-wrapper">
-                    <i class="close-wrapper fas fa-times"></i>
-                </span>
-            </div>
-            <form class="contact-form">
-                <div class="input-container">
-                    <label for="contact-email" class="label-field">${emailLabel}</label>
-                    <input type="text" id='contact-email' name='email' class="contact-field" placeholder="${emailPlaceHolder}">
-                </div>
-                <div class="input-container">
-                    <label for="contact-message" class="label-field">${messageLabel}</label>
-                    <textarea id="" cols="30" rows="10" name='message' class="contact-field" id='contact-message' placeholder="${messagePlaceHolder}"></textarea>
-                </div>
-                <div class="input-container">
-                    <input type="submit" class="submit" value='${eng ? 'Send' : 'Enviar'}'>
-                </div>
-            </form>
-        </div>
-        `;
-
-        return div;
-    }
 }
 
 function instanceObjects(value) {
@@ -637,46 +600,6 @@ document.querySelector('.volunteering-section').addEventListener('mouseleave', f
     })
 })();
 
-function renderElement(parent, component) {
-    if(!parent.children.length || !component) {
-        const stringElement = component ? component.outerHTML : component;
-        parent.innerHTML = stringElement;
-        return;
-    }
-    if(parent.firstElementChild.outerHTML !== component.outerHTML) {
-        //Get elements that their content rely on state
-        const actualElements_cont = parent.firstElementChild.querySelectorAll('[data-content]');
-        const newElements_cont = component.firstElementChild.querySelectorAll('[data-content]');
-        actualElements_cont.forEach((element, index) => {
-            if(element.textContent !== newElements_cont[index].textContent) {
-                element.textContent = newElements_cont[index].textContent;
-            }
-        });
-        //Get elements that their attributes rely on state
-        const actualElements_attr = parent.firstElementChild.querySelectorAll('[data-attr]');
-        const newElements_attr = component.firstElementChild.querySelectorAll('[data-attr]');
-        
-        actualElements_attr.forEach((element, index) => {
-            const oldAttributes = Object.assign({}, element.attributes);
-            const newAttributes = Object.assign({}, newElements_attr[index].attributes);
-            for(let attribute in oldAttributes) {
-                if(oldAttributes[attribute].value !== newAttributes[attribute].value) {
-                    element.attributes[attribute].value = newAttributes[attribute].value;
-                }
-            }
-            //console.log(newObject);
-        })
-    }
-    return parent;
-    //let oldTextContent
-    //get old and new content
-    //console.log(parent)
-    //console.log(actualElements);
-    //console.log(newElements);
-    //console.log(actualElements === newElements);
-
-}
-
 //Contact Button: Open the contact wrapper
 document.querySelector('#anchor-contact').addEventListener('click', function(e) {
     e.preventDefault();
@@ -693,38 +616,15 @@ document.querySelector('#anchor-contact').addEventListener('click', function(e) 
     arrayInputs.forEach(input => (
         input.addEventListener('change', contactForm.onChangeInput)
     ));
-    //formContainer.
     /* onSubmit Form */
     document.querySelector('.contact-form').addEventListener('submit', contactForm.onSubmit);
     /* onClick to close form */
     document.querySelector('.popup-container').addEventListener('click', contactForm.closeElement);
-    //ContactWrapper: Close it    
-    /*divWrapper.addEventListener('click', function(e) {
-        if(e.target.className.match('close-wrapper')) {
-            divWrapper.remove();
-        }
-    });*/
-
-    //Store form values
-    /*const contact = {
-        email: '',
-        message: '',
-        emailCopy: ''
-    };
-    const inputs = document.querySelectorAll('.contact-field');
-    const arrayInputs = Array.prototype.slice.call(inputs);
-    arrayInputs.forEach(input => (
-        input.addEventListener('change', function(e) {
-            contact[e.target.name] = e.target.value;
-            if(e.target.name === 'message') return;
-            contact.emailCopy = e.target.value;
-        })
-    ))
-    
-    document.querySelector('.contact-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        console.log(contact);
-    })*/
+    /* onClick to go back to the form when this one is successfully submitted or to do another try */
+   const linksToReturnToTheForm = document.querySelectorAll('.back-to-form');
+   linksToReturnToTheForm.forEach(link => (
+       link.addEventListener('click', contactForm.goBackToTheForm)
+   ));
 });
 
 //Function to add scroll effect to the On-Page-Link
