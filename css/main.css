@@ -318,7 +318,7 @@ b.visible {
     background-color: rgba(32, 35, 42, 0.9);
     border-radius: 0 10px 10px 0;
     display: block;
-    z-index: 2;
+    z-index: 1;
 }
 
 .disable-left-sidebar {
@@ -368,7 +368,7 @@ b.visible {
     background-color: rgba(32, 35, 42, 0.9);
     transition: left 350ms linear;
     color: #fff;
-    z-index: 1;
+    z-index: 3;
 }
 
 .active-full-sidebar {
@@ -546,7 +546,7 @@ b.visible {
     padding: 10px;
     width: 430%;
     position: absolute;
-    z-index: 2;
+    z-index: 3;
     left: -210%;
     background-color: white;
     box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.5);
@@ -1054,6 +1054,8 @@ footer {
     background-color: var(--blackContainer);
     color: white;
     text-align: center;
+    position: relative;
+    z-index: 2;
 }
 
 .footer-wrapper-container {
