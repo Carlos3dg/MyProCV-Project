@@ -600,6 +600,41 @@ document.querySelector('.volunteering-section').addEventListener('mouseleave', f
     })
 })();
 
+//See more and less buttons
+document.querySelector('.see-more-btn').addEventListener('click', seeMoreAndLess);
+document.querySelector('.see-less-btn').addEventListener('click', seeMoreAndLess);
+
+//See more and less in project section
+function seeMoreAndLess() {
+    const hiddenProjects = document.querySelectorAll('.hidden-project');
+    if(hiddenProjects.length) {
+        hiddenProjects.forEach((project) => {
+            const videoHeight = project.querySelector('.portfolio-video').clientHeight;
+            const titleHeight = project.querySelector('.subtitle-section').clientHeight;
+            const descriptionHeight = project.querySelector('p').clientHeight;
+            const buttonsHeight = project.querySelector('.project-buttons-container').clientHeight;
+            const projectHeight = videoHeight + titleHeight + descriptionHeight + buttonsHeight;
+    
+            project.style.height = `${projectHeight}px`;
+            project.classList.remove('hidden-project');
+            project.classList.add('showed-project');
+        });
+    } else {
+        const showedProjects = document.querySelectorAll('.showed-project');
+        showedProjects.forEach((project) => {
+            project.style.height = '0px';
+            project.classList.remove('showed-project');
+            project.classList.add('hidden-project');
+        });
+    }
+
+    const seeMoreBtn = document.querySelector('.see-more-btn');
+    const seeLessBtn = document.querySelector('.see-less-btn');
+
+    seeMoreBtn.classList.toggle('active-btn');
+    seeLessBtn.classList.toggle('active-btn');
+}
+
 //Contact Button: Open the contact wrapper
 document.querySelector('#anchor-contact').addEventListener('click', function(e) {
     e.preventDefault();

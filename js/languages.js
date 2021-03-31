@@ -152,6 +152,14 @@ const langStrings = [
         en: 'To-Do List enables us to add some tasks in a table, which one tries to sort out these tasks like done tasks and undone tasks, positioning the undone tasks at the beginning and the done tasks at the end of the table. This project use intermediate and advanced JavaScript concepts like LocalStorage, Class, Objects, and Methods (OOP), events and different array methods, besides being used HTML and CSS'
     },
     {
+        es: 'Ver mas',
+        en: 'See more'
+    },
+    {
+        es: 'Ver menos',
+        en: 'See less'
+    },
+    {
         es: 'El proyecto ideal es aquel que siempre se puede mejorar',
         en: 'The perfect project is the one you can always do better'
     },
