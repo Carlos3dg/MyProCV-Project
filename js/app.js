@@ -10,23 +10,37 @@ class ComponentsInfo {
     constructor() {
         this.jobDetails = [
             {
-                name: 'Auxiliar General',
-                place: 'Office Depot de México S.A. de C.V.',
-                logo: 'img/officedepot.png',
-                goals: 'Empleado del mes',
-                tool1: 'Mantenimiento a pasillos',
-                tool2: 'Atención al cliente',
-                tool3: 'Inventarios',
-                tool4: 'Manejo de montacargas',
-                pieChart: false,
+                name: 'Auxiliar Informático',
+                place: 'Universidad Tecmilenio',
+                logo: 'img/tecmilenio.jpg',
+                goals: 'Acreditar curso de mantenimiento en equipos DELL',
+                tool1: {
+                    label: 'Software 50%',
+                    offset: '10',
+                    value: '50',
+                    bg: '--linksHover',
+                },
+                tool2: {
+                    label: 'Hardware 30%',
+                    offset: '60',
+                    value: '30',
+                    bg: 'orange',
+                },
+                tool3: {
+                    label: 'Redes 20%',
+                    offset: '90',
+                    value: '20',
+                    bg: 'rgb(25, 200, 83)',
+                },
+                pieChart: true,
             },
             {
                 name: 'Practicante Desarrollador Web',
                 place: 'Besser Energy S.A.P.I de C.V.',
-                logo: 'img/besserlighting.jpg',
+                logo: 'img/besserlighting.png',
                 goals: 'Desarrollar de inicio a fin la página web de la empresa',
                 tool1: {
-                    label: 'Front-end, SEO 50%',
+                    label: 'HTML, CSS, JS 50%',
                     offset: '10',
                     value: '50',
                     bg: '--linksHover',
@@ -48,7 +62,7 @@ class ComponentsInfo {
             {
                 generalInfo: {
                     achievements: 'Logros',
-                    knowledge: 'Conocimientos'
+                    knowledge: 'Tecnologías'
                 }
             }
         ],
@@ -56,10 +70,11 @@ class ComponentsInfo {
         this.techBarCharts = [
             {htmlBar: [60, 65, 70, 75, 80, 85, 90]},
             {cssBar: [60, 65, 70, 75, 80, 85, 90]},
-            {jsBar: [55, 60, 65, 70, 75, 80, 85]},
-            {reactBar: [0, 5, 10, 15, 20, 25, 30]}, 
-            {gitBar: [0, 5, 10, 15, 20, 25, 30]},
-            {seoBar: [30, 35, 40, 45, 50, 55, 60]},
+            {jsBar: [60, 65, 70, 75, 80, 85, 90]},
+            {reactBar: [60, 65, 70, 75, 80, 85, 90]},
+            {routerBar: [20, 25, 30, 35, 40, 45, 50]},
+            {reduxBar: [30, 35, 40, 45, 50, 55, 60]}, 
+            {gitBar: [10, 15, 20, 25, 30, 35, 40]},
         ],
 
         this.languageBarCharts = [
@@ -114,20 +129,34 @@ class ComponentsInfo {
     translateValuesToEn() {
         this.jobDetails = [
             {
-                name: 'Store Attendant',
-                place: 'Office Depot de México S.A. de C.V.',
-                logo: 'img/officedepot.png',
-                goals: 'Employee of the month',
-                tool1: 'Hall maintenance',
-                tool2: 'Customer service',
-                tool3: 'Inventories',
-                tool4: 'Lift truck driving',
-                pieChart: false,
+                name: 'IT Assistant',
+                place: 'Tecmilenio University',
+                logo: 'img/tecmilenio.jpg',
+                goals: 'Approving the DELL equipment maintenance course',
+                tool1: {
+                    label: 'Software 50%',
+                    offset: '10',
+                    value: '50',
+                    bg: '--linksHover',
+                },
+                tool2: {
+                    label: 'Hardware 30%',
+                    offset: '60',
+                    value: '30',
+                    bg: 'orange',
+                },
+                tool3: {
+                    label: 'Network 20%',
+                    offset: '90',
+                    value: '20',
+                    bg: 'rgb(25, 200, 83)',
+                },
+                pieChart: true,
             },
             {
                 name: 'Intern Web Developer',
                 place: 'Besser Energy S.A.P.I de C.V.',
-                logo: 'img/besserlighting.jpg',
+                logo: 'img/besserlighting.png',
                 goals: 'Building from scratch the company\'s web site',
                 tool1: {
                     label: 'Front-end, SEO 50%',
@@ -152,7 +181,7 @@ class ComponentsInfo {
             {
                 generalInfo: {
                     achievements: 'Achievements',
-                    knowledge: 'Knowledge'
+                    knowledge: 'Technologies'
                 }
             }
         ],

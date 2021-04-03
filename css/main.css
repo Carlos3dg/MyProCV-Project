@@ -341,22 +341,6 @@ b.visible {
     display: inline-block;
 }
 
-.profile-contact .profile-addres:hover span {
-    background-color: rgb(206, 36, 36);
-}
-
-.profile-contact .profile-phone:hover span {
-    background-color: rgb(206, 203, 12);
-}
-
-.profile-contact .profile-mail:hover span {
-    background-color: rgb(25, 200, 83);
-}
-
-.profile-contact .profile-linkedin:hover span {
-    background-color: var(--linksHover);
-}
-
 /* FULL SIDEBAR */
 .full-left-sidebar {
     position: fixed;
@@ -364,7 +348,7 @@ b.visible {
     left: -20vw;
     width: var(--fullSidebarSize);
     height: calc(100% - 70px);
-    padding: 20px 0 30px; /*Count 30px top and bottom*/
+    padding: 10px 0 30px; /*Count 30px top and bottom*/
     background-color: rgba(32, 35, 42, 0.9);
     transition: left 350ms linear;
     color: #fff;
@@ -382,8 +366,8 @@ b.visible {
 }
 
 .profile-image {
-    width: calc(var(--fullSidebarSize) * .60);
-    height: calc(var(--fullSidebarSize) * .60); /*Count the 60% of 20vw*/
+    width: calc(var(--fullSidebarSize) * .55);
+    height: calc(var(--fullSidebarSize) * .55); /*Count the 55% of 20vw*/
     margin: 0 auto 20px; /*Count 20px*/
     border-radius: 50%;
     border: 2px solid white;
@@ -413,27 +397,27 @@ b.visible {
     padding: calc(var(--fullSidebarSize) * 0.04) 0;
 }
 
-.linkedin-icon {
+.profile-contact li:nth-child(odd) i {
     color: var(--linksHover);
 }
 
-.mail-icon {
-    color: var(--greenColor);
+.profile-contact li:nth-child(even) i {
+    color: white;
 }
 
-.phone-icon {
-    color: var(--yellowColor)
-}
-
-.addres-icon {
-    color: rgb(206, 36, 36);
-}
-
-.profile-icons:hover {
+#profile-contact .profile-icons:hover {
     border-radius: 0 8% 8% 0 / 0 50% 50% 0;
 }
 
-.profile-addres:hover {
+.profile-icons:hover, .profile-icons:hover span  {
+    background-color: var(--linksHover);
+}
+
+/*.profile-contact li:nth-child(even) .profile-icons:hover {
+    background-color: var(--linksHover);
+}*/
+
+/*.profile-addres:hover {
     background-color: rgb(206, 36, 36);
 }
 
@@ -447,7 +431,7 @@ b.visible {
 
 .profile-linkedin:hover {
     background-color: var(--linksHover);
-}
+}*/
 
 .profile-contact a:hover i {
     color: white;
@@ -654,25 +638,29 @@ b.visible {
 
 .bar-chart {
     width: 75%;
-    height: 1.5em;
+    height: 1.3em;
     border: 1px solid rgba(0, 0, 0, 0.3);
-    border-radius: 5px;
+    border-radius: 0.65em;
     padding-right: 75%;
     background-origin: content-box;
     background-clip: content-box;
     transition: all 1000ms linear;
 }
 
-.htmlBar, .cssBar {
+.htmlBar, .cssBar, .jsBar, .reactBar {
     padding-right: 7.5%;
 }
 
-.jsBar {
-    padding-right: 11.25%;
+.routerBar {
+    padding-right: 37.5%;
 }
 
-.reactBar, .gitBar {
-    padding-right: 52.5%;
+.reduxBar {
+    padding-right: 30%;
+}
+
+.gitBar {
+    padding-right: 45%;
 }
 
 .seoBar {
@@ -1109,7 +1097,7 @@ footer {
 }
 
 .footer-node:nth-child(2) {
-    top: 48%;
+    top: 54%;
 }
 
 .footer-node:last-child {
@@ -1117,8 +1105,7 @@ footer {
 }
 
 .footer-logo {
-    width: 45%;
-    margin-bottom: 15px;
+    width: 25%;
 }
 
 .socialmedia {

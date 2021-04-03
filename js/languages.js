@@ -32,8 +32,8 @@ const langStrings = [
         en: 'Innovator'
     },
     {
-        es: 'Soy un desarrollador web apasionado en el desarrollo de interesantes y desafiantes proyectos para aprender no solo código sino también los diferentes procesos para hacer software.',
-        en: 'I\'m a Web Developer passionate in the development of interesting and challenging projects to learn not just code but also the different process to do software'
+        es: 'Soy un Desarrollador Frontend emocionado en la creación de UI y UX, un excelente Desarrollador JavaScript usando herramientas como React, React Router, Redux, y una persona autodidacta que nunca para de aprender.',
+        en: 'I\'m a Frontend Web Developer excited about building significant UI and UX, an excellent JavaScript Developer using tools such as React, React Router, Redux, and a self-taught person who never stops learning.'
     },
     {
         es: 'Experiencia laboral',
@@ -56,16 +56,20 @@ const langStrings = [
         en: 'Details',
     },
     {
-        es: 'Auxiliar General',
-        en: 'Store Attendant'
+        es: 'Auxiliar Informático',
+        en: 'IT Assistant'
     },
     {
-        es: 'Septiembre 2014 - Abril 2015',
-        en: 'September 2014 – April 2015'
+        es: 'Universidad Tecmilenio',
+        en: 'Tecmilenio University'
     },
     {
-        es: 'Atención al cliente, inventarios, mantenimiento a pasillos',
-        en: 'Customer service, inventories, hall maintenance'
+        es: 'Junio 2019 - Febrero 2021',
+        en: 'June 2019 – February 2021'
+    },
+    {
+        es: 'Servicio en soporte a colaboradores, maestros y alumnos, instalación y configuración de software, mantenimiento en hardware y redes, reparación de equipos de cómputo, elaboración de manuales de usuario.',
+        en: 'Technical support service to employees, teachers, and students, software setup and configuration, hardware and network performance, computer equipment repair, user manual creation.'
     },
     {
         es: 'Educación',
