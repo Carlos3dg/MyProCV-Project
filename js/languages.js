@@ -136,6 +136,22 @@ const langStrings = [
         en: 'Portfolio'
     },
     {
+        es: 'CV Website',
+        en: 'Resume Website',
+    },
+    {
+        es: 'Mi CV website es el proyecto sobre el cual se está navegando. Cuenta con funcionalidades elementales como cambiar el idioma, enviar correos al propietario, desglosar información en forma de gráficos, además de las funcionalidades básicas de un sitio estático. Construido únicamente con las tres principales tecnologías del Front-end (HTML, CSS y JavaScript).',
+        en: 'My resume website is the project where you are navigating. It has elemental features like a language switcher, a contact option, or displaying information as a chart, besides the basic static website functionalities. It was built just with the main three front-end technologíes (HTML, CSS, and JavaScript).',
+    },
+    {
+        es: 'Proyecto inspirado en Google Calendar. Calendar App nos ayuda a organizar tareas o eventos de forma detallada, eligiendo la hora de inicio y fin de estas y la cantidad de veces que queremos que se repitan. Cuenta con la simulación de un Login para acceder a las tareas únicamente cuando esté la sesión abierta y establece enrutadores, que ayudan al usuario a saber en qué lugar de la página se encuentra o notificarle si está en un lugar no indexado (Páginas 404). Este proyecto fue realizado con React, React Router y Redux, aplicando el principio de responsabilidad única.',
+        en: 'A project inspired in Google Calendar. Calendar App helps us to manage tasks or events in a detailed way, selecting the start time and end time of these and the frequency that we want to repeat them. It has a Login simulation to allow access to the tasks only when the session is open and sets routers that help the user know which part of the page is or notify him when he is on a not indexed page (404 Page). This project was built with React, React Router, and Redux, using the Single Responsibility Principle.',
+    },
+    {
+        es: 'Calendar App',
+        en: 'Calendar App',
+    },
+    {
         es: 'Tarjeta Feria App',
         en: 'Public Transportation App'
     },
@@ -152,7 +168,7 @@ const langStrings = [
         en: 'To-Do List'
     },
     {
-        es: 'Lista de Tareas nos permite ir agregando tareas a una tabla la cual las clasifica como tareas terminadas y tareas incompletas y estas a su vez se en listan en un orden en el cual se posicionan las incompletas al inicio de la lista y las completas al final de esta. Este proyecto uso conceptos intermedios y avanzados de JavaScript como LocalStorage, Clases, objetos y métodos, eventos y diversos métodos de arreglos, además de HTML y CSS.',
+        es: 'Lista de Tareas nos permite ir agregando tareas a una tabla la cual las clasifica como tareas terminadas y tareas incompletas y estas a su vez se en listan en un orden en el cual se posicionan las incompletas al inicio de la lista y las completas al final de esta. Este proyecto usó conceptos intermedios y avanzados de JavaScript como LocalStorage, Clases, objetos y métodos, eventos y diversos métodos de arreglos, además de HTML y CSS.',
         en: 'To-Do List enables us to add some tasks in a table, which one tries to sort out these tasks like done tasks and undone tasks, positioning the undone tasks at the beginning and the done tasks at the end of the table. This project use intermediate and advanced JavaScript concepts like LocalStorage, Class, Objects, and Methods (OOP), events and different array methods, besides being used HTML and CSS'
     },
     {
