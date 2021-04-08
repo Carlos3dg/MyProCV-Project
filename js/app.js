@@ -12,7 +12,7 @@ class ComponentsInfo {
             {
                 name: 'Auxiliar Informático',
                 place: 'Universidad Tecmilenio',
-                logo: 'img/tecmilenio.jpg',
+                logo: 'img/sections/experience/tecmilenio.jpg',
                 goals: 'Acreditar curso de mantenimiento en equipos DELL',
                 tool1: {
                     label: 'Software 50%',
@@ -37,7 +37,7 @@ class ComponentsInfo {
             {
                 name: 'Practicante Desarrollador Web',
                 place: 'Besser Energy S.A.P.I de C.V.',
-                logo: 'img/besserlighting.png',
+                logo: 'img/sections/experience/besserlighting.png',
                 goals: 'Desarrollar de inicio a fin la página web de la empresa',
                 tool1: {
                     label: 'HTML, CSS, JS 50%',
@@ -102,7 +102,7 @@ class ComponentsInfo {
             {
                 name: 'GetApp Program',
                 place: 'JA México y Accenture México',
-                logo: 'img/jamexico.jpg',
+                logo: 'img/sections/volunteer/jamexico.jpg',
                 goals: 'Permanecer en el Top 3 durante todo el programa',
                 tool1: 'Planeación de Negocios',
                 tool2: 'Propuesta de valor',
@@ -131,7 +131,7 @@ class ComponentsInfo {
             {
                 name: 'IT Assistant',
                 place: 'Tecmilenio University',
-                logo: 'img/tecmilenio.jpg',
+                logo: 'img/sections/experience/tecmilenio.jpg',
                 goals: 'Approving the DELL equipment maintenance course',
                 tool1: {
                     label: 'Software 50%',
@@ -156,7 +156,7 @@ class ComponentsInfo {
             {
                 name: 'Intern Web Developer',
                 place: 'Besser Energy S.A.P.I de C.V.',
-                logo: 'img/besserlighting.png',
+                logo: 'img/sections/experience/besserlighting.png',
                 goals: 'Building from scratch the company\'s web site',
                 tool1: {
                     label: 'Front-end, SEO 50%',
@@ -206,7 +206,7 @@ class ComponentsInfo {
             {
                 name: 'GetApp Program',
                 place: 'JA Mexico y Accenture Mexico',
-                logo: 'img/jamexico.jpg',
+                logo: 'img/sections/volunteer/jamexico.jpg',
                 goals: 'Being in the 3rd Top position during the entire program',
                 tool1: 'Business model generation',
                 tool2: 'Value proposition',

@@ -371,7 +371,7 @@ b.visible {
     margin: 0 auto 20px; /*Count 20px*/
     border-radius: 50%;
     border: 2px solid white;
-    background-image: url(../img/profile-image.jpg);
+    background-image: url(../img/sections/profile/profile-image.jpg);
     background-size: cover;
     background-position: center top;
 }
