@@ -482,7 +482,7 @@ b.visible {
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.sub-section-container:last-child, .sub-section-container:last-child {
+.sub-section-container:last-child:not(.showed-project) {
     border: 0;
 }
 
