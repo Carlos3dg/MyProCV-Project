@@ -1,0 +1,48 @@
+/* Most commun laptop size */
+@media screen and (max-width: 1366px) {
+    /* BODY INFORMATION & PROJECTS CONTAINER */
+    .body-information {
+        min-width: calc(52% - 30px);
+        max-width: calc(72% - (var(--leftSidebarSize) + 23px));  
+    }
+
+    .projects-container {
+        width: calc(28% - 23px);
+        min-width: calc(28% - 23px);
+        max-width: calc(28% - 23px);
+    }
+
+    .portfolio-video {
+        height: calc((28vw - 23px) * 0.54);
+    }
+
+    /* FOOTER */ 
+    .media-anchor {
+        width: 45px;
+        height: 45px;
+        font-size: 21px;
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    .container {
+        font-size: 0.90rem;
+    }
+    
+    .container-medium {
+        font-size: 0.80rem;
+    }
+    
+    .container-short {
+        font-size: 0.75rem;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+ /* Change to one column layout */
+}
+
+/* PORTRAIT */
+@media screen and (max-width: 1024px) and (orientation: portrait) {
+
+}
