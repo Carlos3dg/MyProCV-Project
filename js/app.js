@@ -235,7 +235,10 @@ class ComponentsInfo {
 class UI {
     //Default property values that can be used by a method
     constructor() {
-
+        this.tabletMediaQueries = window.matchMedia('(max-width: 1024px) and (min-width: 812px)');
+        this.desktopMediaQueries = window.matchMedia('(min-width: 1025px)');
+        this.desktopMode = matchMedia(this.desktopMediaQueries);
+        this.tabletMode = matchMedia(this.tabletMediaQueries);
     }
 
     //Method to make the word wrap effect in the banner
@@ -297,16 +300,30 @@ class UI {
         }
     }
     //Method to active the toggle effect in the sidebar menu
-    toggleEffect(sidebarMenu, sidebarIconsMenu, bodyInformation) {
+    toggleEffect(sidebarMenu, sidebarIconsMenu, HTMLsections) {
+        const sections = Array.from(HTMLsections);
         //Active and desactive the sidebar menu
         sidebarMenu.classList.toggle('active-full-sidebar');
-        bodyInformation.classList.toggle('body-information-short');
 
-        //After 100 ms we disable or enable the sidebar with the icons to first positionated the element
-        setTimeout(() => {
-            sidebarIconsMenu.classList.toggle('disable-left-sidebar');
-        }, 100)
+        if(this.desktopMode) {
+            const bodySection = sections.find((section) => {
+                return section.className.match('body-information')
+            });
 
+            bodySection.classList.toggle('body-information-short');
+
+            //After 100 ms we disable or enable the sidebar with the icons to first positionated the element
+            setTimeout(() => {
+                sidebarIconsMenu.classList.toggle('disable-left-sidebar');
+            }, 100);
+
+        } else if (this.tabletMode) {
+            sections.forEach((section) => {
+                section.classList.toggle('body-information-short');
+            });
+        } else {
+            return;
+        }
     }
 
     //Method to found the exactly position of an element
@@ -476,16 +493,17 @@ document.querySelector('.navigation').addEventListener('click', function(e) {
     //DELEGATION
     //Click event for toggle menu
     if (e.target.id === 'toggle__menu') {
+        const tabletMedia = window.matchMedia('(min-width: 1024px)');
         const sidebarMenu = document.querySelector('.full-left-sidebar');
         const sidebarIconsMenu = document.querySelector('.left-sidebar');
-        const bodyInformation = document.querySelector('.body-information');
+        const sections = document.querySelector('.main-container').children;
         /*Get a method to found the top, left, etc of the positions of the element in the selector*/
         const iconsPosition = document.querySelector('#profile-contact').getBoundingClientRect();
         
         //Call the found method with the element and its different positions as parameters
         ui.foundElementPosition(sidebarIconsMenu, iconsPosition);
         //Call the toggleEffect method
-        ui.toggleEffect(sidebarMenu, sidebarIconsMenu, bodyInformation);
+        ui.toggleEffect(sidebarMenu, sidebarIconsMenu, sections);
     }
 });
 
@@ -713,3 +731,12 @@ document.querySelector('#anchor-contact').addEventListener('click', function(e) 
         });
     });
 })();
+
+/* MATCH MEDIA */
+function matchMedia(mediaQuery) {
+    if(mediaQuery.matches) {
+        return true;
+    } else {
+        return false;
+    }
+}

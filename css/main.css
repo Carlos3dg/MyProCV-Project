@@ -199,6 +199,15 @@ a {
     border-bottom: 3px solid rgb(6, 160, 221);
 }
 
+.nav-logo {
+    display: none;
+    width: 9%;
+}
+
+.nav-logo img {
+    width: 100%;
+}
+
 /* LANGUAGE SWITCHER */
 .display-language {
     height: calc(1.45em + 16px);
@@ -341,7 +350,7 @@ b.visible {
 .full-left-sidebar {
     position: fixed;
     top: 70px;
-    left: -20vw;
+    left: calc(-1 * (var(--fullSidebarSize)));
     width: var(--fullSidebarSize);
     height: calc(100% - 70px);
     padding: 10px 0 30px; /*Count 30px top and bottom*/
@@ -449,7 +458,7 @@ b.visible {
 }
 
 .body-information-short {
-    margin-left: calc(20% + 30px);
+    margin-left: calc(var(--fullSidebarSize) + 30px) !important;
 }
 
 .information-sections {

@@ -39,10 +39,52 @@
 }
 
 @media screen and (max-width: 1024px) {
- /* Change to one column layout */
+    :root {
+        --fullSidebarSize: 30vw
+    }
+
+    html, body {
+        font-size: 19px;
+    }
+
+    /* HEADER */
+    .nav__links-container {
+        display: none;
+    }
+
+    .nav-logo {
+        display: block;
+    }
+
+    /* MAIN CONTAINER */
+    .main-container {
+        flex-direction: column;
+    }
+
+    .body-information {
+        order: 1;
+    }
+
+    .projects-container {
+        order: 0;
+        width: auto;
+        min-width: calc(55% - 30px);
+        margin-bottom: 23px;
+        transition: all 350ms linear;
+    }
+
+    .body-information, .projects-container {
+        max-width: calc(100% - 19px);
+        margin-left: 19px;
+    }
+
+    /* LEFT SIDEBAR */
+    .left-sidebar {
+        display: none;
+    }
 }
 
 /* PORTRAIT */
 @media screen and (max-width: 1024px) and (orientation: portrait) {
-
+    
 }
