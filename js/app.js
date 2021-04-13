@@ -740,3 +740,58 @@ function matchMedia(mediaQuery) {
         return false;
     }
 }
+
+/* DECLARE MOBILE OR DESKTOP LISTENERS AT FIRST LOAD */
+const mobileMediaQueries = window.matchMedia('(max-width: 1024px)');
+const desktopMediaQueries = window.matchMedia('(min-width: 1025px)');
+(function executeListeners() {
+    if(matchMedia(mobileMediaQueries)) {
+        addMobileListeners();
+    } else {
+        addDesktopListeners();
+    }
+})();
+
+/* DECLARE MOBILE OR DESKTOP LISTENERS ON CHANGE SCREEN RESIZE */
+mobileMediaQueries.addEventListener('change', function(e) {
+    if(matchMedia(e)) {
+        addMobileListeners();
+        removeDesktopListeners();
+    } 
+});
+
+desktopMediaQueries.addEventListener('change', function(e) {
+    if(matchMedia(e)) {
+        addDesktopListeners();
+        removeMobileListeners();
+    }
+});
+
+/* MOBILE LISTENERS */
+function addMobileListeners() {
+    document.querySelector('.nav-logo img').addEventListener('click', scrollTop);
+}
+
+function removeMobileListeners() {
+    document.querySelector('.nav-logo img').removeEventListener('click', scrollTop);
+}
+
+function scrollTop(e) {
+    e.preventDefault();
+
+    //Add scroll and position
+    window.scrollTo({
+        'behavior': 'smooth',
+        'left': 0,
+        'top': 0
+    });
+}
+
+/* DESKTOP LISTENERS */
+function addDesktopListeners() {
+
+}
+
+function removeDesktopListeners() {
+
+}
