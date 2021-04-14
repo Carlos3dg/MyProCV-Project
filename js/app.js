@@ -306,16 +306,15 @@ class UI {
         sidebarMenu.classList.toggle('active-full-sidebar');
 
         if(this.desktopMode) {
-            const bodySection = sections.find((section) => {
-                return section.className.match('body-information')
+            sections.forEach((section) => {
+                if(!section.className.match('aside-section')) {
+                    section.classList.toggle('body-information-short');
+                } else {
+                    if(section.classList.contains('body-information-short')) {
+                        section.classList.remove('body-information-short');
+                    }
+                }
             });
-
-            bodySection.classList.toggle('body-information-short');
-
-            //After 100 ms we disable or enable the sidebar with the icons to first positionated the element
-            setTimeout(() => {
-                sidebarIconsMenu.classList.toggle('disable-left-sidebar');
-            }, 100);
 
         } else if (this.tabletMode) {
             sections.forEach((section) => {
@@ -324,6 +323,10 @@ class UI {
         } else {
             return;
         }
+        //After 100 ms we disable or enable the sidebar with the icons to firpositionated the element
+        setTimeout(() => {
+            sidebarIconsMenu.classList.toggle('disable-left-sidebar');
+        }, 100);
     }
 
     //Method to found the exactly position of an element
@@ -660,8 +663,18 @@ function seeMoreAndLess() {
             const titleHeight = project.querySelector('.subtitle-section').clientHeight;
             const descriptionHeight = project.querySelector('p').clientHeight;
             const buttonsHeight = project.querySelector('.project-buttons-container').clientHeight;
-            const projectHeight = videoHeight + titleHeight + descriptionHeight + buttonsHeight;
-    
+            let projectHeight;
+            /* Check if we the project's containers are in two columns */
+            const projectsContainer = document.querySelector('.projects-container');
+            const isContainerFullWide = !projectsContainer.classList.contains('body-information-short');
+                /* If mobile query is true and container is full wide: containers are displayed in two columns */
+            if(matchMedia(mobileMediaQueries) && isContainerFullWide) {
+                const informationHeight = titleHeight + descriptionHeight + buttonsHeight;
+                projectHeight = videoHeight>informationHeight ? videoHeight : informationHeight;
+            } else {
+                projectHeight = videoHeight + titleHeight + descriptionHeight + buttonsHeight;
+            }
+
             project.style.height = `${projectHeight}px`;
             project.classList.remove('hidden-project');
             project.classList.add('showed-project');
@@ -677,7 +690,7 @@ function seeMoreAndLess() {
 
     const seeMoreBtn = document.querySelector('.see-more-btn');
     const seeLessBtn = document.querySelector('.see-less-btn');
-
+    //Show the corresponded button
     seeMoreBtn.classList.toggle('active-btn');
     seeLessBtn.classList.toggle('active-btn');
 }
