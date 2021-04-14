@@ -12,9 +12,9 @@
         max-width: calc(28% - 23px);
     }
 
-    .portfolio-video {
+    /*.portfolio-video {
         height: calc((28vw - 23px) * 0.54);
-    }
+    }*/
 
     /* FOOTER */ 
     .media-anchor {

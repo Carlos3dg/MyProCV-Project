@@ -492,6 +492,14 @@ b.visible {
     position: relative;
     padding: 25px 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.sub-section-container>* {
+    flex-basis: 400px;
+    flex-grow: 1;
 }
 
 .sub-section-container:last-child:not(.showed-project) {
@@ -821,10 +829,11 @@ b.visible {
 }
 
 .portfolio-video {
-    width: calc(100% + 40px);
+    width: 100%;
+    /*width: calc(100% + 40px);
     height: calc((25vw - 23px)*0.54);
     margin-left: -20px;
-    margin-right: -20px;
+    margin-right: -20px;*/
 }
 
 .projects-container p {
