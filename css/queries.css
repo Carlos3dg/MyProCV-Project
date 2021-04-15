@@ -40,7 +40,10 @@
 
 @media screen and (max-width: 1024px) {
     :root {
-        --fullSidebarSize: 30vw
+        --fullSidebarSize: 30vw;
+        --bannerImage: 100px;
+        --paddingTitle: 15px;
+        --HeightTitle: calc(var(--bannerImage) + var(--paddingTitle) + var(--paddingTitle));
     }
 
     html, body {
@@ -54,6 +57,64 @@
 
     .nav-logo {
         display: block;
+    }
+
+    /* banner */
+    .title__container {
+        display: block;
+        text-align: left;
+        width: 600px;
+        left: calc(50% - (600px*0.5));
+        height: var(--HeightTitle);
+        top: calc((100vh - var(--HeightTitle)) * 0.5);
+        padding: var(--paddingTitle) var(--paddingTitle);
+        border: 0;
+    }
+
+    .banner-profile-image {
+        display: block;
+        width: var(--bannerImage);
+        height: var(--bannerImage);
+        position: absolute;
+        top: var(--paddingTitle);
+        left: var(--paddingTitle);
+    }
+
+    .title__container h1, .title__container h2 {
+        margin-left: calc(var(--bannerImage) + 10px);
+    }
+
+    /* nav sidebar */
+    .profile-intro-information, .profile-objective, .profile-contact {
+        display: none;
+    }
+
+    .full-left-sidebar {
+        padding: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-sidebar {
+        width: 100%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .nav-sidebar li:last-child {
+        order: -1;
+    }
+
+    .nav-sidebar-link {
+        display: inline-block;
+        width: 100%;
+        padding: 15px 0;
+        text-transform: uppercase;
+    }
+
+    .nav-sidebar-link:hover {
+        color: var(--linksHover);
     }
 
     /* MAIN CONTAINER */

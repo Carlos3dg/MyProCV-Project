@@ -298,6 +298,10 @@ canvas.particles-js-canvas-el {
     left: 0;
 }
 
+.banner-profile-image {
+    display: none;
+}
+
 .title__container h2 {
     position: relative;
     height: 1.5em;
@@ -372,20 +376,27 @@ b.visible {
     left: 0;
 }
 
+.nav-sidebar {
+    display: none;
+}
+
 .profile-intro-information {
     text-align: center;
     margin-bottom: 10px; /*Count 10px*/
+}
+
+.profile-image, .banner-profile-image {
+    border-radius: 50%;
+    border: 2px solid white;
+    background-image: url(../img/sections/profile/profile-image.jpg);
+    background-size: cover;
+    background-position: center top;
 }
 
 .profile-image {
     width: calc(var(--fullSidebarSize) * .55);
     height: calc(var(--fullSidebarSize) * .55); /*Count the 55% of 20vw*/
     margin: 0 auto 20px; /*Count 20px*/
-    border-radius: 50%;
-    border: 2px solid white;
-    background-image: url(../img/sections/profile/profile-image.jpg);
-    background-size: cover;
-    background-position: center top;
 }
 
 .profile-objective {

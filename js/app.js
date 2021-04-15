@@ -318,7 +318,14 @@ class UI {
 
         } else if (this.tabletMode) {
             sections.forEach((section) => {
-                section.classList.toggle('body-information-short');
+                if(!section.className.match('aside-section')) {
+                    section.classList.toggle('body-information-short');
+                } else {
+                    if(!sidebarMenu.classList.contains('active-full-sidebar') && !section.classList.contains('body-information-short')) {
+                        return;
+                    }
+                    section.classList.toggle('body-information-short');
+                }
             });
         } else {
             return;
@@ -723,9 +730,9 @@ document.querySelector('#anchor-contact').addEventListener('click', function(e) 
 });
 
 //Function to add scroll effect to the On-Page-Link
-(function addAnchorEventListeners() {
+function addAnchorEventListeners(anchorSelector) {
     //Get anchors and the corresponding sections
-    const anchors =  document.querySelectorAll('.nav__links');
+    const anchors =  document.querySelectorAll(`.${anchorSelector}`);
     const sections = document.querySelectorAll('.information-sections');
     //Turn our anchors Node variable into an Array
     const anchorsArray = Array.prototype.slice.call(anchors);
@@ -743,7 +750,7 @@ document.querySelector('#anchor-contact').addEventListener('click', function(e) 
             });
         });
     });
-})();
+}
 
 /* MATCH MEDIA */
 function matchMedia(mediaQuery) {
@@ -783,6 +790,7 @@ desktopMediaQueries.addEventListener('change', function(e) {
 /* MOBILE LISTENERS */
 function addMobileListeners() {
     document.querySelector('.nav-logo img').addEventListener('click', scrollTop);
+    addAnchorEventListeners('nav-sidebar-link')
 }
 
 function removeMobileListeners() {
@@ -802,7 +810,7 @@ function scrollTop(e) {
 
 /* DESKTOP LISTENERS */
 function addDesktopListeners() {
-
+    addAnchorEventListeners('nav__links')
 }
 
 function removeDesktopListeners() {
