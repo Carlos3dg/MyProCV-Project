@@ -380,6 +380,10 @@ b.visible {
     display: none;
 }
 
+.nav-sidebar-link.active {
+    color: var(--linksHover);
+}
+
 .profile-intro-information {
     text-align: center;
     margin-bottom: 10px; /*Count 10px*/

@@ -336,6 +336,32 @@ class UI {
         }, 100);
     }
 
+    activeNavLinksOnScroll(sections) {
+        if(this.tabletMode) {
+            const navLinks = document.querySelectorAll('.nav-sidebar-link');
+            //Evaluate the top and bottom of every section
+            sections.forEach((section, index) => {
+                const top = section.getBoundingClientRect().top;
+                const bottom = section.getBoundingClientRect().bottom;
+                switch(true) {
+                    case top<=90 && bottom > 70: {
+                        navLinks[index].classList.add('active')
+                        break;
+                    }
+                    case top>90 || bottom<70: {
+                        if(navLinks[index].classList.contains('active')) {
+                            navLinks[index].classList.remove('active')
+                        }
+                        break;
+                    }
+                    default: {
+                        break;
+                    }
+                }
+            });
+        }
+    }
+
     //Method to found the exactly position of an element
     foundElementPosition(element, elementPosition) {
         element.style.top = `${elementPosition.top}px`;
@@ -574,7 +600,7 @@ window.addEventListener('scroll', function() {
     //Create the instance of the class ComponentsInfo to have acces to the tech bar charts percentages
     const {ui, info} = instanceObjects('both');
     //If techSkills container is at 180 pixels from top then
-    if (techSkillsTop < 180 && execute.barTech) {
+    if (techSkillsTop <= 90 && execute.barTech) {
         //Get every tech skill that we have
         const techSkillsNode = document.querySelectorAll('.bar-chart-tech');
         //Call the method barChartEffect from the UI
@@ -582,11 +608,14 @@ window.addEventListener('scroll', function() {
         execute.barTech = false; //To avoid the execution of this condition
     }
 
-    if (languageTop < 180 && execute.barLanguage) {
+    if (languageTop <= 90 && execute.barLanguage) {
         const languagesNode = document.querySelectorAll('.bar-chart-language');
         ui.barChartsEffect(languagesNode, info.languageBarCharts, info.languageBarCharts[0].english.length);
         execute.barLanguage = false;
     }
+    //Active nav links on scroll
+    const sections = document.querySelectorAll('.information-sections');
+    ui.activeNavLinksOnScroll(sections);
 });
 
 //Drop down laguage effect
