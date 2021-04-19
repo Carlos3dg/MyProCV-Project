@@ -139,6 +139,52 @@
         margin-left: 19px;
     }
 
+    /* Experience */
+    .details {
+        display: none;
+    }
+
+    .details-info {
+        padding: 0;
+        border-top: 0;
+        margin-top: 0;
+        height: 0;
+        box-sizing: content-box;
+        overflow: hidden;
+        transition: all 350ms linear;
+    }
+
+    .goals-container i {
+        font-size: 6.5em;
+    }
+
+    .pie-chart {
+        width: 115px;
+        height: 115px;
+    }
+
+    .job-information .arrow-down-button, .volunteering-information .arrow-down-button {
+        display: block;
+    }
+
+    .arrow-down-button {
+        width: 40px;
+        height: 40px;
+    }
+
+    .arrow-down-button i {
+        line-height: 40px;
+    }
+
+    /* Volunteer */
+    .volunteering-description {
+        padding-bottom: 32px;
+    }
+
+    .buttons-container {
+        top: auto;
+    }
+
     /* LEFT SIDEBAR */
     .left-sidebar {
         display: none;

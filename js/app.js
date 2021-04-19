@@ -410,6 +410,101 @@ class UI {
         return detailsBox;
     }
 
+    dropDownDetails(container, detailSections, details, generalInfo) {
+        const isContainerDisplayed = this.removeDisplayedContainer(container, detailSections);
+
+        if(isContainerDisplayed) return;
+
+        const content = this.detailsInfoContent(details, generalInfo)
+        container.innerHTML = content;
+
+        this.expandDetailsContainer(container);
+    }
+
+    removeDisplayedContainer(actualContainer, containersNode) {
+        const containers = Array.from(containersNode);
+        const displayedContainer = containers.find((container) => (
+            container.clientHeight > 0
+        ));
+        let isActualContainerDisplayed;
+
+        if(!displayedContainer) {
+            isActualContainerDisplayed = false;
+            return isActualContainerDisplayed;
+        } else if(displayedContainer === actualContainer) {
+            isActualContainerDisplayed = true;
+        } else {
+            isActualContainerDisplayed = false;
+        }
+
+        const styles = displayedContainer.style;
+        styles.height = '0';
+        styles.padding = '0';
+        styles.borderTop = '0';
+        styles.marginTop = '0';
+
+        setTimeout(() => {
+            displayedContainer.innerHTML = '';
+        }, 450);
+
+        return isActualContainerDisplayed;
+    }
+
+    detailsInfoContent({
+        goals,
+        tool1,
+        tool2,
+        tool3,
+        tool4,
+        pieChart
+    }, {generalInfo}) {
+    
+        return `<div class="goals-container">
+        <h5>${generalInfo.achievements}</h5>
+        <i class="fas fa-medal"></i>
+        <p>${goals}</p>
+    </div>
+    <div class="tools-container">
+        <h5>${generalInfo.knowledge}</h5>
+        ${!pieChart ? `<ul>
+            <li>${tool1}</li>
+            <li>${tool2}</li>
+            <li>${tool3}</li>
+            <li>${tool4}</li>
+        </ul>` 
+        : `<div class="pie-chart">
+            <div class="pie-segment" data-label="${tool1.label}" style="--offset:${tool1.offset}; --value:${tool1.value}; --bg: var(${tool1.bg});" title="${tool1.label}"></div>
+            <div class="pie-segment" data-label="${tool2.label}" style="--offset:${tool2.offset}; --value:${tool2.value}; --bg: ${tool2.bg};" title="${tool2.label}"></div>
+            <div class="pie-segment" data-label="${tool3.label}" style="--offset:${tool3.offset}; --value:${tool3.value}; --bg: ${tool3.bg};" title="${tool3.label}"></div>
+            </div>`}
+    </div>`;
+
+    }
+
+    expandDetailsContainer(container) {
+        const goalsContainer = container.querySelector('.goals-container');
+        const toolsContainer = container.querySelector('.tools-container');
+
+        /* Goals column */
+        const goalHeaderHeight = goalsContainer.querySelector('h5').clientHeight;
+        const iconHeight = goalsContainer.querySelector('i').clientHeight;
+        const paragraphHeight = goalsContainer.querySelector('p').clientHeight;
+        const goalsColumnHeight = goalHeaderHeight + iconHeight + paragraphHeight;
+
+        /* Knowledge/Technologies Column */
+        const knowledgeHeaderHeight = toolsContainer.querySelector('h5').clientHeight;
+        const knowledgeBody = toolsContainer.querySelector('ul') || toolsContainer.querySelector('.pie-chart');
+        const knowledgeBodyHeight = knowledgeBody.clientHeight;
+        const knowledgeColumnHeight = knowledgeHeaderHeight + knowledgeBodyHeight;
+
+        /* Add details height to expand */
+        const styles = container.style;
+        styles.marginTop = '10px';
+        styles.borderTop = '1px solid rgba(0, 0, 0, 0.3)'
+        styles.padding = '15px 0 8px';
+        styles.height = goalsColumnHeight > knowledgeColumnHeight ? `${goalsColumnHeight}px` : `${knowledgeColumnHeight}px`;
+    }
+
     //Method to create the increment percentage effect in every bar chart 
     barChartsEffect(elements, percentagesArray, lengthPercentage) {
         let j = 0; //To clear the interval in the barCharts percentages
@@ -620,7 +715,8 @@ window.addEventListener('scroll', function() {
 
 //Drop down laguage effect
 document.getElementById('languages-section').addEventListener('click', function(e) {
-    const arrowButtons = document.querySelectorAll('.arrow-down-button');
+    const languagesSection = document.getElementById('languages-section');
+    const arrowButtons = languagesSection.querySelectorAll('.arrow-down-button');
     const {ui, info} = instanceObjects('both')
     translateInfo(info);
     if(e.target === arrowButtons[0] || e.target === arrowButtons[0].firstElementChild) {
@@ -703,8 +799,9 @@ function seeMoreAndLess() {
             /* Check if we the project's containers are in two columns */
             const projectsContainer = document.querySelector('.projects-container');
             const isContainerFullWide = !projectsContainer.classList.contains('body-information-short');
-                /* If mobile query is true and container is full wide: containers are displayed in two columns */
-            if(matchMedia(mobileMediaQueries) && isContainerFullWide) {
+            const tabletMediaQuery = window.matchMedia('(max-width: 1024px) and (min-width: 812px)');
+                /* If tablet query is true and container is full wide: containers are displayed in two columns */
+            if(matchMedia(tabletMediaQuery) && isContainerFullWide) {
                 const informationHeight = titleHeight + descriptionHeight + buttonsHeight;
                 projectHeight = videoHeight>informationHeight ? videoHeight : informationHeight;
             } else {
@@ -819,7 +916,9 @@ desktopMediaQueries.addEventListener('change', function(e) {
 /* MOBILE LISTENERS */
 function addMobileListeners() {
     document.querySelector('.nav-logo img').addEventListener('click', scrollTop);
-    addAnchorEventListeners('nav-sidebar-link')
+    addAnchorEventListeners('nav-sidebar-link');
+    addDropDownSectionEvent('experience');
+    addDropDownSectionEvent('volunteering-section');
 }
 
 function removeMobileListeners() {
@@ -835,6 +934,42 @@ function scrollTop(e) {
         'left': 0,
         'top': 0
     });
+}
+
+function addDropDownSectionEvent(idSection) {
+    const section = document.getElementById(idSection);
+    const arrowButtons = section.querySelectorAll('.arrow-down-button');
+    const detailSections = section.querySelectorAll('.details-info');
+    let prop;
+
+    switch(idSection) {
+        case 'experience': {
+            prop = 'jobDetails';
+            break;
+        }
+        case 'volunteering-section': {
+            prop = 'volunteeringDetails';
+            break;
+        }
+        default: {
+            break;
+        }
+    }
+
+    arrowButtons.forEach((arrowButton, index) => {
+        arrowButton.addEventListener('click', function() {
+            const {ui, info} = instanceObjects('both');
+            translateInfo(info);
+            const generalInfo = info[prop][info[prop].length - 1];
+            ui.dropDownDetails(
+                detailSections[index], 
+                detailSections,
+                info[prop][index],
+                generalInfo
+            );
+        });
+    })
+
 }
 
 /* DESKTOP LISTENERS */

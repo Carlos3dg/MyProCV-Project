@@ -520,12 +520,21 @@ b.visible {
     border-radius: 50%;
 }
 
+.job-header, .volunteering-header {
+    position: relative
+}
+
 .job-information, .education-information, .volunteering-information {
     margin-left: 10%;
 }
 
 .subtitle-section {
     color: rgb(6, 44, 75);
+}
+
+/* Hide arrow button */
+.job-information .arrow-down-button, .volunteering-information .arrow-down-button {
+    display: none;
 }
 
 /* Details Option from Experience */
@@ -806,7 +815,7 @@ b.visible {
     background-image: linear-gradient(to top, var(--bannerColor), var(--linksHover));
 }
 
-.details-box ul {
+.tools-container ul {
     list-style-type: disc;
     list-style-position: inside;
     text-align: justify;
@@ -831,7 +840,7 @@ b.visible {
 }
 
 .project-list-container .sub-section-container>* {
-    flex-basis: 370px;
+    flex-basis: 361px;
     flex-grow: 1;
 }
 
