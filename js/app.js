@@ -638,55 +638,6 @@ document.querySelector('.navigation').addEventListener('click', function(e) {
     }
 });
 
-//Mouse enter event listener to appear extra information about a specific job
-document.querySelector('.experience-container').addEventListener('mouseenter', function(e) {
-    //We are going to need the height of the viewport so we got it
-    const highScreen = window.innerHeight;
-    //We get the buttons container to detect one from another
-    const jobZero = document.getElementById('job-0');
-    const jobOne = document.getElementById('job-1');
-
-	// Make sure it's not the document object
-    //if (!('matches') in e.target) return;
-
-    // Do your thing...
-	if (e.target.matches('.details')) {
-        //Get the object array that has the information that we're going to need and th ui instance
-        const {ui, info} = instanceObjects('both')
-        translateInfo(info);
-        //Get general info that is not part of an information job
-        const generalInfo = info.jobDetails[info.jobDetails.length - 1]
-		//Here we detect the details button that is being hover, zero is for office and one for besser
-        if(e.target === jobZero) {
-            //Found the exact position of the button in the viewport
-            const buttonPosition = jobZero.getBoundingClientRect();
-            //Call the method to create the details box, here we need four parameters: the index number of the object array according with the number job that the e.target found, the complete height of the viewport, the button position and the object array, where it is the information that we're going to need.
-            const detailsBox = ui.detailsBoxCreation(highScreen, buttonPosition, info.jobDetails[0], generalInfo);
-            //At the end we insert the detailsBox element that our method has returned inside the jobZero element
-            jobZero.appendChild(detailsBox);
-        
-        } else if(e.target === jobOne) {
-            const buttonPosition = jobOne.getBoundingClientRect();
-            //Call the method to create the details box
-            const detailsBox = ui.detailsBoxCreation(highScreen, buttonPosition, info.jobDetails[1], generalInfo);
-            //console.log(detailsBox);
-            jobOne.appendChild(detailsBox);
-        }
-	}
-}, true);
-
-//Mouse leave event to remove the details box that our mouse enter element creates
-document.querySelector('.experience-container').addEventListener('mouseleave', function(e) {
-    // Make sure it's not the document object
-    //if (!('matches') in e.target) return;
-    let detailsBox;
-    // Do your thing...
-    if (e.target.matches('.details')) {
-        detailsBox = document.querySelector('.details-box')
-        detailsBox.remove();
-    }
-}, true);
-
 //Technical skills - bar chart effect
 window.addEventListener('scroll', function() {
     //Get the Tech Skills container to know its exact position in every scroll
@@ -727,45 +678,6 @@ document.getElementById('languages-section').addEventListener('click', function(
         ui.dropDownLanguage('spanish-language', languageContainer, info.factLanguages[1].spanish);
     }
 });
-
-document.querySelector('.volunteering-section').addEventListener('mouseenter', function(e) {
-    //We are going to need the height of the viewport so we got it
-    const highScreen = window.innerHeight;
-    //We get the buttons container to detect one from another
-    const volunteerZero = document.getElementById('volunteering-0');
-
-	// Make sure it's not the document object
-    //if (!('matches') in e.target) return;
-
-    // Do your thing...
-	if (e.target.matches('.details')) {
-        const {ui, info} = instanceObjects('both')
-        translateInfo(info);
-        const generalInfo = info.volunteeringDetails[info.volunteeringDetails.length - 1];
-		//Here we detect the details button that is being hover, zero is for office and one for besser
-        if(e.target === volunteerZero) {
-            //Found the exact position of the button in the viewport
-            const buttonPosition = volunteerZero.getBoundingClientRect();
-            //Get the object array that has the information that we're going to need
-            //Call the method to create the details box, here we need four parameters: the index number of the object array according with the number job that the e.target found, the complete height of the viewport, the button position and the object array, where it is the information that we're going to need.
-            const detailsBox = ui.detailsBoxCreation(highScreen, buttonPosition, info.volunteeringDetails[0], generalInfo);
-            //At the end we insert the detailsBox element that our method has returned inside the jobZero element
-            volunteerZero.appendChild(detailsBox);
-        
-        }
-    }
-}, true);
-
-document.querySelector('.volunteering-section').addEventListener('mouseleave', function(e) {
-    // Make sure it's not the document object
-    //if (!('matches') in e.target) return;
-    let detailsBox;
-    // Do your thing...
-    if (e.target.matches('.details')) {
-        detailsBox = document.querySelector('.details-box')
-        detailsBox.remove();
-    }
-}, true);
 
 (function portfolioVideos() {
     const containersNode = document.querySelectorAll('[data-video="video-container"]');
@@ -975,8 +887,109 @@ function addDropDownSectionEvent(idSection) {
 /* DESKTOP LISTENERS */
 function addDesktopListeners() {
     addAnchorEventListeners('nav__links')
+    //Mouse enter event listener to appear extra information about a specific job
+    document.querySelector('.experience-container').addEventListener('mouseenter', detailsBoxOnMouseEnter, true);
+    //Mouse leave event to remove the details box that our mouse enter element creates
+    document.querySelector('.experience-container').addEventListener('mouseleave', detailsBoxOnMouseLeave, true);
+    //Volunteer
+    document.querySelector('.volunteering-section').addEventListener('mouseenter', volunteerDetailsOnMouseEnter, true);
+    //Volunteer
+    document.querySelector('.volunteering-section').addEventListener('mouseleave', volunteerDetailsOnMouseLeave, true);
 }
 
 function removeDesktopListeners() {
+    //Mouse enter event listener to appear extra information about a specific job
+    document.querySelector('.experience-container').removeEventListener('mouseenter', detailsBoxOnMouseEnter, true);
+    //Mouse leave event to remove the details box that our mouse enter element creates
+    document.querySelector('.experience-container').removeEventListener('mouseleave', detailsBoxOnMouseLeave, true);
+    //Volunteer
+    document.querySelector('.volunteering-section').removeEventListener('mouseenter', volunteerDetailsOnMouseEnter, true);
+    //Volunteer
+    document.querySelector('.volunteering-section').removeEventListener('mouseleave', volunteerDetailsOnMouseLeave, true);
+}
 
+function detailsBoxOnMouseEnter(e) {
+    //We are going to need the height of the viewport so we got it
+    const highScreen = window.innerHeight;
+    //We get the buttons container to detect one from another
+    const jobZero = document.getElementById('job-0');
+    const jobOne = document.getElementById('job-1');
+
+	// Make sure it's not the document object
+    //if (!('matches') in e.target) return;
+
+    // Do your thing...
+	if (e.target.matches('.details')) {
+        //Get the object array that has the information that we're going to need and th ui instance
+        const {ui, info} = instanceObjects('both')
+        translateInfo(info);
+        //Get general info that is not part of an information job
+        const generalInfo = info.jobDetails[info.jobDetails.length - 1]
+		//Here we detect the details button that is being hover, zero is for office and one for besser
+        if(e.target === jobZero) {
+            //Found the exact position of the button in the viewport
+            const buttonPosition = jobZero.getBoundingClientRect();
+            //Call the method to create the details box, here we need four parameters: the index number of the object array according with the number job that the e.target found, the complete height of the viewport, the button position and the object array, where it is the information that we're going to need.
+            const detailsBox = ui.detailsBoxCreation(highScreen, buttonPosition, info.jobDetails[0], generalInfo);
+            //At the end we insert the detailsBox element that our method has returned inside the jobZero element
+            jobZero.appendChild(detailsBox);
+        
+        } else if(e.target === jobOne) {
+            const buttonPosition = jobOne.getBoundingClientRect();
+            //Call the method to create the details box
+            const detailsBox = ui.detailsBoxCreation(highScreen, buttonPosition, info.jobDetails[1], generalInfo);
+            //console.log(detailsBox);
+            jobOne.appendChild(detailsBox);
+        }
+	}
+}
+
+function detailsBoxOnMouseLeave(e) {
+    // Make sure it's not the document object
+    //if (!('matches') in e.target) return;
+    let detailsBox;
+    // Do your thing...
+    if (e.target.matches('.details')) {
+        detailsBox = document.querySelector('.details-box')
+        detailsBox.remove();
+    }
+}
+
+function volunteerDetailsOnMouseEnter(e) {
+    //We are going to need the height of the viewport so we got it
+    const highScreen = window.innerHeight;
+    //We get the buttons container to detect one from another
+    const volunteerZero = document.getElementById('volunteering-0');
+
+    // Make sure it's not the document object
+    //if (!('matches') in e.target) return;
+
+    // Do your thing...
+    if (e.target.matches('.details')) {
+        const { ui, info } = instanceObjects('both')
+        translateInfo(info);
+        const generalInfo = info.volunteeringDetails[info.volunteeringDetails.length - 1];
+        //Here we detect the details button that is being hover, zero is for office and one for besser
+        if (e.target === volunteerZero) {
+            //Found the exact position of the button in the viewport
+            const buttonPosition = volunteerZero.getBoundingClientRect();
+            //Get the object array that has the information that we're going to need
+            //Call the method to create the details box, here we need four parameters: the index number of the object array according with the number job that the e.target found, the complete height of the viewport, the button position and the object array, where it is the information that we're going to need.
+            const detailsBox = ui.detailsBoxCreation(highScreen, buttonPosition, info.volunteeringDetails[0], generalInfo);
+            //At the end we insert the detailsBox element that our method has returned inside the jobZero element
+            volunteerZero.appendChild(detailsBox);
+
+        }
+    }
+}
+
+function volunteerDetailsOnMouseLeave(e) {
+    // Make sure it's not the document object
+    //if (!('matches') in e.target) return;
+    let detailsBox;
+    // Do your thing...
+    if (e.target.matches('.details')) {
+        detailsBox = document.querySelector('.details-box')
+        detailsBox.remove();
+    }
 }
