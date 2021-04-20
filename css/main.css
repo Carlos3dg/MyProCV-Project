@@ -161,7 +161,7 @@ a {
     align-items: center;
     position: fixed;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
 }
 
 .navigation__items {
@@ -462,6 +462,10 @@ b.visible {
 
 .profile-contact a:hover i {
     color: white;
+}
+
+.full-left-sidebar .close-icon {
+    display: none;
 }
 
 /* MAIN-INFORMATION */
@@ -926,6 +930,7 @@ b.visible {
     height: 100%;
     top: 0;
     left: 0;
+    z-index: 1000;
     /*background: rgba(0, 0, 0, 0.1);*/
 }
 

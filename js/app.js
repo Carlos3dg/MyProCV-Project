@@ -159,7 +159,7 @@ class ComponentsInfo {
                 logo: 'img/sections/experience/besserlighting.png',
                 goals: 'Building from scratch the company\'s web site',
                 tool1: {
-                    label: 'Front-end, SEO 50%',
+                    label: 'HTML, CSS, JS 50%',
                     offset: '10',
                     value: '50',
                     bg: '--linksHover',
@@ -235,7 +235,7 @@ class ComponentsInfo {
 class UI {
     //Default property values that can be used by a method
     constructor() {
-        this.tabletMediaQueries = window.matchMedia('(max-width: 1024px) and (min-width: 812px)');
+        this.tabletMediaQueries = window.matchMedia('(max-width: 1024px) and (min-width: 813px)');
         this.desktopMediaQueries = window.matchMedia('(min-width: 1025px)');
         this.desktopMode = matchMedia(this.desktopMediaQueries);
         this.tabletMode = matchMedia(this.tabletMediaQueries);
@@ -828,6 +828,8 @@ desktopMediaQueries.addEventListener('change', function(e) {
 /* MOBILE LISTENERS */
 function addMobileListeners() {
     document.querySelector('.nav-logo img').addEventListener('click', scrollTop);
+    document.querySelector('.full-left-sidebar .close-icon').addEventListener('click', closeNavSidebar);
+    document.querySelector('.nav-sidebar').addEventListener('click', closeNavSidebar);
     addAnchorEventListeners('nav-sidebar-link');
     addDropDownSectionEvent('experience');
     addDropDownSectionEvent('volunteering-section');
@@ -882,6 +884,13 @@ function addDropDownSectionEvent(idSection) {
         });
     })
 
+}
+
+function closeNavSidebar(e) {
+    if(e.target.classList.contains('close-icon') || e.target.classList.contains('nav-sidebar-link')) {
+        const navSidebar = document.querySelector('.full-left-sidebar');
+        navSidebar.classList.remove('active-full-sidebar');
+    }
 }
 
 /* DESKTOP LISTENERS */
