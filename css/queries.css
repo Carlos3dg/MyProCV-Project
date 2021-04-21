@@ -210,15 +210,6 @@
     .full-left-sidebar {
         z-index: 101;
     }
-
-    .full-left-sidebar .close-icon {
-        position: absolute;
-        top: 0;
-        right: 8px;
-        font-size: 22px;
-        cursor: pointer;
-        display: block;
-    }
 }
 
 @media screen and (max-width: 667px) {

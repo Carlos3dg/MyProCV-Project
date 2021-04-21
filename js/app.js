@@ -300,7 +300,12 @@ class UI {
         }
     }
     //Method to active the toggle effect in the sidebar menu
-    toggleEffect(sidebarMenu, sidebarIconsMenu, HTMLsections) {
+    toggleEffect(menuIcon, sidebarMenu, sidebarIconsMenu, HTMLsections) {
+        /* Change the menu icon */
+        menuIcon.forEach((icon) => {
+            icon.classList.toggle('close-toggle')
+        });
+
         const sections = Array.from(HTMLsections);
         //Active and desactive the sidebar menu
         sidebarMenu.classList.toggle('active-full-sidebar');
@@ -619,23 +624,20 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 //Click event listener to every link inside the navigation
-document.querySelector('.navigation').addEventListener('click', function(e) {
+document.querySelector('.menu__button').addEventListener('click', function(e) {
     const ui = instanceObjects('ui')
-    //DELEGATION
-    //Click event for toggle menu
-    if (e.target.id === 'toggle__menu') {
-        const tabletMedia = window.matchMedia('(min-width: 1024px)');
-        const sidebarMenu = document.querySelector('.full-left-sidebar');
-        const sidebarIconsMenu = document.querySelector('.left-sidebar');
-        const sections = document.querySelector('.main-container').children;
-        /*Get a method to found the top, left, etc of the positions of the element in the selector*/
-        const iconsPosition = document.querySelector('#profile-contact').getBoundingClientRect();
+
+    const menuIcon = document.querySelectorAll('.toggle-menu');
+    const sidebarMenu = document.querySelector('.full-left-sidebar');
+    const sidebarIconsMenu = document.querySelector('.left-sidebar');
+    const sections = document.querySelector('.main-container').children;
+    /*Get a method to found the top, left, etc of the positions of the element in the selector*/
+    const iconsPosition = document.querySelector('#profile-contact').getBoundingClientRect();
         
-        //Call the found method with the element and its different positions as parameters
-        ui.foundElementPosition(sidebarIconsMenu, iconsPosition);
-        //Call the toggleEffect method
-        ui.toggleEffect(sidebarMenu, sidebarIconsMenu, sections);
-    }
+    //Call the found method with the element and its different positions as parameters
+    ui.foundElementPosition(sidebarIconsMenu, iconsPosition);
+    //Call the toggleEffect method
+    ui.toggleEffect(menuIcon, sidebarMenu, sidebarIconsMenu, sections);
 });
 
 //Technical skills - bar chart effect
@@ -828,7 +830,6 @@ desktopMediaQueries.addEventListener('change', function(e) {
 /* MOBILE LISTENERS */
 function addMobileListeners() {
     document.querySelector('.nav-logo img').addEventListener('click', scrollTop);
-    document.querySelector('.full-left-sidebar .close-icon').addEventListener('click', closeNavSidebar);
     document.querySelector('.nav-sidebar').addEventListener('click', closeNavSidebar);
     addAnchorEventListeners('nav-sidebar-link');
     addDropDownSectionEvent('experience');
@@ -837,6 +838,7 @@ function addMobileListeners() {
 
 function removeMobileListeners() {
     document.querySelector('.nav-logo img').removeEventListener('click', scrollTop);
+    document.querySelector('.nav-sidebar').removeEventListener('click', closeNavSidebar);
 }
 
 function scrollTop(e) {
@@ -887,9 +889,17 @@ function addDropDownSectionEvent(idSection) {
 }
 
 function closeNavSidebar(e) {
-    if(e.target.classList.contains('close-icon') || e.target.classList.contains('nav-sidebar-link')) {
+    const tabletMediaQuery = window.matchMedia('(max-width: 1024px) and (min-width: 812px)');
+    if(matchMedia(tabletMediaQuery)) return;
+
+    if(e.target.classList.contains('nav-sidebar-link')) {
         const navSidebar = document.querySelector('.full-left-sidebar');
         navSidebar.classList.remove('active-full-sidebar');
+        /* Change the close icon in nav sidebar */
+        const closeIcon = document.querySelectorAll('.close-toggle');
+        closeIcon.forEach((icon) => {
+            icon.classList.remove('close-toggle')
+        });
     }
 }
 
