@@ -159,7 +159,7 @@ class ComponentsInfo {
                 logo: 'img/sections/experience/besserlighting.png',
                 goals: 'Building from scratch the company\'s web site',
                 tool1: {
-                    label: 'Front-end, SEO 50%',
+                    label: 'HTML, CSS, JS 50%',
                     offset: '10',
                     value: '50',
                     bg: '--linksHover',
@@ -235,7 +235,10 @@ class ComponentsInfo {
 class UI {
     //Default property values that can be used by a method
     constructor() {
-
+        this.tabletMediaQueries = window.matchMedia('(max-width: 1024px) and (min-width: 813px)');
+        this.desktopMediaQueries = window.matchMedia('(min-width: 1025px)');
+        this.desktopMode = matchMedia(this.desktopMediaQueries);
+        this.tabletMode = matchMedia(this.tabletMediaQueries);
     }
 
     //Method to make the word wrap effect in the banner
@@ -297,16 +300,71 @@ class UI {
         }
     }
     //Method to active the toggle effect in the sidebar menu
-    toggleEffect(sidebarMenu, sidebarIconsMenu, bodyInformation) {
+    toggleEffect(menuIcon, sidebarMenu, sidebarIconsMenu, HTMLsections) {
+        /* Change the menu icon */
+        menuIcon.forEach((icon) => {
+            icon.classList.toggle('close-toggle')
+        });
+
+        const sections = Array.from(HTMLsections);
         //Active and desactive the sidebar menu
         sidebarMenu.classList.toggle('active-full-sidebar');
-        bodyInformation.classList.toggle('body-information-short');
 
-        //After 100 ms we disable or enable the sidebar with the icons to first positionated the element
+        if(this.desktopMode) {
+            sections.forEach((section) => {
+                if(!section.className.match('aside-section')) {
+                    section.classList.toggle('body-information-short');
+                } else {
+                    if(section.classList.contains('body-information-short')) {
+                        section.classList.remove('body-information-short');
+                    }
+                }
+            });
+
+        } else if (this.tabletMode) {
+            sections.forEach((section) => {
+                if(!section.className.match('aside-section')) {
+                    section.classList.toggle('body-information-short');
+                } else {
+                    if(!sidebarMenu.classList.contains('active-full-sidebar') && !section.classList.contains('body-information-short')) {
+                        return;
+                    }
+                    section.classList.toggle('body-information-short');
+                }
+            });
+        } else {
+            return;
+        }
+        //After 100 ms we disable or enable the sidebar with the icons to firpositionated the element
         setTimeout(() => {
             sidebarIconsMenu.classList.toggle('disable-left-sidebar');
-        }, 100)
+        }, 100);
+    }
 
+    activeNavLinksOnScroll(sections) {
+        if(this.tabletMode) {
+            const navLinks = document.querySelectorAll('.nav-sidebar-link');
+            //Evaluate the top and bottom of every section
+            sections.forEach((section, index) => {
+                const top = section.getBoundingClientRect().top;
+                const bottom = section.getBoundingClientRect().bottom;
+                switch(true) {
+                    case top<=90 && bottom > 70: {
+                        navLinks[index].classList.add('active')
+                        break;
+                    }
+                    case top>90 || bottom<70: {
+                        if(navLinks[index].classList.contains('active')) {
+                            navLinks[index].classList.remove('active')
+                        }
+                        break;
+                    }
+                    default: {
+                        break;
+                    }
+                }
+            });
+        }
     }
 
     //Method to found the exactly position of an element
@@ -355,6 +413,101 @@ class UI {
        </div>`
 
         return detailsBox;
+    }
+
+    dropDownDetails(container, detailSections, details, generalInfo) {
+        const isContainerDisplayed = this.removeDisplayedContainer(container, detailSections);
+
+        if(isContainerDisplayed) return;
+
+        const content = this.detailsInfoContent(details, generalInfo)
+        container.innerHTML = content;
+
+        this.expandDetailsContainer(container);
+    }
+
+    removeDisplayedContainer(actualContainer, containersNode) {
+        const containers = Array.from(containersNode);
+        const displayedContainer = containers.find((container) => (
+            container.clientHeight > 0
+        ));
+        let isActualContainerDisplayed;
+
+        if(!displayedContainer) {
+            isActualContainerDisplayed = false;
+            return isActualContainerDisplayed;
+        } else if(displayedContainer === actualContainer) {
+            isActualContainerDisplayed = true;
+        } else {
+            isActualContainerDisplayed = false;
+        }
+
+        const styles = displayedContainer.style;
+        styles.height = '0';
+        styles.padding = '0';
+        styles.borderTop = '0';
+        styles.marginTop = '0';
+
+        setTimeout(() => {
+            displayedContainer.innerHTML = '';
+        }, 450);
+
+        return isActualContainerDisplayed;
+    }
+
+    detailsInfoContent({
+        goals,
+        tool1,
+        tool2,
+        tool3,
+        tool4,
+        pieChart
+    }, {generalInfo}) {
+    
+        return `<div class="goals-container">
+        <h5>${generalInfo.achievements}</h5>
+        <i class="fas fa-medal"></i>
+        <p>${goals}</p>
+    </div>
+    <div class="tools-container">
+        <h5>${generalInfo.knowledge}</h5>
+        ${!pieChart ? `<ul>
+            <li>${tool1}</li>
+            <li>${tool2}</li>
+            <li>${tool3}</li>
+            <li>${tool4}</li>
+        </ul>` 
+        : `<div class="pie-chart">
+            <div class="pie-segment" data-label="${tool1.label}" style="--offset:${tool1.offset}; --value:${tool1.value}; --bg: var(${tool1.bg});" title="${tool1.label}"></div>
+            <div class="pie-segment" data-label="${tool2.label}" style="--offset:${tool2.offset}; --value:${tool2.value}; --bg: ${tool2.bg};" title="${tool2.label}"></div>
+            <div class="pie-segment" data-label="${tool3.label}" style="--offset:${tool3.offset}; --value:${tool3.value}; --bg: ${tool3.bg};" title="${tool3.label}"></div>
+            </div>`}
+    </div>`;
+
+    }
+
+    expandDetailsContainer(container) {
+        const goalsContainer = container.querySelector('.goals-container');
+        const toolsContainer = container.querySelector('.tools-container');
+
+        /* Goals column */
+        const goalHeaderHeight = goalsContainer.querySelector('h5').clientHeight;
+        const iconHeight = goalsContainer.querySelector('i').clientHeight;
+        const paragraphHeight = goalsContainer.querySelector('p').clientHeight;
+        const goalsColumnHeight = goalHeaderHeight + iconHeight + paragraphHeight;
+
+        /* Knowledge/Technologies Column */
+        const knowledgeHeaderHeight = toolsContainer.querySelector('h5').clientHeight;
+        const knowledgeBody = toolsContainer.querySelector('ul') || toolsContainer.querySelector('.pie-chart');
+        const knowledgeBodyHeight = knowledgeBody.clientHeight;
+        const knowledgeColumnHeight = knowledgeHeaderHeight + knowledgeBodyHeight;
+
+        /* Add details height to expand */
+        const styles = container.style;
+        styles.marginTop = '10px';
+        styles.borderTop = '1px solid rgba(0, 0, 0, 0.3)'
+        styles.padding = '15px 0 8px';
+        styles.height = goalsColumnHeight > knowledgeColumnHeight ? `${goalsColumnHeight}px` : `${knowledgeColumnHeight}px`;
     }
 
     //Method to create the increment percentage effect in every bar chart 
@@ -471,26 +624,310 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 //Click event listener to every link inside the navigation
-document.querySelector('.navigation').addEventListener('click', function(e) {
+document.querySelector('.menu__button').addEventListener('click', function(e) {
     const ui = instanceObjects('ui')
-    //DELEGATION
-    //Click event for toggle menu
-    if (e.target.id === 'toggle__menu') {
-        const sidebarMenu = document.querySelector('.full-left-sidebar');
-        const sidebarIconsMenu = document.querySelector('.left-sidebar');
-        const bodyInformation = document.querySelector('.body-information');
-        /*Get a method to found the top, left, etc of the positions of the element in the selector*/
-        const iconsPosition = document.querySelector('#profile-contact').getBoundingClientRect();
+
+    const menuIcon = document.querySelectorAll('.toggle-menu');
+    const sidebarMenu = document.querySelector('.full-left-sidebar');
+    const sidebarIconsMenu = document.querySelector('.left-sidebar');
+    const sections = document.querySelector('.main-container').children;
+    /*Get a method to found the top, left, etc of the positions of the element in the selector*/
+    const iconsPosition = document.querySelector('#profile-contact').getBoundingClientRect();
         
-        //Call the found method with the element and its different positions as parameters
-        ui.foundElementPosition(sidebarIconsMenu, iconsPosition);
-        //Call the toggleEffect method
-        ui.toggleEffect(sidebarMenu, sidebarIconsMenu, bodyInformation);
+    //Call the found method with the element and its different positions as parameters
+    ui.foundElementPosition(sidebarIconsMenu, iconsPosition);
+    //Call the toggleEffect method
+    ui.toggleEffect(menuIcon, sidebarMenu, sidebarIconsMenu, sections);
+});
+
+//Technical skills - bar chart effect
+window.addEventListener('scroll', function() {
+    //Get the Tech Skills container to know its exact position in every scroll
+    const techSkillsTop = document.getElementById('technical-skills').getBoundingClientRect().top;
+    const languageTop = document.getElementById('languages-section').getBoundingClientRect().top;
+    //Create the instance of the class ComponentsInfo to have acces to the tech bar charts percentages
+    const {ui, info} = instanceObjects('both');
+    //If techSkills container is at 180 pixels from top then
+    if (techSkillsTop <= 90 && execute.barTech) {
+        //Get every tech skill that we have
+        const techSkillsNode = document.querySelectorAll('.bar-chart-tech');
+        //Call the method barChartEffect from the UI
+        ui.barChartsEffect(techSkillsNode, info.techBarCharts, info.techBarCharts[0].htmlBar.length);
+        execute.barTech = false; //To avoid the execution of this condition
+    }
+
+    if (languageTop <= 90 && execute.barLanguage) {
+        const languagesNode = document.querySelectorAll('.bar-chart-language');
+        ui.barChartsEffect(languagesNode, info.languageBarCharts, info.languageBarCharts[0].english.length);
+        execute.barLanguage = false;
+    }
+    //Active nav links on scroll
+    const sections = document.querySelectorAll('.information-sections');
+    ui.activeNavLinksOnScroll(sections);
+});
+
+//Drop down laguage effect
+document.getElementById('languages-section').addEventListener('click', function(e) {
+    const languagesSection = document.getElementById('languages-section');
+    const arrowButtons = languagesSection.querySelectorAll('.arrow-down-button');
+    const {ui, info} = instanceObjects('both')
+    translateInfo(info);
+    if(e.target === arrowButtons[0] || e.target === arrowButtons[0].firstElementChild) {
+        const languageContainer = arrowButtons[0].parentElement;
+        ui.dropDownLanguage('english-language', languageContainer, info.factLanguages[0].english);
+    } else if(e.target === arrowButtons[1] || e.target === arrowButtons[1].firstElementChild) {
+        const languageContainer = arrowButtons[1].parentElement;
+        ui.dropDownLanguage('spanish-language', languageContainer, info.factLanguages[1].spanish);
     }
 });
 
-//Mouse enter event listener to appear extra information about a specific job
-document.querySelector('.experience-container').addEventListener('mouseenter', function(e) {
+(function portfolioVideos() {
+    const containersNode = document.querySelectorAll('[data-video="video-container"]');
+    const containers = Array.prototype.slice.call(containersNode);
+    const videos = containers.map(element => {return element.querySelector('video')});
+    containers.forEach((element, index) => {
+        element.addEventListener('mouseenter', function() {
+            videos[index].play();
+        });
+
+        element.addEventListener('mouseleave', function() {
+            videos[index].pause();
+        });
+    })
+})();
+
+//See more and less buttons
+document.querySelector('.see-more-btn').addEventListener('click', seeMoreAndLess);
+document.querySelector('.see-less-btn').addEventListener('click', seeMoreAndLess);
+
+//See more and less in project section
+function seeMoreAndLess() {
+    const hiddenProjects = document.querySelectorAll('.hidden-project');
+    if(hiddenProjects.length) {
+        hiddenProjects.forEach((project) => {
+            const videoHeight = project.querySelector('.portfolio-video').clientHeight;
+            const titleHeight = project.querySelector('.subtitle-section').clientHeight;
+            const descriptionHeight = project.querySelector('p').clientHeight;
+            const buttonsHeight = project.querySelector('.project-buttons-container').clientHeight;
+            let projectHeight;
+            /* Check if we the project's containers are in two columns */
+            const projectsContainer = document.querySelector('.projects-container');
+            const isContainerFullWide = !projectsContainer.classList.contains('body-information-short');
+            const tabletMediaQuery = window.matchMedia('(max-width: 1024px) and (min-width: 812px)');
+                /* If tablet query is true and container is full wide: containers are displayed in two columns */
+            if(matchMedia(tabletMediaQuery) && isContainerFullWide) {
+                const informationHeight = titleHeight + descriptionHeight + buttonsHeight;
+                projectHeight = videoHeight>informationHeight ? videoHeight : informationHeight;
+            } else {
+                projectHeight = videoHeight + titleHeight + descriptionHeight + buttonsHeight;
+            }
+
+            project.style.height = `${projectHeight}px`;
+            project.classList.remove('hidden-project');
+            project.classList.add('showed-project');
+        });
+    } else {
+        const showedProjects = document.querySelectorAll('.showed-project');
+        showedProjects.forEach((project) => {
+            project.style.height = '0px';
+            project.classList.remove('showed-project');
+            project.classList.add('hidden-project');
+        });
+    }
+
+    const seeMoreBtn = document.querySelector('.see-more-btn');
+    const seeLessBtn = document.querySelector('.see-less-btn');
+    //Show the corresponded button
+    seeMoreBtn.classList.toggle('active-btn');
+    seeLessBtn.classList.toggle('active-btn');
+}
+
+//Contact Button: Open the contact wrapper
+document.querySelector('#anchor-contact').addEventListener('click', function(e) {
+    e.preventDefault();
+    const info = instanceObjects('info');
+    translateInfo(info);
+    //Get parent container and create contact component
+    const formContainer = document.querySelector('#contact-form-01');
+    const contactForm = new Contact(renderElement, formContainer, info.contactForm);
+    renderElement(formContainer, contactForm.render());
+    //Add listeners to any require element iside our component
+    /*onChange inputs*/
+    const inputs = document.querySelectorAll('.contact-field');
+    const arrayInputs = Array.prototype.slice.call(inputs);
+    arrayInputs.forEach(input => (
+        input.addEventListener('change', contactForm.onChangeInput)
+    ));
+    /* onSubmit Form */
+    document.querySelector('.contact-form').addEventListener('submit', contactForm.onSubmit);
+    /* onClick to close form */
+    document.querySelector('.popup-container').addEventListener('click', contactForm.closeElement);
+    /* onClick to go back to the form when this one is successfully submitted or to do another try */
+   const linksToReturnToTheForm = document.querySelectorAll('.back-to-form');
+   linksToReturnToTheForm.forEach(link => (
+       link.addEventListener('click', contactForm.goBackToTheForm)
+   ));
+});
+
+//Function to add scroll effect to the On-Page-Link
+function addAnchorEventListeners(anchorSelector) {
+    //Get anchors and the corresponding sections
+    const anchors =  document.querySelectorAll(`.${anchorSelector}`);
+    const sections = document.querySelectorAll('.information-sections');
+    //Turn our anchors Node variable into an Array
+    const anchorsArray = Array.prototype.slice.call(anchors);
+
+    anchorsArray.forEach((element, index)=>{
+        //Add the click event listener to every anchor
+        element.addEventListener('click', function(e) {
+            //Avoid the default behavior on anchors that target inside the page
+            e.preventDefault();
+            //Add scroll and position
+            window.scrollTo({
+                'behavior': 'smooth',
+                'left': 0,
+                'top': sections[index].offsetTop - 70, /*R*/ 
+            });
+        });
+    });
+}
+
+/* MATCH MEDIA */
+function matchMedia(mediaQuery) {
+    if(mediaQuery.matches) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+/* DECLARE MOBILE OR DESKTOP LISTENERS AT FIRST LOAD */
+const mobileMediaQueries = window.matchMedia('(max-width: 1024px)');
+const desktopMediaQueries = window.matchMedia('(min-width: 1025px)');
+(function executeListeners() {
+    if(matchMedia(mobileMediaQueries)) {
+        addMobileListeners();
+    } else {
+        addDesktopListeners();
+    }
+})();
+
+/* DECLARE MOBILE OR DESKTOP LISTENERS ON CHANGE SCREEN RESIZE */
+mobileMediaQueries.addEventListener('change', function(e) {
+    if(matchMedia(e)) {
+        addMobileListeners();
+        removeDesktopListeners();
+    } 
+});
+
+desktopMediaQueries.addEventListener('change', function(e) {
+    if(matchMedia(e)) {
+        addDesktopListeners();
+        removeMobileListeners();
+    }
+});
+
+/* MOBILE LISTENERS */
+function addMobileListeners() {
+    document.querySelector('.nav-logo img').addEventListener('click', scrollTop);
+    document.querySelector('.nav-sidebar').addEventListener('click', closeNavSidebar);
+    addAnchorEventListeners('nav-sidebar-link');
+    addDropDownSectionEvent('experience');
+    addDropDownSectionEvent('volunteering-section');
+}
+
+function removeMobileListeners() {
+    document.querySelector('.nav-logo img').removeEventListener('click', scrollTop);
+    document.querySelector('.nav-sidebar').removeEventListener('click', closeNavSidebar);
+}
+
+function scrollTop(e) {
+    e.preventDefault();
+
+    //Add scroll and position
+    window.scrollTo({
+        'behavior': 'smooth',
+        'left': 0,
+        'top': 0
+    });
+}
+
+function addDropDownSectionEvent(idSection) {
+    const section = document.getElementById(idSection);
+    const arrowButtons = section.querySelectorAll('.arrow-down-button');
+    const detailSections = section.querySelectorAll('.details-info');
+    let prop;
+
+    switch(idSection) {
+        case 'experience': {
+            prop = 'jobDetails';
+            break;
+        }
+        case 'volunteering-section': {
+            prop = 'volunteeringDetails';
+            break;
+        }
+        default: {
+            break;
+        }
+    }
+
+    arrowButtons.forEach((arrowButton, index) => {
+        arrowButton.addEventListener('click', function() {
+            const {ui, info} = instanceObjects('both');
+            translateInfo(info);
+            const generalInfo = info[prop][info[prop].length - 1];
+            ui.dropDownDetails(
+                detailSections[index], 
+                detailSections,
+                info[prop][index],
+                generalInfo
+            );
+        });
+    })
+
+}
+
+function closeNavSidebar(e) {
+    const tabletMediaQuery = window.matchMedia('(max-width: 1024px) and (min-width: 812px)');
+    if(matchMedia(tabletMediaQuery)) return;
+
+    if(e.target.classList.contains('nav-sidebar-link')) {
+        const navSidebar = document.querySelector('.full-left-sidebar');
+        navSidebar.classList.remove('active-full-sidebar');
+        /* Change the close icon in nav sidebar */
+        const closeIcon = document.querySelectorAll('.close-toggle');
+        closeIcon.forEach((icon) => {
+            icon.classList.remove('close-toggle')
+        });
+    }
+}
+
+/* DESKTOP LISTENERS */
+function addDesktopListeners() {
+    addAnchorEventListeners('nav__links')
+    //Mouse enter event listener to appear extra information about a specific job
+    document.querySelector('.experience-container').addEventListener('mouseenter', detailsBoxOnMouseEnter, true);
+    //Mouse leave event to remove the details box that our mouse enter element creates
+    document.querySelector('.experience-container').addEventListener('mouseleave', detailsBoxOnMouseLeave, true);
+    //Volunteer
+    document.querySelector('.volunteering-section').addEventListener('mouseenter', volunteerDetailsOnMouseEnter, true);
+    //Volunteer
+    document.querySelector('.volunteering-section').addEventListener('mouseleave', volunteerDetailsOnMouseLeave, true);
+}
+
+function removeDesktopListeners() {
+    //Mouse enter event listener to appear extra information about a specific job
+    document.querySelector('.experience-container').removeEventListener('mouseenter', detailsBoxOnMouseEnter, true);
+    //Mouse leave event to remove the details box that our mouse enter element creates
+    document.querySelector('.experience-container').removeEventListener('mouseleave', detailsBoxOnMouseLeave, true);
+    //Volunteer
+    document.querySelector('.volunteering-section').removeEventListener('mouseenter', volunteerDetailsOnMouseEnter, true);
+    //Volunteer
+    document.querySelector('.volunteering-section').removeEventListener('mouseleave', volunteerDetailsOnMouseLeave, true);
+}
+
+function detailsBoxOnMouseEnter(e) {
     //We are going to need the height of the viewport so we got it
     const highScreen = window.innerHeight;
     //We get the buttons container to detect one from another
@@ -524,10 +961,9 @@ document.querySelector('.experience-container').addEventListener('mouseenter', f
             jobOne.appendChild(detailsBox);
         }
 	}
-}, true);
+}
 
-//Mouse leave event to remove the details box that our mouse enter element creates
-document.querySelector('.experience-container').addEventListener('mouseleave', function(e) {
+function detailsBoxOnMouseLeave(e) {
     // Make sure it's not the document object
     //if (!('matches') in e.target) return;
     let detailsBox;
@@ -536,61 +972,24 @@ document.querySelector('.experience-container').addEventListener('mouseleave', f
         detailsBox = document.querySelector('.details-box')
         detailsBox.remove();
     }
-}, true);
+}
 
-//Technical skills - bar chart effect
-window.addEventListener('scroll', function() {
-    //Get the Tech Skills container to know its exact position in every scroll
-    const techSkillsTop = document.getElementById('technical-skills').getBoundingClientRect().top;
-    const languageTop = document.getElementById('languages-section').getBoundingClientRect().top;
-    //Create the instance of the class ComponentsInfo to have acces to the tech bar charts percentages
-    const {ui, info} = instanceObjects('both');
-    //If techSkills container is at 180 pixels from top then
-    if (techSkillsTop < 180 && execute.barTech) {
-        //Get every tech skill that we have
-        const techSkillsNode = document.querySelectorAll('.bar-chart-tech');
-        //Call the method barChartEffect from the UI
-        ui.barChartsEffect(techSkillsNode, info.techBarCharts, info.techBarCharts[0].htmlBar.length);
-        execute.barTech = false; //To avoid the execution of this condition
-    }
-
-    if (languageTop < 180 && execute.barLanguage) {
-        const languagesNode = document.querySelectorAll('.bar-chart-language');
-        ui.barChartsEffect(languagesNode, info.languageBarCharts, info.languageBarCharts[0].english.length);
-        execute.barLanguage = false;
-    }
-});
-
-//Drop down laguage effect
-document.getElementById('languages-section').addEventListener('click', function(e) {
-    const arrowButtons = document.querySelectorAll('.arrow-down-button');
-    const {ui, info} = instanceObjects('both')
-    translateInfo(info);
-    if(e.target === arrowButtons[0] || e.target === arrowButtons[0].firstElementChild) {
-        const languageContainer = arrowButtons[0].parentElement;
-        ui.dropDownLanguage('english-language', languageContainer, info.factLanguages[0].english);
-    } else if(e.target === arrowButtons[1] || e.target === arrowButtons[1].firstElementChild) {
-        const languageContainer = arrowButtons[1].parentElement;
-        ui.dropDownLanguage('spanish-language', languageContainer, info.factLanguages[1].spanish);
-    }
-});
-
-document.querySelector('.volunteering-section').addEventListener('mouseenter', function(e) {
+function volunteerDetailsOnMouseEnter(e) {
     //We are going to need the height of the viewport so we got it
     const highScreen = window.innerHeight;
     //We get the buttons container to detect one from another
     const volunteerZero = document.getElementById('volunteering-0');
 
-	// Make sure it's not the document object
+    // Make sure it's not the document object
     //if (!('matches') in e.target) return;
 
     // Do your thing...
-	if (e.target.matches('.details')) {
-        const {ui, info} = instanceObjects('both')
+    if (e.target.matches('.details')) {
+        const { ui, info } = instanceObjects('both')
         translateInfo(info);
         const generalInfo = info.volunteeringDetails[info.volunteeringDetails.length - 1];
-		//Here we detect the details button that is being hover, zero is for office and one for besser
-        if(e.target === volunteerZero) {
+        //Here we detect the details button that is being hover, zero is for office and one for besser
+        if (e.target === volunteerZero) {
             //Found the exact position of the button in the viewport
             const buttonPosition = volunteerZero.getBoundingClientRect();
             //Get the object array that has the information that we're going to need
@@ -598,12 +997,12 @@ document.querySelector('.volunteering-section').addEventListener('mouseenter', f
             const detailsBox = ui.detailsBoxCreation(highScreen, buttonPosition, info.volunteeringDetails[0], generalInfo);
             //At the end we insert the detailsBox element that our method has returned inside the jobZero element
             volunteerZero.appendChild(detailsBox);
-        
+
         }
     }
-}, true);
+}
 
-document.querySelector('.volunteering-section').addEventListener('mouseleave', function(e) {
+function volunteerDetailsOnMouseLeave(e) {
     // Make sure it's not the document object
     //if (!('matches') in e.target) return;
     let detailsBox;
@@ -612,104 +1011,4 @@ document.querySelector('.volunteering-section').addEventListener('mouseleave', f
         detailsBox = document.querySelector('.details-box')
         detailsBox.remove();
     }
-}, true);
-
-(function portfolioVideos() {
-    const containersNode = document.querySelectorAll('[data-video="video-container"]');
-    const containers = Array.prototype.slice.call(containersNode);
-    const videos = containers.map(element => {return element.querySelector('video')});
-    containers.forEach((element, index) => {
-        element.addEventListener('mouseenter', function() {
-            videos[index].play();
-        });
-
-        element.addEventListener('mouseleave', function() {
-            videos[index].pause();
-        });
-    })
-})();
-
-//See more and less buttons
-document.querySelector('.see-more-btn').addEventListener('click', seeMoreAndLess);
-document.querySelector('.see-less-btn').addEventListener('click', seeMoreAndLess);
-
-//See more and less in project section
-function seeMoreAndLess() {
-    const hiddenProjects = document.querySelectorAll('.hidden-project');
-    if(hiddenProjects.length) {
-        hiddenProjects.forEach((project) => {
-            const videoHeight = project.querySelector('.portfolio-video').clientHeight;
-            const titleHeight = project.querySelector('.subtitle-section').clientHeight;
-            const descriptionHeight = project.querySelector('p').clientHeight;
-            const buttonsHeight = project.querySelector('.project-buttons-container').clientHeight;
-            const projectHeight = videoHeight + titleHeight + descriptionHeight + buttonsHeight;
-    
-            project.style.height = `${projectHeight}px`;
-            project.classList.remove('hidden-project');
-            project.classList.add('showed-project');
-        });
-    } else {
-        const showedProjects = document.querySelectorAll('.showed-project');
-        showedProjects.forEach((project) => {
-            project.style.height = '0px';
-            project.classList.remove('showed-project');
-            project.classList.add('hidden-project');
-        });
-    }
-
-    const seeMoreBtn = document.querySelector('.see-more-btn');
-    const seeLessBtn = document.querySelector('.see-less-btn');
-
-    seeMoreBtn.classList.toggle('active-btn');
-    seeLessBtn.classList.toggle('active-btn');
 }
-
-//Contact Button: Open the contact wrapper
-document.querySelector('#anchor-contact').addEventListener('click', function(e) {
-    e.preventDefault();
-    const info = instanceObjects('info');
-    translateInfo(info);
-    //Get parent container and create contact component
-    const formContainer = document.querySelector('#contact-form-01');
-    const contactForm = new Contact(renderElement, formContainer, info.contactForm);
-    renderElement(formContainer, contactForm.render());
-    //Add listeners to any require element iside our component
-    /*onChange inputs*/
-    const inputs = document.querySelectorAll('.contact-field');
-    const arrayInputs = Array.prototype.slice.call(inputs);
-    arrayInputs.forEach(input => (
-        input.addEventListener('change', contactForm.onChangeInput)
-    ));
-    /* onSubmit Form */
-    document.querySelector('.contact-form').addEventListener('submit', contactForm.onSubmit);
-    /* onClick to close form */
-    document.querySelector('.popup-container').addEventListener('click', contactForm.closeElement);
-    /* onClick to go back to the form when this one is successfully submitted or to do another try */
-   const linksToReturnToTheForm = document.querySelectorAll('.back-to-form');
-   linksToReturnToTheForm.forEach(link => (
-       link.addEventListener('click', contactForm.goBackToTheForm)
-   ));
-});
-
-//Function to add scroll effect to the On-Page-Link
-(function addAnchorEventListeners() {
-    //Get anchors and the corresponding sections
-    const anchors =  document.querySelectorAll('.nav__links');
-    const sections = document.querySelectorAll('.information-sections');
-    //Turn our anchors Node variable into an Array
-    const anchorsArray = Array.prototype.slice.call(anchors);
-
-    anchorsArray.forEach((element, index)=>{
-        //Add the click event listener to every anchor
-        element.addEventListener('click', function(e) {
-            //Avoid the default behavior on anchors that target inside the page
-            e.preventDefault();
-            //Add scroll and position
-            window.scrollTo({
-                'behavior': 'smooth',
-                'left': 0,
-                'top': sections[index].offsetTop - 70, /*R*/ 
-            });
-        });
-    });
-})();
