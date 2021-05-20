@@ -424,7 +424,7 @@ b.visible {
 .profile-image, .banner-profile-image {
     border-radius: 50%;
     border: 2px solid white;
-    background-image: url(../img/sections/profile/profile-image.jpg);
+    background-image: url(../img/sections/profile/profile-image.jpeg);
     background-size: cover;
     background-position: center top;
 }
